@@ -391,9 +391,10 @@ body.intro-active .music-control-pill {
 }
 
 /* ========================================================
-   SECTION 1: FULL-BLEED INVITATION HERO (#invitation-cover)
+   SECTION 1: FULL-PAGE INVITATION STATIONERY (#invitation-cover)
    ======================================================== */
 #invitation-cover,
+.invitation-page-fullbleed,
 .hero-section-fullbleed {
   width: 100%;
   min-height: 100vh;
@@ -405,85 +406,55 @@ body.intro-active .music-control-pill {
   justify-content: center;
   overflow: hidden;
   margin: 0;
-  padding: 0;
+  padding: clamp(32px, 5vh, 60px) clamp(20px, 4vw, 48px);
   box-sizing: border-box;
+  background-color: #FFFDF8;
+  background-image: 
+    radial-gradient(circle at 50% 30%, #FFFDF8 0%, #FAF5ED 65%, #F4ECE0 100%);
 }
 
-/* Full Coastal Watercolor Background Spanning 100% of Viewport */
-.hero-bg-backdrop {
+/* Perimeter Double Border Frame */
+.invitation-page-border {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  inset: clamp(12px, 2.2vw, 28px);
+  border: 1.5px solid var(--color-champagne);
+  border-radius: var(--radius-sm);
   pointer-events: none;
-  overflow: hidden;
+  z-index: 2;
+  box-shadow: inset 0 0 40px rgba(199, 167, 123, 0.08);
 }
 
-.hero-fullbleed-bg {
+.invitation-page-inner-border {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  pointer-events: none;
-}
-
-.hero-scenic-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 253, 248, 0.45) 0%, rgba(248, 243, 234, 0.68) 65%, rgba(243, 232, 218, 0.88) 100%);
-  backdrop-filter: blur(2px);
+  inset: 5px;
+  border: 1px solid rgba(199, 167, 123, 0.35);
+  border-radius: calc(var(--radius-sm) - 2px);
   pointer-events: none;
 }
 
-/* Decorative Florals for Landscape & Desktop Balance */
-.hero-botanical-decorations {
+/* Corner Botanical Ornaments */
+.invitation-corner-ornaments {
   position: absolute;
-  inset: 0;
+  inset: clamp(14px, 2.5vw, 30px);
   pointer-events: none;
   z-index: 3;
-  overflow: hidden;
 }
 
-.hero-botanical-top {
+.corner-ornament {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(240px, 42vw, 440px);
-  height: auto;
-  opacity: 0.92;
+  color: var(--color-champagne);
+  font-size: clamp(14px, 1.8vw, 22px);
+  line-height: 1;
+  opacity: 0.85;
 }
 
-.hero-side-botanical {
-  position: absolute;
-  top: 50%;
-  width: clamp(160px, 18vw, 280px);
-  height: auto;
-  opacity: 0.82;
-  display: none;
-}
+.corner-top-left { top: 6px; left: 6px; }
+.corner-top-right { top: 6px; right: 6px; transform: scaleX(-1); }
+.corner-bottom-left { bottom: 6px; left: 6px; transform: scaleY(-1); }
+.corner-bottom-right { bottom: 6px; right: 6px; transform: scale(-1); }
 
-.hero-side-botanical-left {
-  left: -20px;
-  transform: translateY(-50%) rotate(90deg);
-}
-
-.hero-side-botanical-right {
-  right: -20px;
-  transform: translateY(-50%) rotate(-90deg);
-}
-
-@media (min-width: 960px) {
-  .hero-side-botanical {
-    display: block;
-  }
-}
-
-/* Foreground Centered Content Layer */
-.hero-foreground-content {
+/* Full-Page Content */
+.invitation-full-container {
   position: relative;
   z-index: 10;
   display: flex;
@@ -492,136 +463,123 @@ body.intro-active .music-control-pill {
   justify-content: center;
   text-align: center;
   width: 100%;
-  padding: clamp(52px, 8vh, 84px) 20px clamp(32px, 5vh, 48px);
+  max-width: min(92vw, 780px);
   margin: auto;
+  padding: 10px;
 }
 
-.hero-card-panel {
-  background: rgba(255, 253, 248, 0.94);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-md);
-  box-shadow: 0 16px 45px rgba(81, 70, 63, 0.16);
-  backdrop-filter: blur(8px);
-  padding: clamp(28px, 5vh, 48px) clamp(20px, 5vw, 56px);
+.invitation-top-garland {
   width: 100%;
-  max-width: min(92vw, 680px);
-  position: relative;
-  text-align: center;
+  max-width: clamp(260px, 45vw, 440px);
+  margin: 0 auto clamp(8px, 1.8vh, 18px);
 }
 
-.hero-card-panel::before {
-  content: '';
-  position: absolute;
-  inset: 8px;
-  border: 1px solid rgba(199, 167, 123, 0.35);
-  border-radius: calc(var(--radius-md) - 6px);
-  pointer-events: none;
+.invitation-floral-header {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.94;
 }
 
-.hero-crest-badge {
+.invitation-crest-emblem {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: clamp(42px, 6vw, 54px);
+  height: clamp(42px, 6vw, 54px);
   border-radius: 50%;
-  border: 1px solid var(--color-champagne);
+  border: 1.5px solid var(--color-champagne);
   background: #FFFDF8;
-  margin-bottom: 12px;
-  box-shadow: var(--shadow-soft);
+  margin-bottom: clamp(10px, 1.8vh, 16px);
+  box-shadow: 0 4px 16px rgba(199, 167, 123, 0.22);
 }
 
-.hero-monogram {
+.invitation-monogram {
   font-family: var(--font-serif-primary);
-  font-size: 0.88rem;
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.25em;
   color: var(--color-champagne);
   margin-left: 2px;
 }
 
-.hero-intro-lead,
+.invitation-lead-text,
 .cover-intro-lead {
   font-family: var(--font-sans);
-  font-size: clamp(0.72rem, 1.6vw, 0.84rem);
-  letter-spacing: 0.18em;
+  font-size: clamp(0.72rem, 1.6vw, 0.88rem);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  max-width: 440px;
-  line-height: 1.6;
+  max-width: 480px;
+  line-height: 1.65;
   margin: 0 auto;
 }
 
-.hero-couple-names,
+.invitation-couple-block,
 .cover-couple-names {
-  margin: clamp(10px, 2vh, 18px) 0 clamp(6px, 1.5vh, 12px);
+  margin: clamp(12px, 2.5vh, 24px) 0 clamp(8px, 1.8vh, 16px);
 }
 
-.hero-bride-name,
-.hero-groom-name,
+.invitation-bride-name,
+.invitation-groom-name,
 .cover-bride-name,
 .cover-groom-name {
   font-family: var(--font-serif-primary);
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
   font-weight: 500;
   line-height: 1.05;
   color: var(--color-text);
   letter-spacing: 0.02em;
 }
 
-.hero-ampersand,
+.invitation-ampersand,
 .cover-ampersand {
   font-family: var(--font-script);
-  font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
   color: var(--color-champagne);
   display: block;
   line-height: 0.9;
   margin: 4px 0;
 }
 
-.hero-date-banner,
-.cover-date-banner {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.hero-wedding-date,
-.cover-wedding-date {
+.invitation-sub-lead {
   font-family: var(--font-serif-secondary);
-  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-  font-weight: 500;
-  color: var(--color-text);
-  letter-spacing: 0.04em;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  font-style: italic;
+  color: var(--color-text-muted);
+  max-width: 520px;
+  line-height: 1.6;
+  margin: 0 auto;
 }
 
-.hero-wedding-venue,
-.cover-wedding-venue {
-  font-family: var(--font-sans);
-  font-size: clamp(0.72rem, 1.6vw, 0.88rem);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-champagne);
-  margin-top: 6px;
-  font-weight: 700;
-}
-
-.hero-scroll-cue {
-  margin-top: clamp(14px, 2.5vh, 24px);
+.invitation-scroll-prompt {
+  margin-top: clamp(20px, 3.5vh, 36px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  color: var(--color-text-muted);
-  opacity: 0.75;
-  font-size: 0.72rem;
+  gap: 6px;
+  color: var(--color-forest);
+  font-family: var(--font-sans);
+  font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+  font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-family: var(--font-sans);
 }
 
-.hero-scroll-arrow {
-  font-size: 0.88rem;
+.invitation-scroll-sparkle {
+  color: var(--color-champagne);
+  font-size: 0.85rem;
+}
+
+.invitation-scroll-arrow {
+  font-size: 1.1rem;
+  color: var(--color-champagne);
   animation: heroBounce 2s infinite ease-in-out;
+}
+
+@keyframes heroBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
 }
 
 /* ========================================================
