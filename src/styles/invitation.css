@@ -408,9 +408,9 @@ body.intro-active .music-control-pill {
   margin: 0;
   padding: clamp(32px, 5vh, 60px) clamp(20px, 4vw, 48px);
   box-sizing: border-box;
-  background-color: #FFFDF8;
+  background-color: #FFFDF3;
   background-image: 
-    radial-gradient(circle at 50% 30%, #FFFDF8 0%, #FAF5ED 65%, #F4ECE0 100%);
+    radial-gradient(circle at 50% 30%, #FFFDF3 0%, #FAF5ED 65%, #F4ECE0 100%);
 }
 
 /* Perimeter Double Border Frame */
@@ -465,7 +465,7 @@ body.intro-active .music-control-pill {
   width: 100%;
   max-width: min(92vw, 780px);
   margin: auto;
-  padding: 10px;
+  padding: 10px 10px clamp(48px, 8vh, 80px);
 }
 
 .invitation-top-garland {
@@ -479,19 +479,24 @@ body.intro-active .music-control-pill {
   height: auto;
   display: block;
   opacity: 0.94;
+  mix-blend-mode: multiply;
 }
 
 .invitation-crest-emblem {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(42px, 6vw, 54px);
-  height: clamp(42px, 6vw, 54px);
-  border-radius: 50%;
-  border: 1.5px solid var(--color-champagne);
-  background: #FFFDF8;
-  margin-bottom: clamp(10px, 1.8vh, 16px);
-  box-shadow: 0 4px 16px rgba(199, 167, 123, 0.22);
+  width: clamp(140px, 24vw, 210px);
+  height: clamp(140px, 24vw, 210px);
+  margin: 0 auto clamp(8px, 1.6vh, 16px);
+}
+
+.invitation-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: contrast(1.04) brightness(0.99);
 }
 
 .invitation-monogram {
