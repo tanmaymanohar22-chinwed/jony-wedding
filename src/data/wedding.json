@@ -1,22 +1,22 @@
 {
-  "slug": "priya-and-rohit",
+  "slug": "jony-and-sunny",
   "couple": {
     "bride": {
-      "firstName": "Priya",
-      "fullName": "Priya Sharma",
+      "firstName": "Jony",
+      "fullName": "Jony",
       "title": "The Bride",
-      "bio": "Daughter of Mr. Rajesh & Mrs. Sunita Sharma",
+      "bio": "Daughter of their loving families",
       "photo": "/jony-wedding/assets/couple/couple-1.jpg"
     },
     "groom": {
-      "firstName": "Rohit",
-      "fullName": "Rohit Verma",
+      "firstName": "Sunny",
+      "fullName": "Sunny",
       "title": "The Groom",
-      "bio": "Son of Mr. Anil & Mrs. Rekha Verma",
+      "bio": "Son of their loving families",
       "photo": "/jony-wedding/assets/couple/couple-2.jpg"
     }
   },
-  "monogram": "P & R",
+  "monogram": "J & S",
   "weddingDate": "2027-02-14T10:00:00+05:30",
   "formattedDate": "Sunday, February 14, 2027",
   "weddingYear": "2027",
@@ -97,7 +97,7 @@
     "heading": "With Love & Blessings",
     "message": "Your presence and warm wishes are the greatest gift as we begin this new chapter of our lives together.",
     "signature": "Forever & Always,",
-    "hosts": "The Sharma & Verma Families"
+    "hosts": "The Families of Jony & Sunny"
   },
   "languages": [
     { "code": "en", "label": "EN", "name": "English" },
