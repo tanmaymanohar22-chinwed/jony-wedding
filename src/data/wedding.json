@@ -1,0 +1,110 @@
+{
+  "slug": "priya-and-rohit",
+  "couple": {
+    "bride": {
+      "firstName": "Priya",
+      "fullName": "Priya Sharma",
+      "title": "Bride",
+      "bio": "Daughter of Mr. Rajesh & Mrs. Sunita Sharma",
+      "photo": "/assets/couple/bride.webp"
+    },
+    "groom": {
+      "firstName": "Rohit",
+      "fullName": "Rohit Verma",
+      "title": "Groom",
+      "bio": "Son of Mr. Anil & Mrs. Rekha Verma",
+      "photo": "/assets/couple/groom.webp"
+    }
+  },
+  "monogram": "P & R",
+  "weddingDate": "2027-02-14T10:00:00+05:30",
+  "formattedDate": "Sunday, February 14, 2027",
+  "welcomeMessage": "Together with their families, cordially invite you to join them in celebrating their union of love, laughter, and lifelong friendship.",
+  "events": [
+    {
+      "id": "mehendi",
+      "name": "Mehendi & Haldi Ceremony",
+      "date": "Saturday, February 13, 2027",
+      "time": "04:00 PM onwards",
+      "venue": "The Rosewood Garden, Jaipur",
+      "address": "Amer Road, Near Jal Mahal, Jaipur, Rajasthan",
+      "mapsUrl": "https://maps.google.com/?q=Jaipur+Rajasthan",
+      "dressCode": "Festive Yellow & Floral Pastels",
+      "badge": "Celebration"
+    },
+    {
+      "id": "sangeet",
+      "name": "Sangeet & Musical Evening",
+      "date": "Saturday, February 13, 2027",
+      "time": "07:30 PM onwards",
+      "venue": "The Grand Ballroom, Jaipur",
+      "address": "Amer Road, Jaipur, Rajasthan",
+      "mapsUrl": "https://maps.google.com/?q=Jaipur+Rajasthan",
+      "dressCode": "Glamorous Evening Attire",
+      "badge": "Music & Dance"
+    },
+    {
+      "id": "ceremony",
+      "name": "Wedding Ceremony (Muhurtham)",
+      "date": "Sunday, February 14, 2027",
+      "time": "10:00 AM - 01:30 PM",
+      "venue": "The Royal Pavilion Courtyard",
+      "address": "Palace Grounds, Amer Road, Jaipur, Rajasthan",
+      "mapsUrl": "https://maps.google.com/?q=Jaipur+Rajasthan",
+      "dressCode": "Traditional Indian Elegance",
+      "badge": "Auspicious Union"
+    },
+    {
+      "id": "reception",
+      "name": "Grand Reception & Dinner",
+      "date": "Sunday, February 14, 2027",
+      "time": "07:30 PM onwards",
+      "venue": "The Palace Emerald Lawns",
+      "address": "Palace Grounds, Jaipur, Rajasthan",
+      "mapsUrl": "https://maps.google.com/?q=Jaipur+Rajasthan",
+      "dressCode": "Formal / Festive Wear",
+      "badge": "Banquet"
+    }
+  ],
+  "story": {
+    "title": "Our Love Story",
+    "subtitle": "How two serendipitous paths aligned into one forever journey",
+    "paragraphs": [
+      "It all started on a crisp autumn evening at a cozy corner café in the heart of the city. What was intended as a brief 30-minute coffee catch-up turned into three hours of nonstop conversations about books, dreams, old melodies, and shared aspirations.",
+      "Over four years of adventures—from spontaneous weekend road trips to cheering each other through milestones—we discovered our best friend and true confidant in each other.",
+      "Now, we are overjoyed to begin our next chapter and take our sacred vows surrounded by the warmth, blessings, and love of our nearest and dearest."
+    ],
+    "quote": "\"In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine.\""
+  },
+  "gallery": [
+    {
+      "url": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80",
+      "title": "A Walk In The Rain",
+      "caption": "Where laughter came easy"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "title": "The Golden Hour",
+      "caption": "Moments we will cherish forever"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",
+      "title": "The Promise",
+      "caption": "Two souls, one destiny"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=800&q=80",
+      "title": "Celebration of Smiles",
+      "caption": "With our hearts full of gratitude"
+    }
+  ],
+  "music": {
+    "title": "Romantic Acoustic Serenade",
+    "src": "https://cdn.freesound.org/previews/612/612610_5674468-lq.mp3"
+  },
+  "closing": {
+    "message": "Your presence, warm wishes, and blessings mean the world to us as we step into this beautiful new chapter together.",
+    "signature": "With warmest love & gratitude,",
+    "hosts": "The Sharma & Verma Families"
+  }
+}

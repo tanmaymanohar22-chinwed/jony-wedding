@@ -1,0 +1,147 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
+
+  --bg-cream: #FAF7F2;
+  --bg-paper: #FFFDF9;
+  --bg-card: rgba(255, 253, 249, 0.94);
+  --bg-envelope: #F4ECE1;
+  --bg-envelope-inner: #ECE2D3;
+
+  --color-gold: #B88E44;
+  --color-gold-light: #DFBA73;
+  --color-gold-dark: #8C6721;
+  --color-rose: #C47B85;
+  --color-blush: #F3E3E2;
+  --color-sage: #7B8E78;
+  --color-sage-light: #E7ECE6;
+  --color-charcoal: #2D2825;
+  --color-muted: #6E655F;
+  --color-border: rgba(184, 142, 68, 0.28);
+
+  --shadow-sm: 0 2px 8px rgba(45, 40, 37, 0.05);
+  --shadow-md: 0 8px 24px rgba(45, 40, 37, 0.08);
+  --shadow-lg: 0 16px 40px rgba(45, 40, 37, 0.12);
+  --shadow-gold: 0 4px 20px rgba(184, 142, 68, 0.2);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-cream);
+  color: var(--color-charcoal);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(ellipse at 15% 10%, rgba(196, 123, 133, 0.05) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 85%, rgba(123, 142, 120, 0.06) 0%, transparent 45%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23B88E44' fill-opacity='0.02' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Typography Utility Classes */
+.font-serif { font-family: var(--font-serif); }
+.font-script { font-family: var(--font-script); }
+.font-sans { font-family: var(--font-sans); }
+
+.text-gold { color: var(--color-gold); }
+.text-rose { color: var(--color-rose); }
+.text-sage { color: var(--color-sage); }
+.text-muted { color: var(--color-muted); }
+
+/* Decorative Dividers */
+.gold-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px auto;
+  width: 100%;
+  max-width: 240px;
+}
+.gold-divider::before,
+.gold-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+}
+.gold-divider-icon {
+  color: var(--color-gold);
+  font-size: 14px;
+}
+
+/* Card Container */
+.paper-card {
+  background: var(--bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+.paper-card::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px dashed rgba(184, 142, 68, 0.22);
+  border-radius: calc(var(--radius-lg) - 6px);
+  pointer-events: none;
+}
+
+/* Button */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+  color: #FFFDF9;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-gold);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(184, 142, 68, 0.35);
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

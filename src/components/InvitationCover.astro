@@ -1,0 +1,145 @@
+﻿---
+interface Props {
+  monogram: string;
+  brideName: string;
+  groomName: string;
+  welcomeMessage: string;
+  formattedDate: string;
+}
+
+const { monogram, brideName, groomName, welcomeMessage, formattedDate } = Astro.props;
+---
+
+<section id="invitation-cover" class="invite-section reveal-on-scroll">
+  <div class="cover-card paper-card">
+    <!-- Traditional Floral Crest -->
+    <div class="sacred-crest">
+      <span class="crest-invocation font-serif">|| श्री गणेशाय नमः ||</span>
+      <div class="monogram-badge">
+        <span class="font-script text-gold monogram-text">{monogram}</span>
+      </div>
+    </div>
+
+    <!-- Invitation Message -->
+    <p class="welcome-lead font-sans text-muted">{welcomeMessage}</p>
+
+    <!-- Couple Names Hero Display -->
+    <div class="couple-names-block">
+      <h1 class="couple-name font-script text-rose">{brideName}</h1>
+      <div class="ampersand-divider">
+        <span class="line"></span>
+        <span class="ampersand font-serif text-gold">&</span>
+        <span class="line"></span>
+      </div>
+      <h1 class="couple-name font-script text-rose">{groomName}</h1>
+    </div>
+
+    <div class="gold-divider">
+      <span class="gold-divider-icon">❦</span>
+    </div>
+
+    <!-- Date & Destination -->
+    <div class="wedding-headline">
+      <p class="wedding-date font-serif text-charcoal">{formattedDate}</p>
+      <p class="wedding-city font-sans text-gold">JAIPUR, RAJASTHAN</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cover-card {
+    padding: 48px 24px;
+    text-align: center;
+    position: relative;
+  }
+
+  .sacred-crest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crest-invocation {
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    color: var(--color-gold-dark);
+  }
+
+  .monogram-badge {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #FFFDF9;
+    border: 2px solid var(--color-gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(184, 142, 68, 0.18);
+  }
+
+  .monogram-text {
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+
+  .welcome-lead {
+    font-size: 0.88rem;
+    max-width: 380px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+  }
+
+  .couple-names-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .couple-name {
+    font-size: 3.4rem;
+    font-weight: 400;
+    line-height: 1.15;
+    text-shadow: 0 1px 3px rgba(196, 123, 133, 0.2);
+  }
+
+  .ampersand-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 140px;
+    margin: 4px 0;
+  }
+
+  .ampersand-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+  }
+
+  .ampersand {
+    font-size: 2rem;
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .wedding-headline {
+    margin-top: 12px;
+  }
+
+  .wedding-date {
+    font-size: 1.45rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .wedding-city {
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    font-weight: 600;
+  }
+</style>

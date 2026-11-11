@@ -1,0 +1,44 @@
+﻿---
+interface Props {
+  weddingDate: string;
+}
+
+const { weddingDate } = Astro.props;
+---
+
+<section id="countdown-section" class="invite-section reveal-on-scroll">
+  <div class="countdown-card paper-card">
+    <div class="section-header" style="margin-bottom: 8px;">
+      <span class="section-tag">COUNTING DOWN THE MOMENTS</span>
+      <h2 class="section-title">Save The Date</h2>
+    </div>
+
+    <div id="countdown-container">
+      <div class="countdown-grid">
+        <div class="countdown-box">
+          <span id="countdown-days" class="countdown-number">00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-box">
+          <span id="countdown-hours" class="countdown-number">00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-box">
+          <span id="countdown-mins" class="countdown-number">00</span>
+          <span class="countdown-label">Mins</span>
+        </div>
+        <div class="countdown-box">
+          <span id="countdown-secs" class="countdown-number">00</span>
+          <span class="countdown-label">Secs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .countdown-card {
+    padding: 32px 20px;
+    text-align: center;
+  }
+</style>

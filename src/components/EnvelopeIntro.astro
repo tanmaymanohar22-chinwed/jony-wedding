@@ -1,0 +1,262 @@
+﻿---
+interface Props {
+  monogram: string;
+  coupleNames: string;
+}
+
+const { monogram, coupleNames } = Astro.props;
+---
+
+<section id="envelope-intro" class="envelope-intro-wrapper">
+  <div class="envelope-container">
+    <div class="envelope-scene">
+      <div id="invitation-envelope" class="envelope">
+        <!-- Envelope Back / Interior Pocket -->
+        <div class="envelope-back">
+          <div class="envelope-lining"></div>
+        </div>
+
+        <!-- Hidden Letter that peeks out -->
+        <div class="envelope-letter paper-card">
+          <div class="letter-inner">
+            <span class="letter-monogram font-script text-gold">{monogram}</span>
+            <p class="letter-names font-serif">{coupleNames}</p>
+            <p class="letter-date font-sans text-muted">Auspicious Wedding Invitation</p>
+          </div>
+        </div>
+
+        <!-- Envelope Fold Bottom & Flanks -->
+        <div class="envelope-front"></div>
+
+        <!-- 3D Folding Top Flap -->
+        <div class="envelope-flap">
+          <svg class="flap-svg" viewBox="0 0 400 240" preserveAspectRatio="none">
+            <polygon points="0,0 400,0 200,240" fill="#F4ECE1" stroke="rgba(184, 142, 68, 0.3)" stroke-width="1.5" />
+          </svg>
+        </div>
+
+        <!-- Silk Ribbon -->
+        <div class="ribbon-bar ribbon-left"></div>
+        <div class="ribbon-bar ribbon-right"></div>
+
+        <!-- Wax Seal Click Trigger -->
+        <button id="envelope-open-trigger" class="wax-seal" aria-label="Open wedding invitation">
+          <div class="seal-inner">
+            <span class="seal-monogram font-serif">{monogram}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Instruction Hint -->
+    <div class="tap-hint">
+      <span class="tap-icon">✦</span>
+      <p class="font-sans text-muted">Tap the wax seal to open</p>
+      <span class="tap-icon">✦</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .envelope-intro-wrapper {
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    position: relative;
+  }
+
+  .envelope-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .envelope-scene {
+    width: 100%;
+    aspect-ratio: 1.45/1;
+    perspective: 1200px;
+  }
+
+  .envelope {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+
+  .envelope-back {
+    position: absolute;
+    inset: 0;
+    background: #EBE0D2;
+    border-radius: 12px;
+    box-shadow: 0 16px 36px rgba(45, 40, 37, 0.15);
+    overflow: hidden;
+  }
+
+  .envelope-lining {
+    position: absolute;
+    inset: 12px;
+    background-color: #F8F3EC;
+    background-image: radial-gradient(#B88E44 0.65px, transparent 0.65px);
+    background-size: 14px 14px;
+    border-radius: 8px;
+    opacity: 0.7;
+  }
+
+  .envelope-letter {
+    position: absolute;
+    inset: 16px 20px;
+    background: #FFFDF9;
+    border-radius: 8px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.9s ease;
+  }
+
+  .letter-inner {
+    text-align: center;
+    padding: 16px;
+  }
+
+  .letter-monogram {
+    font-size: 2.8rem;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .letter-names {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-charcoal);
+  }
+
+  .letter-date {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* Folded triangles forming the envelope pocket */
+  .envelope-front {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    border-bottom: 140px solid #F4ECE1;
+    border-left: 200px solid #EFE5D9;
+    border-right: 200px solid #EFE5D9;
+    border-top: 100px solid transparent;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    z-index: 6;
+    transform-origin: top center;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .flap-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 4px 6px rgba(45, 40, 37, 0.08));
+  }
+
+  /* Satin Ribbon */
+  .ribbon-bar {
+    position: absolute;
+    top: 50%;
+    height: 38px;
+    background: linear-gradient(180deg, #D44258 0%, #B82E43 50%, #911E30 100%);
+    box-shadow: 0 3px 10px rgba(145, 30, 48, 0.35);
+    z-index: 7;
+    pointer-events: none;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+  }
+
+  .ribbon-left {
+    left: 0;
+    width: 50%;
+    transform: translateY(-50%);
+  }
+
+  .ribbon-right {
+    right: 0;
+    width: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Wax Seal */
+  .wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #D49D42, #A77726 60%, #6D4C10 100%);
+    box-shadow: 0 4px 18px rgba(109, 76, 16, 0.45);
+    border: 3px solid #F5D38C;
+    cursor: pointer;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease, opacity 0.5s ease;
+  }
+
+  .seal-inner {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .seal-monogram {
+    color: #FFFDF9;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .tap-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: bounceSlow 2s infinite ease-in-out;
+  }
+
+  .tap-hint p {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .tap-icon {
+    color: var(--color-gold);
+    font-size: 0.8rem;
+  }
+
+  @keyframes bounceSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+</style>

@@ -1,0 +1,254 @@
+﻿/* Main Invitation Shell */
+.invitation-shell {
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
+  padding: 0 16px 80px;
+}
+
+/* Floral Corner Accents */
+.floral-corner {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.floral-tl {
+  top: 0;
+  left: 0;
+  width: 130px;
+  height: 130px;
+}
+
+.floral-br {
+  bottom: 0;
+  right: 0;
+  width: 130px;
+  height: 130px;
+}
+
+/* Section Common Layout */
+.invite-section {
+  padding: 48px 0;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.section-tag {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  line-height: 1.25;
+}
+
+.section-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-muted);
+  margin-top: 6px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Countdown Grid */
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.countdown-box {
+  background: linear-gradient(145deg, #FFFFFF, #FAF5EB);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px 6px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.countdown-number {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--color-gold-dark);
+  line-height: 1;
+  display: block;
+}
+
+.countdown-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: 6px;
+  display: block;
+}
+
+/* Events Timeline */
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 24px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-gold-light), var(--color-rose), var(--color-sage));
+  opacity: 0.4;
+}
+
+.timeline-card {
+  margin-left: 48px;
+  position: relative;
+  padding: 24px 20px;
+}
+
+.timeline-card::after {
+  content: '';
+  position: absolute;
+  left: -33px;
+  top: 28px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-paper);
+  border: 3px solid var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(184, 142, 68, 0.2);
+}
+
+.event-badge {
+  display: inline-block;
+  background: var(--color-sage-light);
+  color: var(--color-sage);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.event-name {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.event-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0 16px;
+  font-size: 0.88rem;
+  color: var(--color-muted);
+}
+
+.meta-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.meta-icon {
+  color: var(--color-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Gallery Grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  background: linear-gradient(to top, rgba(45, 40, 37, 0.85) 0%, transparent 100%);
+  color: #FFF;
+  padding: 24px 12px 10px;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Floating Music Controller */
+.music-toggle-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 2px solid var(--color-gold);
+  box-shadow: 0 4px 18px rgba(184, 142, 68, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.music-toggle-btn:hover {
+  transform: scale(1.08);
+}

@@ -1,0 +1,67 @@
+﻿---
+interface WeddingEvent {
+  id: string;
+  name: string;
+  date: string;
+  time: string;
+  venue: string;
+  address: string;
+  mapsUrl: string;
+  dressCode?: string;
+  badge?: string;
+}
+
+interface Props {
+  events: WeddingEvent[];
+}
+
+const { events } = Astro.props;
+---
+
+<section id="event-schedule" class="invite-section reveal-on-scroll">
+  <div class="section-header">
+    <span class="section-tag">WEDDING ITINERARY</span>
+    <h2 class="section-title">Celebration Schedule</h2>
+    <p class="section-subtitle">We cordially request your gracious presence throughout each celebration</p>
+  </div>
+
+  <div class="timeline-list">
+    {events.map((event) => (
+      <div class="timeline-card paper-card">
+        {event.badge && <span class="event-badge">{event.badge}</span>}
+        <h3 class="event-name">{event.name}</h3>
+        
+        <div class="event-meta">
+          <div class="meta-row">
+            <span class="meta-icon">📅</span>
+            <span><strong>{event.date}</strong></span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-icon">⏰</span>
+            <span>{event.time}</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-icon">📍</span>
+            <span><strong>{event.venue}</strong>, {event.address}</span>
+          </div>
+          {event.dressCode && (
+            <div class="meta-row" style="margin-top: 4px;">
+              <span class="meta-icon">✨</span>
+              <span class="text-rose">Dress Code: {event.dressCode}</span>
+            </div>
+          )}
+        </div>
+
+        {event.mapsUrl && (
+          <a href={event.mapsUrl} target="_blank" rel="noopener noreferrer" class="btn-gold" style="font-size: 0.78rem; padding: 10px 20px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Get Directions
+          </a>
+        )}
+      </div>
+    ))}
+  </div>
+</section>

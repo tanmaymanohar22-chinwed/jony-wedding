@@ -1,0 +1,108 @@
+﻿---
+interface Person {
+  firstName: string;
+  fullName: string;
+  title: string;
+  bio: string;
+}
+
+interface Props {
+  bride: Person;
+  groom: Person;
+}
+
+const { bride, groom } = Astro.props;
+---
+
+<section id="couple-details" class="invite-section reveal-on-scroll">
+  <div class="section-header">
+    <span class="section-tag">THE HAPPY COUPLE</span>
+    <h2 class="section-title">Bride & Groom</h2>
+  </div>
+
+  <div class="couple-cards-container">
+    <!-- Bride Profile Card -->
+    <div class="person-card paper-card">
+      <div class="card-wreath">
+        <div class="avatar-circle">
+          <span class="avatar-initial font-script text-rose">{bride.firstName[0]}</span>
+        </div>
+      </div>
+      <h3 class="person-name font-serif">{bride.fullName}</h3>
+      <span class="person-title font-sans text-gold">{bride.title}</span>
+      <p class="person-bio font-serif text-muted">{bride.bio}</p>
+    </div>
+
+    <!-- Groom Profile Card -->
+    <div class="person-card paper-card">
+      <div class="card-wreath">
+        <div class="avatar-circle">
+          <span class="avatar-initial font-script text-gold">{groom.firstName[0]}</span>
+        </div>
+      </div>
+      <h3 class="person-name font-serif">{groom.fullName}</h3>
+      <span class="person-title font-sans text-gold">{groom.title}</span>
+      <p class="person-bio font-serif text-muted">{groom.bio}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .couple-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .person-card {
+    padding: 32px 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .card-wreath {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .avatar-circle {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #FFFDF9, #FAF4EB);
+    border: 2px solid var(--color-gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(184, 142, 68, 0.16);
+  }
+
+  .avatar-initial {
+    font-size: 2.8rem;
+    line-height: 1;
+  }
+
+  .person-name {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--color-charcoal);
+    margin-bottom: 4px;
+  }
+
+  .person-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .person-bio {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+</style>
