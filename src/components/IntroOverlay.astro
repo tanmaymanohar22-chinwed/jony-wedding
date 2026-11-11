@@ -13,19 +13,28 @@ interface Props {
 const { monogram, brideName, groomName, welcomeMessage, formattedDate, destination } = Astro.props;
 ---
 
-<aside id="intro-overlay" class="intro-overlay" data-state="closed" aria-label="Wedding Invitation Envelope">
+<aside id="intro-overlay" class="intro-overlay" data-state="closed" aria-label="Wedding Invitation">
+  <!-- Full-Bleed Edge-to-Edge Watercolor Background (covers 100% of viewport edges) -->
+  <img 
+    src="/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg" 
+    alt="Mediterranean Coastal Watercolor Artwork" 
+    class="intro-fullbleed-bg"
+  />
+  <div class="intro-fullbleed-overlay"></div>
+
+  <!-- Centered Proportionally Scaled Invitation Stage -->
   <div class="intro-stage-box">
-    <!-- Physical Folded Stationery Canvas with 3D Panels & X-Ribbon -->
+    <!-- Physical Folded Stationery Folio & Crossed Ribbon Rig -->
     <div class="cover-stationery-wrapper">
       <!-- Stage A-C: Physical Folded Paper & Crossed Ribbon Rig Overlay -->
       <FoldedInvitation monogram={monogram} />
 
       <!-- Stage D: Underlying Mediterranean Coastal Stationery Revealed -->
       <div class="invitation-underneath">
-        <!-- Full Coastal Watercolor Background -->
+        <!-- Inset Coastal Scene for the card -->
         <img 
           src="/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg" 
-          alt="Mediterranean Coastal Castle" 
+          alt="Coastal Castle Watercolor" 
           class="coastal-scene-bg"
         />
 

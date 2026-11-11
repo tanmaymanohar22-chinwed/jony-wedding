@@ -18,12 +18,12 @@ async function runTests() {
   const results = {};
 
   // ==========================================
-  // TEST A: Fresh Page Visit
+  // TEST 1: Fresh Page Visit - only opening invitation appears
   // ==========================================
-  console.log('\n[TEST A] Navigating to http://localhost:4321/jony-wedding/ ...');
+  console.log('\n[TEST 1] Navigating to http://localhost:4321/jony-wedding/ ...');
   await page.goto('http://localhost:4321/jony-wedding/', { waitUntil: 'networkidle0' });
 
-  const stateA = await page.evaluate(() => {
+  const state1 = await page.evaluate(() => {
     const overlay = document.getElementById('intro-overlay');
     const weddingSite = document.getElementById('wedding-site');
     const tapBtn = document.getElementById('tap-to-open-btn');
@@ -47,55 +47,51 @@ async function runTests() {
     };
   });
 
-  console.log('TEST A State:', JSON.stringify(stateA, null, 2));
-  await page.screenshot({ path: path.join(outputDir, 'test_a_fresh_visit.png') });
-  results.testA = stateA.overlayVisible && stateA.siteInert && stateA.siteOpacity === '0' && stateA.siteVisibility === 'hidden';
+  console.log('TEST 1 State:', JSON.stringify(state1, null, 2));
+  await page.screenshot({ path: path.join(outputDir, 'test_1_initial_opening.png') });
+  results.test1 = state1.overlayVisible && state1.siteInert && state1.siteOpacity === '0' && state1.siteVisibility === 'hidden';
 
   // ==========================================
-  // TEST B: Wait 10 Seconds Without Clicking
+  // TEST 2: Wait 10 Seconds Without Clicking
   // ==========================================
-  console.log('\n[TEST B] Waiting 10 seconds without interaction...');
+  console.log('\n[TEST 2] Waiting 10 seconds without clicking...');
   await new Promise(r => setTimeout(r, 10000));
 
-  const stateB = await page.evaluate(() => {
-    const overlay = document.getElementById('intro-overlay');
+  const state2 = await page.evaluate(() => {
     const stage = document.getElementById('invitation-opening-stage');
     const weddingSite = document.getElementById('wedding-site');
     const siteStyle = weddingSite ? window.getComputedStyle(weddingSite) : null;
     return {
       stageState: stage ? stage.getAttribute('data-state') : null,
-      overlayDataState: overlay ? overlay.getAttribute('data-state') : null,
       siteStillHidden: siteStyle ? siteStyle.visibility === 'hidden' && siteStyle.opacity === '0' : false
     };
   });
-  console.log('TEST B State:', JSON.stringify(stateB, null, 2));
-  await page.screenshot({ path: path.join(outputDir, 'test_b_after_wait.png') });
-  results.testB = stateB.stageState === 'closed' && stateB.siteStillHidden;
+  console.log('TEST 2 State:', JSON.stringify(state2, null, 2));
+  results.test2 = state2.stageState === 'closed' && state2.siteStillHidden;
 
   // ==========================================
-  // TEST C: Try to Scroll Before Clicking
+  // TEST 3: Scroll Attempt - underlying website cannot scroll
   // ==========================================
-  console.log('\n[TEST C] Attempting to scroll before clicking...');
+  console.log('\n[TEST 3] Attempting to scroll before clicking...');
   await page.evaluate(() => {
     window.scrollTo(0, 1000);
     document.documentElement.scrollTop = 1000;
     document.body.scrollTop = 1000;
   });
+  await new Promise(r => setTimeout(r, 300));
+
+  const scrollY3 = await page.evaluate(() => window.scrollY || document.documentElement.scrollTop || document.body.scrollTop);
+  console.log('TEST 3 ScrollY after attempt:', scrollY3);
+  results.test3 = scrollY3 === 0;
+
+  // ==========================================
+  // TEST 4: Tap Button - ribbon opening animation starts
+  // ==========================================
+  console.log('\n[TEST 4] Clicking TAP TO OPEN button...');
+  await page.click('#tap-to-open-btn');
   await new Promise(r => setTimeout(r, 500));
 
-  const scrollY = await page.evaluate(() => window.scrollY || document.documentElement.scrollTop || document.body.scrollTop);
-  console.log('TEST C ScrollY after attempt:', scrollY);
-  await page.screenshot({ path: path.join(outputDir, 'test_c_scrolled.png') });
-  results.testC = scrollY === 0;
-
-  // ==========================================
-  // TEST D: Click TAP TO OPEN
-  // ==========================================
-  console.log('\n[TEST D] Clicking TAP TO OPEN button...');
-  await page.click('#tap-to-open-btn');
-  await new Promise(r => setTimeout(r, 600));
-
-  const stateD = await page.evaluate(() => {
+  const state4 = await page.evaluate(() => {
     const stage = document.getElementById('invitation-opening-stage');
     const tapBtn = document.getElementById('tap-to-open-btn');
     return {
@@ -103,17 +99,16 @@ async function runTests() {
       btnDisabled: tapBtn ? tapBtn.hasAttribute('disabled') : false
     };
   });
-  console.log('TEST D State (Untying started):', JSON.stringify(stateD, null, 2));
-  await page.screenshot({ path: path.join(outputDir, 'test_d_anim_started.png') });
-  results.testD = stateD.stageState === 'untying' && stateD.btnDisabled;
+  console.log('TEST 4 State (Animation started):', JSON.stringify(state4, null, 2));
+  results.test4 = state4.stageState === 'untying' && state4.btnDisabled;
 
   // ==========================================
-  // TEST E: During the Animation (at 2500ms after click)
+  // TEST 5: During Animation - website remains hidden
   // ==========================================
-  console.log('\n[TEST E] Checking during unfolding animation...');
-  await new Promise(r => setTimeout(r, 1900));
+  console.log('\n[TEST 5] Checking during unfolding animation (2.5s after click)...');
+  await new Promise(r => setTimeout(r, 2000));
 
-  const stateE = await page.evaluate(() => {
+  const state5 = await page.evaluate(() => {
     const stage = document.getElementById('invitation-opening-stage');
     const weddingSite = document.getElementById('wedding-site');
     const siteStyle = weddingSite ? window.getComputedStyle(weddingSite) : null;
@@ -123,17 +118,22 @@ async function runTests() {
       siteInert: weddingSite ? weddingSite.hasAttribute('inert') : false
     };
   });
-  console.log('TEST E State (During unfolding):', JSON.stringify(stateE, null, 2));
-  await page.screenshot({ path: path.join(outputDir, 'test_e_during_anim.png') });
-  results.testE = stateE.stageState === 'unfolding' && stateE.siteStillHidden && stateE.siteInert;
+  console.log('TEST 5 State (Mid-animation):', JSON.stringify(state5, null, 2));
+  await page.screenshot({ path: path.join(outputDir, 'test_2_mid_animation.png') });
+  results.test5 = state5.stageState === 'unfolding' && state5.siteStillHidden && state5.siteInert;
+
+  // Capture final invitation reveal inside overlay before website fade
+  await new Promise(r => setTimeout(r, 1200));
+  console.log('Capturing final invitation reveal inside overlay...');
+  await page.screenshot({ path: path.join(outputDir, 'test_3_final_invitation_reveal.png') });
 
   // ==========================================
-  // TEST F: After Animation Completes (at 5500ms total after click)
+  // TEST 6: After Animation - entire website fades in
   // ==========================================
-  console.log('\n[TEST F] Waiting for full reveal and smooth website fade-in...');
-  await new Promise(r => setTimeout(r, 3000));
+  console.log('\n[TEST 6] Waiting for cinematic crossfade completion (total 6.0s after click)...');
+  await new Promise(r => setTimeout(r, 2300));
 
-  const stateF = await page.evaluate(() => {
+  const state6 = await page.evaluate(() => {
     const overlay = document.getElementById('intro-overlay');
     const weddingSite = document.getElementById('wedding-site');
     const overlayStyle = overlay ? window.getComputedStyle(overlay) : null;
@@ -150,24 +150,27 @@ async function runTests() {
       bodyOverflowNormal: bodyOverflow !== 'hidden'
     };
   });
-  console.log('TEST F State (Website revealed):', JSON.stringify(stateF, null, 2));
-  await page.screenshot({ path: path.join(outputDir, 'test_f_after_anim.png') });
+  console.log('TEST 6 State (Website revealed):', JSON.stringify(state6, null, 2));
+  await page.screenshot({ path: path.join(outputDir, 'test_4_full_website_after_transition.png') });
+  results.test6 = state6.siteVisible && state6.siteInertRemoved && state6.bodyIntroActiveRemoved && state6.bodyOverflowNormal;
 
-  // Test scrolling after reveal
-  await page.evaluate(() => window.scrollTo(0, 400));
+  // ==========================================
+  // TEST 7: After Opening - normal scrolling works
+  // ==========================================
+  console.log('\n[TEST 7] Testing normal scrolling after reveal...');
+  await page.evaluate(() => window.scrollTo(0, 500));
   await new Promise(r => setTimeout(r, 300));
-  const scrollYAfter = await page.evaluate(() => window.scrollY);
-  console.log('TEST F ScrollY after reveal:', scrollYAfter);
-
-  results.testF = stateF.siteVisible && stateF.siteInertRemoved && stateF.bodyIntroActiveRemoved && scrollYAfter > 0;
+  const scrollY7 = await page.evaluate(() => window.scrollY);
+  console.log('TEST 7 ScrollY after reveal:', scrollY7);
+  results.test7 = scrollY7 > 0;
 
   // ==========================================
-  // TEST G: Refresh Page
+  // TEST 8: Refresh - opening screen appears again
   // ==========================================
-  console.log('\n[TEST G] Refreshing page to verify zero persistence...');
+  console.log('\n[TEST 8] Refreshing page to verify zero persistence...');
   await page.reload({ waitUntil: 'networkidle0' });
 
-  const stateG = await page.evaluate(() => {
+  const state8 = await page.evaluate(() => {
     const overlay = document.getElementById('intro-overlay');
     const weddingSite = document.getElementById('wedding-site');
     const overlayStyle = overlay ? window.getComputedStyle(overlay) : null;
@@ -180,17 +183,16 @@ async function runTests() {
       bodyHasIntroActive: document.body.className.includes('intro-active')
     };
   });
-  console.log('TEST G State (Fresh after reload):', JSON.stringify(stateG, null, 2));
-  await page.screenshot({ path: path.join(outputDir, 'test_g_refreshed.png') });
-  results.testG = stateG.overlayVisible && stateG.siteHidden && stateG.siteInert && stateG.bodyHasIntroActive;
+  console.log('TEST 8 State (Fresh after reload):', JSON.stringify(state8, null, 2));
+  results.test8 = state8.overlayVisible && state8.siteHidden && state8.siteInert && state8.bodyHasIntroActive;
 
   // ==========================================
-  // TEST H: Direct Invitation URL (/invite/jony-and-sunny/)
+  // TEST 9: Direct /invite/priya-and-rohit/ URL
   // ==========================================
-  console.log('\n[TEST H] Opening direct invitation URL: http://localhost:4321/jony-wedding/invite/jony-and-sunny/ ...');
-  await page.goto('http://localhost:4321/jony-wedding/invite/jony-and-sunny/', { waitUntil: 'networkidle0' });
+  console.log('\n[TEST 9] Opening direct URL: http://localhost:4321/jony-wedding/invite/priya-and-rohit/ ...');
+  await page.goto('http://localhost:4321/jony-wedding/invite/priya-and-rohit/', { waitUntil: 'networkidle0' });
 
-  const stateH = await page.evaluate(() => {
+  const state9 = await page.evaluate(() => {
     const overlay = document.getElementById('intro-overlay');
     const weddingSite = document.getElementById('wedding-site');
     const overlayStyle = overlay ? window.getComputedStyle(overlay) : null;
@@ -203,9 +205,8 @@ async function runTests() {
       bodyHasIntroActive: document.body.className.includes('intro-active')
     };
   });
-  console.log('TEST H State (Direct URL):', JSON.stringify(stateH, null, 2));
-  await page.screenshot({ path: path.join(outputDir, 'test_h_direct_url.png') });
-  results.testH = stateH.overlayVisible && stateH.siteHidden && stateH.siteInert && stateH.bodyHasIntroActive;
+  console.log('TEST 9 State (Direct URL priya-and-rohit):', JSON.stringify(state9, null, 2));
+  results.test9 = state9.overlayVisible && state9.siteHidden && state9.siteInert && state9.bodyHasIntroActive;
 
   // ==========================================
   // RESPONSIVE VIEWPORT TESTS
@@ -223,7 +224,6 @@ async function runTests() {
     await page.setViewport({ width: vp.width, height: vp.height, isMobile: vp.isMobile !== false, hasTouch: vp.isMobile !== false });
     await page.goto('http://localhost:4321/jony-wedding/', { waitUntil: 'networkidle0' });
     
-    // Check for unwanted horizontal or vertical scrollbars
     const overflowCheck = await page.evaluate(() => {
       return {
         scrollWidth: document.documentElement.scrollWidth,
@@ -246,7 +246,7 @@ async function runTests() {
     console.log(`  ${t.toUpperCase()}: ${passed ? '✓ PASSED' : '✗ FAILED'}`);
     if (!passed) allPassed = false;
   }
-  console.log(`\nOVERALL: ${allPassed ? 'ALL TESTS PASSED SUCCESSFULLY! ✓' : 'SOME TESTS FAILED ✗'}`);
+  console.log(`\nOVERALL: ${allPassed ? 'ALL 9 TESTS PASSED SUCCESSFULLY! ✓' : 'SOME TESTS FAILED ✗'}`);
 
   if (!allPassed) {
     process.exit(1);

@@ -34,33 +34,32 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
     setTimeout(() => {
       setStageState("revealed");
 
-      // Give 1.0s to admire the fully revealed stationery inside the overlay,
-      // then seamlessly cross-fade to reveal the complete wedding site
+      // Hold on the fully revealed stationery inside the overlay for 800ms,
+      // then initiate the seamless 1000ms cinematic crossfade to the complete wedding site
       setTimeout(() => {
-        // 1. Begin smooth fade-out of intro overlay
-        overlay.classList.add("is-hidden");
-
-        // 2. Simultaneously fade in the complete wedding website
+        // 1. Simultaneously fade in the complete wedding website
         if (weddingSite) {
           weddingSite.classList.add("is-revealed");
           weddingSite.removeAttribute("inert");
           weddingSite.setAttribute("aria-hidden", "false");
         }
 
-        // 3. Remove overflow lock on html & body to enable normal page scrolling
-        document.documentElement.classList.remove("intro-active");
-        document.body.classList.remove("intro-active");
+        // 2. Begin smooth fade-out of intro overlay
+        overlay.classList.add("is-hidden");
 
-        // 4. Start serene background audio
+        // 3. Start serene background audio
         if (onRevealAudio) {
           onRevealAudio();
         }
 
-        // 5. Completely unmount/hide overlay after fade finishes (900ms)
+        // 4. Once the overlay fade finishes (1000ms):
         setTimeout(() => {
           overlay.style.display = "none";
-        }, 900);
-      }, 1000);
+          // Remove overflow lock on html & body to restore normal page scrolling
+          document.documentElement.classList.remove("intro-active");
+          document.body.classList.remove("intro-active");
+        }, 1000);
+      }, 800);
     }, 3600);
   }
 
