@@ -17,8 +17,8 @@
     }
   },
   "monogram": "J & S",
-  "weddingDate": "2026-12-29T00:00:00+05:30",
-  "formattedDate": "Tuesday, December 29, 2026",
+  "weddingDate": "2026-12-29T18:00:00+05:30",
+  "formattedDate": "Tuesday, 29 December 2026",
   "weddingYear": "2026",
   "destination": "Sanathnagar, Hyderabad",
   "venue": "Baptist Church Sanathnagar",
@@ -27,49 +27,32 @@
   "welcomeMessage": "Together with their families, cordially invite you to celebrate their wedding",
   "events": [
     {
-      "id": "mehendi",
-      "name": "Mehendi & Sangeet Soirée",
-      "date": "Monday, December 28, 2026",
-      "time": "05:00 PM onwards",
-      "venue": "Czech Colony Celebration Lawn",
-      "address": "Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018",
-      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
-      "dressCode": "Traditional Festive / Pastel Elegance",
-      "badge": "Pre-Wedding Celebration"
-    },
-    {
-      "id": "ceremony",
-      "name": "The Holy Wedding Ceremony",
-      "date": "Tuesday, December 29, 2026",
-      "time": "10:30 AM - 01:00 PM",
+      "id": "wedding-ceremony",
+      "name": "THE WEDDING CEREMONY",
+      "title": "THE WEDDING CEREMONY",
+      "date": "Tuesday, 29 December 2026",
+      "time": "6:00 PM onwards",
       "venue": "Baptist Church Sanathnagar",
-      "address": "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018, India",
+      "address": "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018",
       "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
-      "dressCode": "Formal Wedding Attire / Traditional Finery",
-      "badge": "Holy Vows & Nuptials"
+      "description": "With joyful hearts, we invite you to witness our sacred vows and covenant of marriage in holy matrimony.",
+      "badge": "Holy Matrimony",
+      "isConfirmed": true
     },
     {
-      "id": "reception",
-      "name": "Grand Wedding Reception & Dinner",
-      "date": "Tuesday, December 29, 2026",
-      "time": "07:00 PM onwards",
-      "venue": "Baptist Church Fellowship Hall & Grounds",
-      "address": "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018, India",
-      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
-      "dressCode": "Evening Formal / Black Tie / Royal Ethnic",
-      "badge": "Dinner & Celebrations"
+      "id": "reception-dinner",
+      "name": "RECEPTION & DINNER",
+      "title": "RECEPTION & DINNER",
+      "date": "Tuesday, 29 December 2026",
+      "time": "To be confirmed",
+      "venue": "To be confirmed",
+      "address": "To be confirmed",
+      "mapsUrl": null,
+      "description": "An evening of celebration, joyful fellowship, and dinner. The venue and exact timing will be announced as soon as they are finalized.",
+      "badge": "Celebration & Dinner",
+      "isConfirmed": false
     }
   ],
-  "story": {
-    "title": "Our Love Story",
-    "subtitle": "From serendipitous beginnings to a lifetime of love and discovery",
-    "paragraphs": [
-      "It all started on a crisp autumn evening at a quiet cafe. What began as an hour-long conversation effortlessly stretched into midnight walks under amber street lamps, filled with shared laughter, dreams of foreign travels, and an unmistakable sense that we had found home in one another.",
-      "Over four beautiful years of journeys—celebrating life's quiet milestones together—every memory has brought us closer.",
-      "Now, with immense joy and gratitude, we invite you to join us at Baptist Church Sanathnagar to witness and celebrate our sacred vows."
-    ],
-    "quote": "“Whatever our souls are made of, his and mine are the same.” — Emily Brontë"
-  },
   "gallery": [
     {
       "url": "/jony-wedding/assets/couple/couple-1.jpg",

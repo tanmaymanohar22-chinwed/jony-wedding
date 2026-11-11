@@ -1,14 +1,16 @@
 ---
 interface WeddingEvent {
   id: string;
-  name: string;
+  name?: string;
+  title?: string;
   date: string;
   time: string;
   venue: string;
   address: string;
-  mapsUrl: string;
-  dressCode?: string;
+  mapsUrl?: string | null;
+  description?: string;
   badge?: string;
+  isConfirmed?: boolean;
 }
 
 interface Props {
@@ -16,63 +18,154 @@ interface Props {
 }
 
 const { events } = Astro.props;
+const ceremonyEvent = events.find((e) => e.id === "wedding-ceremony") || events[0];
+const receptionEvent = events.find((e) => e.id === "reception-dinner") || events[1];
 ---
 
 <section id="event-schedule" class="invite-section reveal-on-scroll">
   <div class="section-heading-block">
-    <span class="section-label">ITINERARY</span>
-    <h2 class="section-title">Wedding Events</h2>
-    <p class="section-desc">We joyfully invite you to join us across each meaningful celebration</p>
+    <span class="section-label">THE CELEBRATION</span>
+    <h2 class="section-title">Wedding Itinerary</h2>
+    <div class="botanical-divider" style="margin: 8px auto 14px;">
+      <span class="botanical-divider-icon">❦</span>
+    </div>
+    <p class="section-desc">Join us in honouring our sacred vows and celebrating our wedding union</p>
   </div>
 
-  <div class="events-container">
-    {events.map((event) => (
-      <div class="event-card stationery-panel">
-        {event.badge && <span class="event-badge">{event.badge}</span>}
-        <h3 class="event-title">{event.name}</h3>
-        
-        <div class="botanical-divider" style="margin: 12px auto;">
-          <span class="botanical-divider-icon">❦</span>
-        </div>
+  <div class="events-container two-event-layout">
+    <!-- 1. DEDICATED WEDDING CEREMONY BLOCK -->
+    {ceremonyEvent && (
+      <article id="wedding-ceremony" class="event-card ceremony-card stationery-panel">
+        <div class="event-card-inner">
+          <div class="event-card-header">
+            {ceremonyEvent.badge && (
+              <span class="event-badge badge-ceremony">{ceremonyEvent.badge}</span>
+            )}
+            <h3 class="event-title">{ceremonyEvent.title || ceremonyEvent.name}</h3>
+            <div class="botanical-divider event-mini-divider">
+              <span class="botanical-divider-icon">❦</span>
+            </div>
+            {ceremonyEvent.description && (
+              <p class="event-description">{ceremonyEvent.description}</p>
+            )}
+          </div>
 
-        <div class="event-details-list">
-          <div class="event-detail-row">
-            <span class="text-champagne">📅</span>
-            <span><strong style="color: var(--color-text);">{event.date}</strong></span>
+          <div class="event-details-list">
+            <div class="event-detail-row">
+              <span class="detail-icon" aria-hidden="true">📅</span>
+              <div class="detail-text">
+                <span class="detail-label">Date</span>
+                <strong class="detail-value">{ceremonyEvent.date}</strong>
+              </div>
+            </div>
+
+            <div class="event-detail-row">
+              <span class="detail-icon" aria-hidden="true">⏰</span>
+              <div class="detail-text">
+                <span class="detail-label">Time</span>
+                <strong class="detail-value time-highlight">{ceremonyEvent.time}</strong>
+              </div>
+            </div>
+
+            <div class="event-detail-row">
+              <span class="detail-icon" aria-hidden="true">⛪</span>
+              <div class="detail-text">
+                <span class="detail-label">Venue</span>
+                <strong class="detail-value venue-title">{ceremonyEvent.venue}</strong>
+                <span class="detail-sub">{ceremonyEvent.address}</span>
+              </div>
+            </div>
           </div>
-          <div class="event-detail-row">
-            <span class="text-champagne">⏰</span>
-            <span>{event.time}</span>
-          </div>
-          <div class="event-detail-row" style="flex-direction: column; gap: 2px; margin-top: 4px;">
-            <span style="font-weight: 600; color: var(--color-text);">{event.venue}</span>
-            <span style="font-size: 0.85rem; color: var(--color-text-muted);">{event.address}</span>
-          </div>
-          {event.dressCode && (
-            <div class="event-detail-row" style="margin-top: 6px;">
-              <span class="text-rose" style="font-size: 0.85rem; font-style: italic;">
-                Dress Code: {event.dressCode}
-              </span>
+
+          {ceremonyEvent.mapsUrl && (
+            <div class="event-action-wrap">
+              <a 
+                href={ceremonyEvent.mapsUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-champagne event-directions-btn"
+                aria-label={`Get directions to ${ceremonyEvent.venue}`}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                View Church & Directions
+              </a>
             </div>
           )}
         </div>
+      </article>
+    )}
 
-        {event.mapsUrl && (
-          <a 
-            href={event.mapsUrl} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="btn-champagne"
-            aria-label={`Get directions to ${event.venue}`}
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            View Venue & Directions
-          </a>
-        )}
-      </div>
-    ))}
+    <!-- 2. DEDICATED RECEPTION & DINNER BLOCK -->
+    {receptionEvent && (
+      <article id="reception-dinner" class="event-card reception-card stationery-panel">
+        <div class="event-card-inner">
+          <div class="event-card-header">
+            {receptionEvent.badge && (
+              <span class="event-badge badge-reception">{receptionEvent.badge}</span>
+            )}
+            <h3 class="event-title">{receptionEvent.title || receptionEvent.name}</h3>
+            <div class="botanical-divider event-mini-divider">
+              <span class="botanical-divider-icon">❦</span>
+            </div>
+            {receptionEvent.description && (
+              <p class="event-description">{receptionEvent.description}</p>
+            )}
+          </div>
+
+          <div class="event-details-list">
+            <div class="event-detail-row">
+              <span class="detail-icon" aria-hidden="true">📅</span>
+              <div class="detail-text">
+                <span class="detail-label">Date</span>
+                <strong class="detail-value">{receptionEvent.date}</strong>
+              </div>
+            </div>
+
+            <div class="event-detail-row">
+              <span class="detail-icon" aria-hidden="true">🍷</span>
+              <div class="detail-text">
+                <span class="detail-label">Time</span>
+                <span class="detail-pending">{receptionEvent.time}</span>
+              </div>
+            </div>
+
+            <div class="event-detail-row">
+              <span class="detail-icon" aria-hidden="true">🍽️</span>
+              <div class="detail-text">
+                <span class="detail-label">Venue</span>
+                <span class="detail-pending">{receptionEvent.venue}</span>
+                <span class="detail-sub detail-notice">Separate venue from wedding ceremony</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="reception-status-banner">
+            <span class="status-sparkle">✦</span>
+            <span>Venue, address & timing will be announced as soon as confirmed</span>
+          </div>
+
+          {receptionEvent.mapsUrl && (
+            <div class="event-action-wrap">
+              <a 
+                href={receptionEvent.mapsUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-champagne event-directions-btn"
+                aria-label={`Get directions to ${receptionEvent.venue}`}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                View Reception Venue
+              </a>
+            </div>
+          )}
+        </div>
+      </article>
+    )}
   </div>
 </section>

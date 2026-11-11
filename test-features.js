@@ -231,21 +231,54 @@ async function runAcceptanceTests() {
   results.test8 = state8.countdownActive && state8.countdownVisible && state8.days > 0;
 
   // ==========================================
-  // TEST 9: Save the Date button downloads valid .ics
+  // TEST 9: Save the Date button downloads valid .ics & Event Structure Audit
   // ==========================================
   console.log('\n[TEST 9] Verifying Save the Date button & calendar .ics generation...');
   const state9 = await page.evaluate(() => {
     const saveContainer = document.getElementById('save-date-action-container');
     const saveBtn = document.getElementById('save-the-date-btn');
     const style = saveContainer ? window.getComputedStyle(saveContainer) : null;
+    
+    // Audit Event structure and cleanups
+    const ceremonyEl = document.getElementById('wedding-ceremony');
+    const receptionEl = document.getElementById('reception-dinner');
+    const ourStoryEl = document.getElementById('our-story');
+    const bodyText = document.body.innerText;
+
+    const hasOurStory = !!ourStoryEl || bodyText.includes('Our Love Story');
+    const hasHaldi = bodyText.includes('Haldi');
+    const hasMehendi = bodyText.includes('Mehendi');
+    const hasSangeet = bodyText.includes('Sangeet');
+    const ceremonyHasTime = ceremonyEl ? ceremonyEl.innerText.includes('6:00 PM') : false;
+    const ceremonyHasChurch = ceremonyEl ? ceremonyEl.innerText.includes('Baptist Church Sanathnagar') : false;
+    const receptionIsPending = receptionEl ? receptionEl.innerText.includes('To be confirmed') : false;
+    const receptionHasChurch = receptionEl ? (receptionEl.querySelector('.venue-title')?.innerText?.includes('Baptist Church') || false) : false;
+
     return {
       containerVisible: style?.display !== 'none',
       venueAttr: saveBtn?.getAttribute('data-venue'),
-      addressAttr: saveBtn?.getAttribute('data-address')
+      addressAttr: saveBtn?.getAttribute('data-address'),
+      hasOurStory,
+      hasHaldi,
+      hasMehendi,
+      hasSangeet,
+      ceremonyHasTime,
+      ceremonyHasChurch,
+      receptionIsPending,
+      receptionHasChurch
     };
   });
   console.log('TEST 9 State:', JSON.stringify(state9, null, 2));
-  results.test9 = state9.containerVisible && state9.venueAttr === 'Baptist Church Sanathnagar';
+  results.test9 = state9.containerVisible && 
+                  state9.venueAttr === 'Baptist Church Sanathnagar' &&
+                  !state9.hasOurStory &&
+                  !state9.hasHaldi &&
+                  !state9.hasMehendi &&
+                  !state9.hasSangeet &&
+                  state9.ceremonyHasTime &&
+                  state9.ceremonyHasChurch &&
+                  state9.receptionIsPending &&
+                  !state9.receptionHasChurch;
 
   // ==========================================
   // TEST 10: Refresh website - resets back to closed invitation

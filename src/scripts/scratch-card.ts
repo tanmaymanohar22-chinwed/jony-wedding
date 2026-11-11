@@ -235,8 +235,8 @@ export function initScratchCard() {
     console.log("Date successfully revealed! Dispatching 'wedding-date-revealed' event...");
     window.dispatchEvent(new CustomEvent("wedding-date-revealed", {
       detail: {
-        date: "2026-12-29T00:00:00+05:30",
-        formatted: "Tuesday, December 29, 2026"
+        date: "2026-12-29T18:00:00+05:30",
+        formatted: "Tuesday, 29 December 2026"
       }
     }));
   }
@@ -260,6 +260,8 @@ export function initScratchCard() {
     const venueAddress = saveDateBtn?.getAttribute("data-address") || "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018, India";
     
     // Construct valid RFC 5545 iCalendar content
+    // Confirmed wedding ceremony start time: 6:00 PM IST (Asia/Kolkata)
+    // No fabricated duration or end time; reception is noted as taking place at a separate venue
     const icsContent = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
@@ -267,19 +269,18 @@ export function initScratchCard() {
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       "BEGIN:VEVENT",
-      "UID:wedding-jony-sunny-20261229@jony-wedding",
+      "UID:wedding-ceremony-jony-sunny-20261229@jony-wedding",
       "DTSTAMP:20261111T120000Z",
-      "DTSTART;TZID=Asia/Kolkata:20261229T103000",
-      "DTEND;TZID=Asia/Kolkata:20261229T230000",
-      "SUMMARY:Wedding of Jony & Sunny",
-      `DESCRIPTION:Join us in celebrating the holy wedding ceremony and grand reception of Jony and Sunny.\\n\\nVenue: ${venueName}\\nAddress: ${venueAddress}`,
+      "DTSTART;TZID=Asia/Kolkata:20261229T180000",
+      "SUMMARY:Wedding Ceremony: Jony & Sunny",
+      `DESCRIPTION:The Holy Wedding Ceremony of Jony and Sunny.\\n\\nTime: 6:00 PM onwards (Asia/Kolkata)\\nVenue: ${venueName}\\nAddress: ${venueAddress}\\n\\nNote: Reception & dinner will take place at a separate venue to be announced.`,
       `LOCATION:${venueName}, ${venueAddress}`,
       "STATUS:CONFIRMED",
       "SEQUENCE:0",
       "BEGIN:VALARM",
       "TRIGGER:-P1D",
       "ACTION:DISPLAY",
-      "DESCRIPTION:Reminder: Wedding of Jony & Sunny tomorrow!",
+      "DESCRIPTION:Reminder: Wedding Ceremony of Jony & Sunny tomorrow at 6:00 PM!",
       "END:VALARM",
       "END:VEVENT",
       "END:VCALENDAR"

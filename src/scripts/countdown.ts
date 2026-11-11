@@ -1,7 +1,7 @@
 // Event-Driven Live Wedding Countdown
 // Activates ONLY upon receipt of the "wedding-date-revealed" event
 
-export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T00:00:00+05:30") {
+export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T18:00:00+05:30") {
   const section = document.getElementById("countdown-section");
   const daysEl = document.getElementById("countdown-days");
   const hoursEl = document.getElementById("countdown-hours");

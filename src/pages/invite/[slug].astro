@@ -7,7 +7,6 @@ import InvitationCover from '../../components/InvitationCover.astro';
 import ScratchToReveal from '../../components/ScratchToReveal.astro';
 import Countdown from '../../components/Countdown.astro';
 import EventSchedule from '../../components/EventSchedule.astro';
-import OurStory from '../../components/OurStory.astro';
 import PhotoGallery from '../../components/PhotoGallery.astro';
 import ClosingSection from '../../components/ClosingSection.astro';
 import MusicPlayer from '../../components/MusicPlayer.astro';
@@ -61,13 +60,10 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
       <!-- Section 3: Live Wedding Countdown (Activated ONLY after scratch reveal) -->
       <Countdown weddingDate={weddingData.weddingDate} />
 
-      <!-- Section 4: Wedding Event Schedule & Directions -->
+      <!-- Section 4: Confirmed Ceremony & Reception Event Details -->
       <EventSchedule events={weddingData.events} />
 
-      <!-- Section 5: Our Love Story -->
-      <OurStory story={weddingData.story} />
-
-      <!-- Section 6: Editorial Photo Gallery -->
+      <!-- Section 5: Editorial Photo Gallery -->
       <PhotoGallery gallery={weddingData.gallery} />
 
       <!-- Section 7: Scenic Closing Garden Illustration -->
