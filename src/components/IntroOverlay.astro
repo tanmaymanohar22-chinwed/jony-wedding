@@ -1,0 +1,78 @@
+---
+import FoldedInvitation from './FoldedInvitation.astro';
+
+interface Props {
+  monogram: string;
+  brideName: string;
+  groomName: string;
+  welcomeMessage: string;
+  formattedDate: string;
+  destination: string;
+}
+
+const { monogram, brideName, groomName, welcomeMessage, formattedDate, destination } = Astro.props;
+---
+
+<aside id="intro-overlay" class="intro-overlay" data-state="closed" aria-label="Wedding Invitation Envelope">
+  <div class="intro-stage-box">
+    <!-- Physical Folded Stationery Canvas with 3D Panels & X-Ribbon -->
+    <div class="cover-stationery-wrapper">
+      <!-- Stage A-C: Physical Folded Paper & Crossed Ribbon Rig Overlay -->
+      <FoldedInvitation monogram={monogram} />
+
+      <!-- Stage D: Underlying Mediterranean Coastal Stationery Revealed -->
+      <div class="invitation-underneath">
+        <!-- Full Coastal Watercolor Background -->
+        <img 
+          src="/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg" 
+          alt="Mediterranean Coastal Castle" 
+          class="coastal-scene-bg"
+        />
+
+        <!-- Inset Ivory Paper Panel -->
+        <div class="cover-card-overlay">
+          <!-- Floral Top Header -->
+          <img 
+            src="/jony-wedding/assets/decorations/floral-top-border.jpg" 
+            alt="Watercolor Floral Header" 
+            class="floral-header-img floating-botanical"
+          />
+
+          <!-- Welcome Message -->
+          <p class="cover-intro-lead">{welcomeMessage}</p>
+
+          <!-- Couple Names Display -->
+          <div class="cover-couple-names">
+            <h1 class="cover-bride-name">{brideName}</h1>
+            <span class="cover-ampersand">&</span>
+            <h1 class="cover-groom-name">{groomName}</h1>
+          </div>
+
+          <div class="botanical-divider">
+            <span class="botanical-divider-icon">❦</span>
+          </div>
+
+          <!-- Date & Venue -->
+          <div class="cover-date-banner">
+            <p class="cover-wedding-date">{formattedDate}</p>
+            <p class="cover-wedding-venue">{destination}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Luxury "TAP TO OPEN" Button Directly Below Wrapped Invitation -->
+    <div class="tap-to-open-container">
+      <button 
+        id="tap-to-open-btn" 
+        class="tap-to-open-button" 
+        type="button" 
+        aria-label="Tap to open the wedding invitation"
+      >
+        <span class="tap-sparkle">✦</span>
+        <span class="tap-text">TAP TO OPEN</span>
+        <span class="tap-sparkle">✦</span>
+      </button>
+    </div>
+  </div>
+</aside>

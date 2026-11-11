@@ -1,9 +1,10 @@
 export function initFoldedOpening(onRevealAudio?: () => void) {
+  const overlay = document.getElementById("intro-overlay");
   const stage = document.getElementById("invitation-opening-stage");
   const tapBtn = document.getElementById("tap-to-open-btn");
-  const coverSection = document.getElementById("invitation-cover");
+  const weddingSite = document.getElementById("wedding-site");
 
-  if (!stage || !tapBtn) return;
+  if (!overlay || !stage || !tapBtn) return;
 
   let hasStarted = false;
 
@@ -18,30 +19,48 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
 
     function setStageState(state: string) {
       stage.setAttribute("data-state", state);
-      if (coverSection) {
-        coverSection.setAttribute("data-state", state);
-      }
+      overlay.setAttribute("data-state", state);
     }
 
-    // STAGE B: UNTYING (Knot loosens, bow loops deform, tails move, X-ribbon slides off)
+    // STAGE B: UNTYING (0.0s – 1.6s)
     setStageState("untying");
 
-    // STAGE C: UNFOLDING (Gatefold panels swing open in 3D)
+    // STAGE C: UNFOLDING (1.6s – 3.6s: Gatefold panels swing open in 3D)
     setTimeout(() => {
       setStageState("unfolding");
     }, 1600);
 
-    // STAGE D: REVEALED (Full stationery exposed, audio plays, ready to explore)
+    // STAGE D: REVEALED (3.6s: Full stationery exposed inside overlay)
     setTimeout(() => {
       setStageState("revealed");
-      if (onRevealAudio) {
-        onRevealAudio();
-      }
 
-      // Smooth scroll gently to focus on revealed invitation
-      if (coverSection) {
-        coverSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      // Give 1.0s to admire the fully revealed stationery inside the overlay,
+      // then seamlessly cross-fade to reveal the complete wedding site
+      setTimeout(() => {
+        // 1. Begin smooth fade-out of intro overlay
+        overlay.classList.add("is-hidden");
+
+        // 2. Simultaneously fade in the complete wedding website
+        if (weddingSite) {
+          weddingSite.classList.add("is-revealed");
+          weddingSite.removeAttribute("inert");
+          weddingSite.setAttribute("aria-hidden", "false");
+        }
+
+        // 3. Remove overflow lock on html & body to enable normal page scrolling
+        document.documentElement.classList.remove("intro-active");
+        document.body.classList.remove("intro-active");
+
+        // 4. Start serene background audio
+        if (onRevealAudio) {
+          onRevealAudio();
+        }
+
+        // 5. Completely unmount/hide overlay after fade finishes (900ms)
+        setTimeout(() => {
+          overlay.style.display = "none";
+        }, 900);
+      }, 1000);
     }, 3600);
   }
 
@@ -58,4 +77,11 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
       startOpeningSequence();
     }
   });
+
+  // Guard against any scrolling while intro overlay is active
+  window.addEventListener("scroll", () => {
+    if (document.documentElement.classList.contains("intro-active") || document.body.classList.contains("intro-active")) {
+      window.scrollTo(0, 0);
+    }
+  }, { passive: false });
 }

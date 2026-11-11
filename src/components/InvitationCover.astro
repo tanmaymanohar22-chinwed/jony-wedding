@@ -1,8 +1,5 @@
 ---
-import FoldedInvitation from './FoldedInvitation.astro';
-
 interface Props {
-  monogram: string;
   brideName: string;
   groomName: string;
   welcomeMessage: string;
@@ -10,17 +7,13 @@ interface Props {
   destination: string;
 }
 
-const { monogram, brideName, groomName, welcomeMessage, formattedDate, destination } = Astro.props;
+const { brideName, groomName, welcomeMessage, formattedDate, destination } = Astro.props;
 ---
 
-<section id="invitation-cover" class="invite-section" data-state="closed" style="padding-top: 10px;">
-  <!-- Physical Folded Stationery Canvas with 3D Panels & X-Ribbon -->
+<section id="invitation-cover" class="invite-section" style="padding-top: 10px;">
+  <!-- Revealed Mediterranean Coastal Stationery Header on the Website -->
   <div class="cover-stationery-wrapper">
-    <!-- Stage A-C: Physical Folded Paper & Crossed Ribbon Rig Overlay -->
-    <FoldedInvitation monogram={monogram} />
-
-    <!-- Stage D: Underlying Mediterranean Coastal Stationery Revealed -->
-    <div class="invitation-underneath">
+    <div class="invitation-underneath is-revealed-static">
       <!-- Full Coastal Watercolor Background -->
       <img 
         src="/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg" 
@@ -58,19 +51,5 @@ const { monogram, brideName, groomName, welcomeMessage, formattedDate, destinati
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Luxury "TAP TO OPEN" Button Directly Below Wrapped Invitation -->
-  <div class="tap-to-open-container">
-    <button 
-      id="tap-to-open-btn" 
-      class="tap-to-open-button" 
-      type="button"
-      aria-label="Tap to open the wedding invitation"
-    >
-      <span class="tap-sparkle">✦</span>
-      <span class="tap-text">TAP TO OPEN</span>
-      <span class="tap-sparkle">✦</span>
-    </button>
   </div>
 </section>

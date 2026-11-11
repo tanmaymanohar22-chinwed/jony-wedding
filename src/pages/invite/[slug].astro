@@ -1,5 +1,6 @@
 ---
 import InvitationLayout from '../../layouts/InvitationLayout.astro';
+import IntroOverlay from '../../components/IntroOverlay.astro';
 import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
 import InvitationCover from '../../components/InvitationCover.astro';
 import Countdown from '../../components/Countdown.astro';
@@ -20,26 +21,38 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 ---
 
 <InvitationLayout title={pageTitle} description={pageDescription}>
-  <LanguageSwitcher languages={weddingData.languages} />
+  <!-- 1. FULL-SCREEN DEDICATED INTRO OVERLAY (Occupies 100% viewport, hides website until animation finishes) -->
+  <IntroOverlay
+    monogram={weddingData.monogram}
+    brideName={weddingData.couple.bride.fullName}
+    groomName={weddingData.couple.groom.fullName}
+    welcomeMessage={weddingData.welcomeMessage}
+    formattedDate={weddingData.formattedDate}
+    destination={weddingData.destination}
+  />
 
-  <main class="invitation-shell">
-    <InvitationCover
-      monogram={weddingData.monogram}
-      brideName={weddingData.couple.bride.fullName}
-      groomName={weddingData.couple.groom.fullName}
-      welcomeMessage={weddingData.welcomeMessage}
-      formattedDate={weddingData.formattedDate}
-      destination={weddingData.destination}
-    />
+  <!-- 2. MAIN WEDDING WEBSITE (Completely hidden & inert until opening sequence finishes) -->
+  <main id="wedding-site" class="wedding-site" inert aria-hidden="true">
+    <LanguageSwitcher languages={weddingData.languages} />
 
-    <Countdown weddingDate={weddingData.weddingDate} />
-    <EventSchedule events={weddingData.events} />
-    <OurStory story={weddingData.story} />
-    <PhotoGallery gallery={weddingData.gallery} />
-    <ClosingSection closing={weddingData.closing} monogram={weddingData.monogram} />
+    <div class="invitation-shell">
+      <InvitationCover
+        brideName={weddingData.couple.bride.fullName}
+        groomName={weddingData.couple.groom.fullName}
+        welcomeMessage={weddingData.welcomeMessage}
+        formattedDate={weddingData.formattedDate}
+        destination={weddingData.destination}
+      />
+
+      <Countdown weddingDate={weddingData.weddingDate} />
+      <EventSchedule events={weddingData.events} />
+      <OurStory story={weddingData.story} />
+      <PhotoGallery gallery={weddingData.gallery} />
+      <ClosingSection closing={weddingData.closing} monogram={weddingData.monogram} />
+    </div>
+
+    <MusicPlayer music={weddingData.music} />
   </main>
-
-  <MusicPlayer music={weddingData.music} />
 </InvitationLayout>
 
 <script>
