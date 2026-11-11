@@ -11,21 +11,29 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
     if (hasStarted) return;
     hasStarted = true;
 
-    // Disable button immediately
+    // Strict Interaction: Disable button immediately to prevent multiple triggers
     tapBtn.setAttribute("disabled", "true");
     tapBtn.style.pointerEvents = "none";
+    tapBtn.classList.add("is-disabled");
 
-    // STAGE B: UNTYING (Bow unravels, ribbon bands eject)
-    stage.setAttribute("data-state", "untying");
+    function setStageState(state: string) {
+      stage.setAttribute("data-state", state);
+      if (coverSection) {
+        coverSection.setAttribute("data-state", state);
+      }
+    }
 
-    // STAGE C: UNFOLDING (Paper panels flip open in 3D)
+    // STAGE B: UNTYING (Knot loosens, bow loops deform, tails move, X-ribbon slides off)
+    setStageState("untying");
+
+    // STAGE C: UNFOLDING (Gatefold panels swing open in 3D)
     setTimeout(() => {
-      stage.setAttribute("data-state", "unfolding");
+      setStageState("unfolding");
     }, 1600);
 
-    // STAGE D: REVEALED (Full stationery exposed, audio starts, ready to read)
+    // STAGE D: REVEALED (Full stationery exposed, audio plays, ready to explore)
     setTimeout(() => {
-      stage.setAttribute("data-state", "revealed");
+      setStageState("revealed");
       if (onRevealAudio) {
         onRevealAudio();
       }
@@ -37,15 +45,13 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
     }, 3600);
   }
 
-  // Click & Touch activation
-  tapBtn.addEventListener("click", startOpeningSequence);
-  stage.addEventListener("click", (e) => {
-    if (stage.getAttribute("data-state") === "closed") {
-      startOpeningSequence();
-    }
+  // Strict Activation: ONLY clicking the actual TAP TO OPEN button starts the animation
+  tapBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    startOpeningSequence();
   });
 
-  // Keyboard accessibility (Enter or Space)
+  // Keyboard accessibility: Enter or Space on the button
   tapBtn.addEventListener("keydown", (e: KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();

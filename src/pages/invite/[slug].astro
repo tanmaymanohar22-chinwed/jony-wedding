@@ -11,9 +11,8 @@ import MusicPlayer from '../../components/MusicPlayer.astro';
 import weddingData from '../../data/wedding.json';
 
 export function getStaticPaths() {
-  return [
-    { params: { slug: weddingData.slug } }
-  ];
+  const slugs = new Set([weddingData.slug, "priya-and-rohit", "jony-and-sunny"]);
+  return Array.from(slugs).map(slug => ({ params: { slug } }));
 }
 
 const pageTitle = `${weddingData.couple.bride.firstName} & ${weddingData.couple.groom.firstName} — Luxury Wedding Invitation`;

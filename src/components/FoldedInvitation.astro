@@ -9,74 +9,90 @@ const { monogram = "J & S" } = Astro.props;
 <div id="invitation-opening-stage" class="folded-stage-wrapper" data-state="closed">
   <!-- 3D Perspective Card Scene -->
   <div class="folded-card-scene">
-    <!-- Physical Folded Stationery Container -->
+    <!-- Physical Folded Stationery Folio Container -->
     <div id="physical-folded-card" class="physical-folded-card">
       
-      <!-- Folded Paper Layer (3D Panels) -->
-      <div class="paper-fold-structure">
-        <!-- Top Triangular Flap -->
-        <div class="fold-panel fold-panel-top">
-          <div class="fold-panel-surface">
-            <div class="paper-crease-shadow"></div>
+      <!-- Gatefold Paper Folio Panels (Left and Right meeting in center) -->
+      <div class="folio-paper-structure">
+        <!-- Left Folio Panel -->
+        <div class="folio-panel folio-panel-left">
+          <div class="folio-panel-surface">
+            <div class="folio-crease-shadow"></div>
+            <div class="folio-deckle-edge"></div>
           </div>
         </div>
 
-        <!-- Left Fold Panel -->
-        <div class="fold-panel fold-panel-left">
-          <div class="fold-panel-surface">
-            <div class="paper-crease-shadow"></div>
-          </div>
-        </div>
-
-        <!-- Right Fold Panel (Overlapping) -->
-        <div class="fold-panel fold-panel-right">
-          <div class="fold-panel-surface">
-            <div class="paper-crease-shadow"></div>
+        <!-- Right Folio Panel -->
+        <div class="folio-panel folio-panel-right">
+          <div class="folio-panel-surface">
+            <div class="folio-crease-shadow"></div>
+            <div class="folio-deckle-edge"></div>
           </div>
         </div>
       </div>
 
-      <!-- Multi-Part Composable Satin Ribbon & Bow -->
+      <!-- Crossed X-Shape Satin Ribbon Rig -->
       <div id="ribbon-rig" class="ribbon-rig">
-        <!-- Diagonal Satin Ribbon Bands -->
-        <div class="ribbon-band-diagonal ribbon-band-topleft"></div>
-        <div class="ribbon-band-diagonal ribbon-band-bottomright"></div>
+        <!-- Ribbon Strip 1: Top-Left to Bottom-Right -->
+        <div class="ribbon-strap ribbon-strap-tl-br">
+          <div class="ribbon-strap-sheen"></div>
+        </div>
 
-        <!-- Independent Bow Assemblies -->
+        <!-- Ribbon Strip 2: Bottom-Left to Top-Right (Crossing at Center) -->
+        <div class="ribbon-strap ribbon-strap-bl-tr">
+          <div class="ribbon-strap-sheen"></div>
+        </div>
+
+        <!-- Prominent Satin Ribbon Bow at Intersection -->
         <div class="bow-rig">
-          <!-- Left Ribbon Loop -->
-          <div class="bow-element bow-loop bow-loop-left"></div>
+          <svg class="bow-svg-layer" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="satinGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="30%" stop-color="#FAF2E8" />
+                <stop offset="65%" stop-color="#E2CDB6" />
+                <stop offset="100%" stop-color="#CBB297" />
+              </linearGradient>
+              <linearGradient id="satinShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#F2E6D6" />
+                <stop offset="50%" stop-color="#DDC8B0" />
+                <stop offset="100%" stop-color="#B89B7E" />
+              </linearGradient>
+              <filter id="bowShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#3A3029" flood-opacity="0.32" />
+              </filter>
+            </defs>
 
-          <!-- Right Ribbon Loop -->
-          <div class="bow-element bow-loop bow-loop-right"></div>
+            <!-- Cascading Ribbon Tails -->
+            <g id="bow-tail-left-grp" class="bow-anim-tail-left" filter="url(#bowShadow)">
+              <path d="M92,95 C75,120 52,148 38,172 C46,164 54,162 62,168 C76,146 88,122 98,98 Z" fill="url(#satinShadow)" />
+            </g>
+            <g id="bow-tail-right-grp" class="bow-anim-tail-right" filter="url(#bowShadow)">
+              <path d="M108,95 C125,120 148,148 162,172 C154,164 146,162 138,168 C124,146 112,122 102,98 Z" fill="url(#satinShadow)" />
+            </g>
 
-          <!-- Central Knot -->
-          <div class="bow-element bow-center-knot">
-            <span class="knot-monogram font-serif">{monogram}</span>
-          </div>
+            <!-- Left Satin Loop -->
+            <g id="bow-loop-left-grp" class="bow-anim-loop-left" filter="url(#bowShadow)">
+              <path d="M100,88 C76,46 28,48 24,74 C20,98 68,98 96,90 Z" fill="url(#satinGlow)" />
+              <path d="M38,72 C42,60 68,60 88,82 C72,82 50,80 38,72 Z" fill="url(#satinShadow)" opacity="0.6" />
+            </g>
 
-          <!-- Left Ribbon Tail -->
-          <div class="bow-element bow-tail bow-tail-left"></div>
+            <!-- Right Satin Loop -->
+            <g id="bow-loop-right-grp" class="bow-anim-loop-right" filter="url(#bowShadow)">
+              <path d="M100,88 C124,46 172,48 176,74 C180,98 132,98 104,90 Z" fill="url(#satinGlow)" />
+              <path d="M162,72 C158,60 132,60 112,82 C128,82 150,80 162,72 Z" fill="url(#satinShadow)" opacity="0.6" />
+            </g>
 
-          <!-- Right Ribbon Tail -->
-          <div class="bow-element bow-tail bow-tail-right"></div>
+            <!-- Central Tied Knot -->
+            <g id="bow-knot-grp" class="bow-anim-knot" filter="url(#bowShadow)">
+              <rect x="84" y="72" width="32" height="34" rx="10" fill="url(#satinGlow)" stroke="#FFFDF8" stroke-width="1.2" />
+              <path d="M88,77 C95,89 95,93 88,101" stroke="#BA9E82" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.75" />
+              <path d="M112,77 C105,89 105,93 112,101" stroke="#BA9E82" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.75" />
+            </g>
+          </svg>
         </div>
       </div>
 
     </div>
-  </div>
-
-  <!-- Luxury "TAP TO OPEN" Button -->
-  <div class="tap-to-open-container">
-    <button 
-      id="tap-to-open-btn" 
-      class="tap-to-open-button" 
-      type="button"
-      aria-label="Tap to open the wedding invitation"
-    >
-      <span class="tap-sparkle">✦</span>
-      <span class="tap-text">TAP TO OPEN</span>
-      <span class="tap-sparkle">✦</span>
-    </button>
   </div>
 </div>

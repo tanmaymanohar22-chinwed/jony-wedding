@@ -1,11 +1,14 @@
-/* ===================================================
-   PHYSICAL 3D FOLDED INVITATION & RIBBON ANIMATIONS
-   =================================================== */
+/* ========================================================
+   PHYSICAL 3D GATEFOLD INVITATION & X-RIBBON UNTYING RIG
+   ======================================================== */
 
 .folded-card-scene {
   perspective: 1400px;
   transform-style: preserve-3d;
   width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
 }
 
 .physical-folded-card {
@@ -13,77 +16,96 @@
   inset: 0;
   z-index: 40;
   transform-style: preserve-3d;
-  pointer-events: auto;
-  cursor: pointer;
+  pointer-events: none;
   transition: opacity 0.8s ease;
 }
 
 /* ===================================================
-   STAGE A: CLOSED (Default State)
+   STAGE A: CLOSED (Default State on Every Visit)
    =================================================== */
-[data-state="closed"] .fold-panel-top {
-  transform: rotateX(0deg);
-}
-[data-state="closed"] .fold-panel-left {
+[data-state="closed"] .folio-panel-left {
   transform: rotateY(0deg);
 }
-[data-state="closed"] .fold-panel-right {
+[data-state="closed"] .folio-panel-right {
   transform: rotateY(0deg);
 }
 
 [data-state="closed"] .invitation-underneath {
-  transform: scale(0.98);
-  filter: blur(1px);
-  opacity: 0.65;
+  transform: scale(0.985);
+  filter: blur(0.5px);
+  opacity: 0.7;
 }
 
 /* ===================================================
-   STAGE B: UNTYING (Bow Untying & Ribbon Slide Off)
+   STAGE B: UNTYING (Realistic Knot, Bow & X-Ribbon Release)
    =================================================== */
-[data-state="untying"] .bow-center-knot {
-  transform: translate(-50%, -50%) scale(1.25) rotate(-15deg);
+/* 1. Center Knot Loosens and Rotates */
+[data-state="untying"] .bow-anim-knot {
+  transform-origin: 100px 90px;
+  transform: scale(1.35) rotate(-20deg);
   opacity: 0;
-  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease 0.35s;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease 0.65s;
 }
 
-[data-state="untying"] .bow-loop-left {
-  transform: translate(-50%, -50%) scaleX(0.12) scaleY(1.35) translate(-70px, -20px) rotate(-25deg);
+/* 2. Bow Loops Deform and Unfurl */
+[data-state="untying"] .bow-anim-loop-left {
+  transform-origin: 100px 88px;
+  transform: scaleX(0.2) scaleY(1.3) translate(-55px, -10px) rotate(-25deg);
   opacity: 0;
-  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease 0.25s;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease 0.6s;
 }
 
-[data-state="untying"] .bow-loop-right {
-  transform: translate(-50%, -50%) scaleX(0.12) scaleY(1.35) translate(70px, -20px) rotate(25deg);
+[data-state="untying"] .bow-anim-loop-right {
+  transform-origin: 100px 88px;
+  transform: scaleX(0.2) scaleY(1.3) translate(55px, -10px) rotate(25deg);
   opacity: 0;
-  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease 0.25s;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease 0.6s;
 }
 
-[data-state="untying"] .bow-tail-left {
-  transform: translate(-60px, 90px) rotate(-45deg);
+/* 3. Ribbon Tails Slide Away */
+[data-state="untying"] .bow-anim-tail-left {
+  transform-origin: 92px 95px;
+  transform: translate(-60px, 70px) rotate(-35deg);
   opacity: 0;
-  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease 0.2s;
+  transition: transform 1.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease 0.55s;
 }
 
-[data-state="untying"] .bow-tail-right {
-  transform: translate(60px, 90px) rotate(45deg);
+[data-state="untying"] .bow-anim-tail-right {
+  transform-origin: 108px 95px;
+  transform: translate(60px, 70px) rotate(35deg);
   opacity: 0;
-  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease 0.2s;
+  transition: transform 1.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease 0.55s;
 }
 
-[data-state="untying"] .ribbon-band-topleft {
-  transform: translate(-150%, -150%) rotate(-32deg);
+/* 4. X-Ribbon Strips Slide Diagonally Away */
+[data-state="untying"] .ribbon-strap-tl-br {
+  transform: translate(-150%, -150%) rotate(38deg);
   opacity: 0;
-  transition: transform 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.15s, opacity 0.8s ease 0.4s;
+  transition: transform 1.4s cubic-bezier(0.3, 0, 0.2, 1) 0.2s, opacity 0.8s ease 0.5s;
 }
 
-[data-state="untying"] .ribbon-band-bottomright {
-  transform: translate(150%, 150%) rotate(-32deg);
+[data-state="untying"] .ribbon-strap-bl-tr {
+  transform: translate(150%, -150%) rotate(-38deg);
   opacity: 0;
-  transition: transform 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.15s, opacity 0.8s ease 0.4s;
+  transition: transform 1.4s cubic-bezier(0.3, 0, 0.2, 1) 0.2s, opacity 0.8s ease 0.5s;
+}
+
+/* 5. TAP TO OPEN Button Smooth Fade Out */
+[data-state="untying"] .tap-to-open-container,
+[data-state="unfolding"] .tap-to-open-container,
+[data-state="revealed"] .tap-to-open-container {
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+[data-state="revealed"] .tap-to-open-container {
+  display: none;
 }
 
 /* ===================================================
-   STAGE C: UNFOLDING (3D Paper Flaps Lifting & Opening)
+   STAGE C: UNFOLDING (3D Gatefold Panels Swing Open)
    =================================================== */
 [data-state="unfolding"] .ribbon-rig {
   opacity: 0;
@@ -91,25 +113,19 @@
   visibility: hidden;
 }
 
-[data-state="unfolding"] .fold-panel-top {
-  transform: rotateX(165deg);
-  opacity: 0.15;
-  transition: transform 1.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.4s ease 0.3s;
+[data-state="unfolding"] .folio-panel-left {
+  transform: rotateY(-135deg);
+  opacity: 0.95;
+  transition: transform 1.8s cubic-bezier(0.25, 1, 0.4, 1), opacity 1.2s ease 0.6s;
 }
 
-[data-state="unfolding"] .fold-panel-left {
-  transform: rotateY(-165deg);
-  opacity: 0.15;
-  transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, opacity 1.4s ease 0.4s;
+[data-state="unfolding"] .folio-panel-right {
+  transform: rotateY(135deg);
+  opacity: 0.95;
+  transition: transform 1.8s cubic-bezier(0.25, 1, 0.4, 1), opacity 1.2s ease 0.6s;
 }
 
-[data-state="unfolding"] .fold-panel-right {
-  transform: rotateY(165deg);
-  opacity: 0.15;
-  transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, opacity 1.4s ease 0.4s;
-}
-
-[data-state="unfolding"] .paper-crease-shadow {
+[data-state="unfolding"] .folio-crease-shadow {
   opacity: 0;
   transition: opacity 1.2s ease;
 }
@@ -118,7 +134,7 @@
   transform: scale(1);
   filter: blur(0px);
   opacity: 1;
-  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease, filter 1.2s ease;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease;
 }
 
 /* ===================================================
@@ -136,15 +152,6 @@
   opacity: 1;
 }
 
-[data-state="revealed"] .tap-to-open-container {
-  opacity: 0;
-  visibility: hidden;
-  max-height: 0;
-  margin: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease, max-height 0.6s ease;
-}
-
 /* Luxury TAP TO OPEN Button Breathing Glow */
 @keyframes tapPulse {
   0%, 100% {
@@ -159,6 +166,12 @@
 
 .tap-to-open-button {
   animation: tapPulse 2.8s infinite ease-in-out;
+}
+
+.tap-to-open-button.is-disabled {
+  animation: none !important;
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
 }
 
 /* Spinning Vinyl Music Controller */
