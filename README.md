@@ -2,6 +2,10 @@
 
 A mobile-first, interactive digital wedding invitation website built with [Astro](https://astro.build), TypeScript, CSS3 animations, and deployed to **GitHub Pages** with zero hosting costs (₹0).
 
+- **GitHub Repository**: [https://github.com/tanmaymanohar22-chinwed/jony-wedding](https://github.com/tanmaymanohar22-chinwed/jony-wedding)
+- **Live Invitation URL**: [https://tanmaymanohar22-chinwed.github.io/jony-wedding/](https://tanmaymanohar22-chinwed.github.io/jony-wedding/)
+- **Direct Guest Link**: [https://tanmaymanohar22-chinwed.github.io/jony-wedding/invite/priya-and-rohit/](https://tanmaymanohar22-chinwed.github.io/jony-wedding/invite/priya-and-rohit/)
+
 ## ✨ Features
 
 - **3D Envelope & Ribbon Opening**: Interactive realistic envelope reveal with gold wax seal and satin ribbon that smoothly unveils the wedding invitation.
@@ -17,42 +21,27 @@ A mobile-first, interactive digital wedding invitation website built with [Astro
 ## 🚀 How to Run Locally
 
 ```bash
-# Install dependencies
-npm install
-
 # Start local development server
 npm run dev
 ```
 
-Visit `http://localhost:4321` in your browser.
+Visit `http://localhost:4321/jony-wedding/` in your browser.
 
-## 📦 How to Deploy to GitHub Pages (₹0 Free Hosting)
+## 📦 How to Push & Deploy to GitHub Pages
 
-1. Create a new public repository on GitHub (e.g. `wedding-invitation`).
-2. Link your local project and push to GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial wedding invitation release"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/wedding-invitation.git
-   git push -u origin main
-   ```
-3. In your GitHub repository:
-   - Go to **Settings** > **Pages**.
-   - Under **Build and deployment** > **Source**, select **GitHub Actions**.
-4. The workflow in `.github/workflows/deploy.yml` will automatically build and publish your site!
-   Your live invitation URL will be:
-   `https://<your-username>.github.io/wedding-invitation/`
-   and
-   `https://<your-username>.github.io/wedding-invitation/invite/priya-and-rohit/`
+The repository remote `origin` is already linked to:
+`https://github.com/tanmaymanohar22-chinwed/jony-wedding.git`
 
-## 🎨 Changing Details
+To push changes to GitHub:
+```bash
+git add .
+git commit -m "Update wedding invitation configuration"
+git branch -M main
+git push -u origin main
+```
 
-Edit `src/data/wedding.json`:
-- `couple`: Bride and Groom full names, bio, parent names.
-- `weddingDate`: ISO 8601 wedding date & time for the countdown.
-- `events`: Array of celebration ceremonies with addresses and Google Maps links.
-- `story`: Paragraphs and quote for your love story.
-- `gallery`: Photos and captions.
-- `music`: Audio stream or MP3 URL.
+### GitHub Pages Setup (One-time)
+1. In your GitHub repository: [https://github.com/tanmaymanohar22-chinwed/jony-wedding](https://github.com/tanmaymanohar22-chinwed/jony-wedding)
+2. Go to **Settings** > **Pages**.
+3. Under **Build and deployment** > **Source**, choose **GitHub Actions**.
+4. The included `.github/workflows/deploy.yml` workflow will automatically build and publish your site!

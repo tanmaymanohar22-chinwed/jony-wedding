@@ -1,8 +1,9 @@
-﻿import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro/config';
 
+// https://astro.build/config
 export default defineConfig({
-  site: process.env.CI ? 'https://username.github.io' : 'http://localhost:4321',
-  base: process.env.BASE_PATH || '/',
+  site: 'https://tanmaymanohar22-chinwed.github.io',
+  base: '/jony-wedding',
   build: {
     assets: 'assets'
   }
