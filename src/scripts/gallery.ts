@@ -1,22 +1,25 @@
-﻿export function initGallery() {
-  const items = document.querySelectorAll<HTMLElement>(".gallery-item");
-  const modal = document.getElementById("gallery-modal");
-  const modalImg = document.getElementById("modal-image") as HTMLImageElement;
-  const modalCaption = document.getElementById("modal-caption");
-  const closeBtn = document.getElementById("modal-close");
+export function initGallery() {
+  const cards = document.querySelectorAll<HTMLElement>(".gallery-card");
+  const modal = document.getElementById("gallery-lightbox");
+  const previewImg = document.getElementById("lightbox-preview-img") as HTMLImageElement;
+  const previewTitle = document.getElementById("lightbox-preview-title");
+  const previewCaption = document.getElementById("lightbox-preview-caption");
+  const closeBtn = document.getElementById("lightbox-close");
 
-  if (!modal || !modalImg || !closeBtn) return;
+  if (!modal || !previewImg || !closeBtn) return;
 
-  items.forEach(item => {
-    item.addEventListener("click", () => {
-      const img = item.querySelector("img");
-      const caption = item.getAttribute("data-caption") || "";
-      if (img) {
-        modalImg.src = img.src;
-        if (modalCaption) modalCaption.textContent = caption;
-        modal.style.display = "flex";
-        setTimeout(() => modal.classList.add("is-active"), 10);
-      }
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
+      const src = card.getAttribute("data-src") || "";
+      const title = card.getAttribute("data-title") || "";
+      const caption = card.getAttribute("data-caption") || "";
+
+      previewImg.src = src;
+      if (previewTitle) previewTitle.textContent = title;
+      if (previewCaption) previewCaption.textContent = caption;
+
+      modal.style.display = "flex";
+      setTimeout(() => modal.classList.add("is-active"), 10);
     });
   });
 
@@ -47,7 +50,7 @@ export function initScrollReveal() {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.12 });
 
   elements.forEach(el => observer.observe(el));
 }

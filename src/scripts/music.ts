@@ -1,9 +1,9 @@
-﻿export function initMusic(audioSrc: string) {
+export function initMusic(audioSrc: string) {
   const audio = new Audio(audioSrc);
   audio.loop = true;
   audio.preload = "auto";
 
-  const toggleBtn = document.getElementById("music-toggle");
+  const toggleBtn = document.getElementById("music-toggle-btn");
   const iconPlaying = document.getElementById("music-icon-playing");
   const iconMuted = document.getElementById("music-icon-muted");
 
@@ -45,7 +45,6 @@
     }
   });
 
-  // Provide external trigger (for envelope tap)
   return {
     play: playAudio,
     pause: pauseAudio

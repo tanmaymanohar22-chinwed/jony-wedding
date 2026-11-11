@@ -1,0 +1,29 @@
+---
+interface LanguageItem {
+  code: string;
+  label: string;
+  name: string;
+}
+
+interface Props {
+  languages?: LanguageItem[];
+}
+
+const { languages } = Astro.props;
+const hasLanguages = languages && languages.length > 1;
+---
+
+{hasLanguages && (
+  <header class="invitation-top-bar">
+    <button 
+      id="lang-toggle-btn" 
+      class="language-switch-btn" 
+      data-langs={JSON.stringify(languages)}
+      aria-label="Switch invitation language"
+    >
+      <span id="current-lang-label">EN</span>
+      <span style="opacity: 0.5; margin: 0 4px;">|</span>
+      <span style="opacity: 0.6;">IT</span>
+    </button>
+  </header>
+)}

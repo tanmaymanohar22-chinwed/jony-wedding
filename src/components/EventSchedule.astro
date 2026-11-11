@@ -1,4 +1,4 @@
-﻿---
+---
 interface WeddingEvent {
   id: string;
   name: string;
@@ -19,46 +19,57 @@ const { events } = Astro.props;
 ---
 
 <section id="event-schedule" class="invite-section reveal-on-scroll">
-  <div class="section-header">
-    <span class="section-tag">WEDDING ITINERARY</span>
-    <h2 class="section-title">Celebration Schedule</h2>
-    <p class="section-subtitle">We cordially request your gracious presence throughout each celebration</p>
+  <div class="section-heading-block">
+    <span class="section-label">ITINERARY</span>
+    <h2 class="section-title">Wedding Events</h2>
+    <p class="section-desc">We joyfully invite you to join us across each meaningful celebration</p>
   </div>
 
-  <div class="timeline-list">
+  <div class="events-container">
     {events.map((event) => (
-      <div class="timeline-card paper-card">
+      <div class="event-card stationery-panel">
         {event.badge && <span class="event-badge">{event.badge}</span>}
-        <h3 class="event-name">{event.name}</h3>
+        <h3 class="event-title">{event.name}</h3>
         
-        <div class="event-meta">
-          <div class="meta-row">
-            <span class="meta-icon">📅</span>
-            <span><strong>{event.date}</strong></span>
+        <div class="botanical-divider" style="margin: 12px auto;">
+          <span class="botanical-divider-icon">❦</span>
+        </div>
+
+        <div class="event-details-list">
+          <div class="event-detail-row">
+            <span class="text-champagne">📅</span>
+            <span><strong style="color: var(--color-text);">{event.date}</strong></span>
           </div>
-          <div class="meta-row">
-            <span class="meta-icon">⏰</span>
+          <div class="event-detail-row">
+            <span class="text-champagne">⏰</span>
             <span>{event.time}</span>
           </div>
-          <div class="meta-row">
-            <span class="meta-icon">📍</span>
-            <span><strong>{event.venue}</strong>, {event.address}</span>
+          <div class="event-detail-row" style="flex-direction: column; gap: 2px; margin-top: 4px;">
+            <span style="font-weight: 600; color: var(--color-text);">{event.venue}</span>
+            <span style="font-size: 0.85rem; color: var(--color-text-muted);">{event.address}</span>
           </div>
           {event.dressCode && (
-            <div class="meta-row" style="margin-top: 4px;">
-              <span class="meta-icon">✨</span>
-              <span class="text-rose">Dress Code: {event.dressCode}</span>
+            <div class="event-detail-row" style="margin-top: 6px;">
+              <span class="text-rose" style="font-size: 0.85rem; font-style: italic;">
+                Dress Code: {event.dressCode}
+              </span>
             </div>
           )}
         </div>
 
         {event.mapsUrl && (
-          <a href={event.mapsUrl} target="_blank" rel="noopener noreferrer" class="btn-gold" style="font-size: 0.78rem; padding: 10px 20px;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <a 
+            href={event.mapsUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn-champagne"
+            aria-label={`Get directions to ${event.venue}`}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
-            Get Directions
+            View Venue & Directions
           </a>
         )}
       </div>

@@ -1,4 +1,4 @@
-﻿---
+---
 interface StoryData {
   title: string;
   subtitle: string;
@@ -14,68 +14,37 @@ const { story } = Astro.props;
 ---
 
 <section id="our-story" class="invite-section reveal-on-scroll">
-  <div class="story-card paper-card">
-    <div class="section-header">
-      <span class="section-tag">A TALE OF TWO HEARTS</span>
-      <h2 class="section-title">{story.title}</h2>
-      <p class="section-subtitle">{story.subtitle}</p>
-    </div>
+  <div class="story-wrapper">
+    <!-- Subtle Watercolor Landscape Background -->
+    <img 
+      src="/jony-wedding/assets/backgrounds/story-watercolor-bg.jpg" 
+      alt="Watercolor Landscape" 
+      class="story-bg-img"
+    />
 
-    <div class="story-content">
-      {story.paragraphs.map((p) => (
-        <p class="story-paragraph font-serif">{p}</p>
-      ))}
+    <!-- Layered Stationery Paper Overlay -->
+    <div class="story-card-overlay">
+      <div class="section-heading-block" style="margin-bottom: 18px;">
+        <span class="section-label">A JOURNEY OF LOVE</span>
+        <h2 class="section-title">{story.title}</h2>
+        <p class="section-desc">{story.subtitle}</p>
+      </div>
 
-      {story.quote && (
-        <div class="quote-callout">
-          <span class="quote-mark font-serif">“</span>
-          <p class="quote-text font-serif text-charcoal">{story.quote}</p>
-        </div>
-      )}
+      <div class="botanical-divider" style="margin: 0 auto 18px;">
+        <span class="botanical-divider-icon">❦</span>
+      </div>
+
+      <div class="story-text-container">
+        {story.paragraphs.map((para) => (
+          <p class="story-paragraph">{para}</p>
+        ))}
+
+        {story.quote && (
+          <div class="story-quote-block">
+            <p>{story.quote}</p>
+          </div>
+        )}
+      </div>
     </div>
   </div>
 </section>
-
-<style>
-  .story-card {
-    padding: 40px 24px;
-    text-align: center;
-  }
-
-  .story-content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 20px;
-    text-align: left;
-  }
-
-  .story-paragraph {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--color-charcoal);
-  }
-
-  .quote-callout {
-    margin-top: 20px;
-    padding: 20px;
-    background: linear-gradient(145deg, rgba(243, 227, 226, 0.4), rgba(250, 247, 242, 0.7));
-    border-left: 3px solid var(--color-gold);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    text-align: center;
-  }
-
-  .quote-mark {
-    font-size: 2.2rem;
-    line-height: 1;
-    color: var(--color-gold);
-    display: block;
-    margin-bottom: -10px;
-  }
-
-  .quote-text {
-    font-size: 1.15rem;
-    font-style: italic;
-    line-height: 1.5;
-  }
-</style>

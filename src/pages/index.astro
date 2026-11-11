@@ -1,75 +1,74 @@
-﻿---
+---
 import InvitationLayout from '../layouts/InvitationLayout.astro';
-import EnvelopeIntro from '../components/EnvelopeIntro.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import InvitationCover from '../components/InvitationCover.astro';
-import CoupleDetails from '../components/CoupleDetails.astro';
 import Countdown from '../components/Countdown.astro';
 import EventSchedule from '../components/EventSchedule.astro';
 import OurStory from '../components/OurStory.astro';
 import PhotoGallery from '../components/PhotoGallery.astro';
-import MusicPlayer from '../components/MusicPlayer.astro';
 import ClosingSection from '../components/ClosingSection.astro';
+import MusicPlayer from '../components/MusicPlayer.astro';
 import weddingData from '../data/wedding.json';
 
-const pageTitle = `${weddingData.couple.bride.firstName} & ${weddingData.couple.groom.firstName} - Wedding Invitation`;
+const pageTitle = `${weddingData.couple.bride.firstName} & ${weddingData.couple.groom.firstName} — Luxury Wedding Invitation`;
 const pageDescription = `Join us in celebrating the wedding of ${weddingData.couple.bride.fullName} and ${weddingData.couple.groom.fullName} on ${weddingData.formattedDate}.`;
-const coupleNames = `${weddingData.couple.bride.firstName} & ${weddingData.couple.groom.firstName}`;
 ---
 
 <InvitationLayout title={pageTitle} description={pageDescription}>
-  <!-- Step 1: Animated Envelope Reveal -->
-  <EnvelopeIntro monogram={weddingData.monogram} coupleNames={coupleNames} />
+  <!-- Optional Multilingual Header -->
+  <LanguageSwitcher languages={weddingData.languages} />
 
-  <!-- Step 2 to 5: Main Invitation Sections -->
-  <main id="main-invitation-content" class="invitation-shell" style="opacity: 0.98; transition: opacity 0.8s ease;">
+  <main class="invitation-shell">
+    <!-- Section 1 & 2: Ribbon Opening + Main Coastal Stationery Cover -->
     <InvitationCover
       monogram={weddingData.monogram}
       brideName={weddingData.couple.bride.fullName}
       groomName={weddingData.couple.groom.fullName}
       welcomeMessage={weddingData.welcomeMessage}
       formattedDate={weddingData.formattedDate}
+      destination={weddingData.destination}
     />
 
-    <CoupleDetails
-      bride={weddingData.couple.bride}
-      groom={weddingData.couple.groom}
-    />
-
+    <!-- Section 3: Dedicated Floral Frame Countdown -->
     <Countdown weddingDate={weddingData.weddingDate} />
 
+    <!-- Section 4: Itinerary Events Schedule -->
     <EventSchedule events={weddingData.events} />
 
+    <!-- Section 5: Editorial Our Story -->
     <OurStory story={weddingData.story} />
 
+    <!-- Section 6: Editorial Photo Gallery -->
     <PhotoGallery gallery={weddingData.gallery} />
 
+    <!-- Section 7: Scenic Closing Garden Illustration -->
     <ClosingSection closing={weddingData.closing} monogram={weddingData.monogram} />
   </main>
 
-  <!-- Ambient Background Music Floating Toggle -->
+  <!-- Section 8: Bottom-Center Floating Music Player -->
   <MusicPlayer music={weddingData.music} />
 </InvitationLayout>
 
 <script>
+  import { initRibbonReveal } from '../scripts/ribbon';
   import { initCountdown } from '../scripts/countdown';
   import { initMusic } from '../scripts/music';
-  import { initEnvelope } from '../scripts/envelope';
   import { initGallery, initScrollReveal } from '../scripts/gallery';
   import weddingData from '../data/wedding.json';
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Countdown
-    initCountdown(weddingData.weddingDate);
-
-    // Initialize Music Player
+    // 1. Initialize Music Player (audio does not autoplay without interaction)
     const musicController = initMusic(weddingData.music.src);
 
-    // Initialize 3D Envelope Reveal with sound trigger on tap
-    initEnvelope(() => {
+    // 2. Initialize Interactive Satin Ribbon Reveal on tap
+    initRibbonReveal(() => {
       musicController.play();
     });
 
-    // Initialize Photo Gallery Lightbox and Scroll Observer
+    // 3. Initialize Live Countdown
+    initCountdown(weddingData.weddingDate);
+
+    // 4. Initialize Photo Gallery Lightbox and Scroll Observer
     initGallery();
     initScrollReveal();
   });

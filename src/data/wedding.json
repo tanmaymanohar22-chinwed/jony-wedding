@@ -4,98 +4,89 @@
     "bride": {
       "firstName": "Priya",
       "fullName": "Priya Sharma",
-      "title": "Bride",
+      "title": "The Bride",
       "bio": "Daughter of Mr. Rajesh & Mrs. Sunita Sharma",
-      "photo": "/assets/couple/bride.webp"
+      "photo": "/jony-wedding/assets/couple/couple-1.jpg"
     },
     "groom": {
       "firstName": "Rohit",
       "fullName": "Rohit Verma",
-      "title": "Groom",
+      "title": "The Groom",
       "bio": "Son of Mr. Anil & Mrs. Rekha Verma",
-      "photo": "/assets/couple/groom.webp"
+      "photo": "/jony-wedding/assets/couple/couple-2.jpg"
     }
   },
   "monogram": "P & R",
   "weddingDate": "2027-02-14T10:00:00+05:30",
   "formattedDate": "Sunday, February 14, 2027",
-  "welcomeMessage": "Together with their families, cordially invite you to join them in celebrating their union of love, laughter, and lifelong friendship.",
+  "weddingYear": "2027",
+  "destination": "Amalfi Coast & Jaipur",
+  "welcomeMessage": "Together with their families, cordially invite you to celebrate their wedding",
   "events": [
     {
       "id": "mehendi",
-      "name": "Mehendi & Haldi Ceremony",
+      "name": "Mehendi & Sangeet Soirée",
       "date": "Saturday, February 13, 2027",
-      "time": "04:00 PM onwards",
-      "venue": "The Rosewood Garden, Jaipur",
-      "address": "Amer Road, Near Jal Mahal, Jaipur, Rajasthan",
-      "mapsUrl": "https://maps.google.com/?q=Jaipur+Rajasthan",
-      "dressCode": "Festive Yellow & Floral Pastels",
-      "badge": "Celebration"
-    },
-    {
-      "id": "sangeet",
-      "name": "Sangeet & Musical Evening",
-      "date": "Saturday, February 13, 2027",
-      "time": "07:30 PM onwards",
-      "venue": "The Grand Ballroom, Jaipur",
-      "address": "Amer Road, Jaipur, Rajasthan",
-      "mapsUrl": "https://maps.google.com/?q=Jaipur+Rajasthan",
-      "dressCode": "Glamorous Evening Attire",
-      "badge": "Music & Dance"
+      "time": "04:30 PM onwards",
+      "venue": "Villa Cimbrone Gardens",
+      "address": "Via Santa Chiara 26, Ravello, Italy",
+      "mapsUrl": "https://maps.google.com/?q=Villa+Cimbrone+Ravello+Italy",
+      "dressCode": "Pastel Florals & Cocktail Chic",
+      "badge": "Pre-Wedding Celebration"
     },
     {
       "id": "ceremony",
-      "name": "Wedding Ceremony (Muhurtham)",
+      "name": "The Wedding Ceremony",
       "date": "Sunday, February 14, 2027",
-      "time": "10:00 AM - 01:30 PM",
-      "venue": "The Royal Pavilion Courtyard",
-      "address": "Palace Grounds, Amer Road, Jaipur, Rajasthan",
-      "mapsUrl": "https://maps.google.com/?q=Jaipur+Rajasthan",
-      "dressCode": "Traditional Indian Elegance",
-      "badge": "Auspicious Union"
+      "time": "10:30 AM - 01:30 PM",
+      "venue": "Belmond Hotel Caruso Belvedere",
+      "address": "Piazza San Giovanni del Toro 2, Ravello, Italy",
+      "mapsUrl": "https://maps.google.com/?q=Belmond+Hotel+Caruso+Ravello+Italy",
+      "dressCode": "Formal Festive / Traditional Elegance",
+      "badge": "Holy Vows & Muhurtham"
     },
     {
       "id": "reception",
       "name": "Grand Reception & Dinner",
       "date": "Sunday, February 14, 2027",
       "time": "07:30 PM onwards",
-      "venue": "The Palace Emerald Lawns",
-      "address": "Palace Grounds, Jaipur, Rajasthan",
-      "mapsUrl": "https://maps.google.com/?q=Jaipur+Rajasthan",
-      "dressCode": "Formal / Festive Wear",
-      "badge": "Banquet"
+      "venue": "The Olive Grove Terrace",
+      "address": "Via Panoramica 14, Amalfi Coast, Italy",
+      "mapsUrl": "https://maps.google.com/?q=Amalfi+Coast+Italy",
+      "dressCode": "Black Tie & Evening Glamour",
+      "badge": "Dinner & Dancing"
     }
   ],
   "story": {
     "title": "Our Love Story",
-    "subtitle": "How two serendipitous paths aligned into one forever journey",
+    "subtitle": "From serendipitous beginnings to a lifetime of love and discovery",
     "paragraphs": [
-      "It all started on a crisp autumn evening at a cozy corner café in the heart of the city. What was intended as a brief 30-minute coffee catch-up turned into three hours of nonstop conversations about books, dreams, old melodies, and shared aspirations.",
-      "Over four years of adventures—from spontaneous weekend road trips to cheering each other through milestones—we discovered our best friend and true confidant in each other.",
-      "Now, we are overjoyed to begin our next chapter and take our sacred vows surrounded by the warmth, blessings, and love of our nearest and dearest."
+      "It all started on a crisp autumn evening at a quiet cafe overlooking the harbour. What began as an hour-long coffee conversation effortlessly stretched into midnight walks under amber street lamps, filled with shared laughter, dreams of foreign travels, and an unmistakable sense that we had found home in one another.",
+      "Over four beautiful years of journeys—from road trips along cliffside coastlines to celebrating life's quiet milestones together—every memory has brought us closer.",
+      "Now, with immense joy and gratitude, we invite you to join us where the azure sea meets the sky to witness and celebrate our sacred vows."
     ],
-    "quote": "\"In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine.\""
+    "quote": "“Whatever our souls are made of, his and mine are the same.” — Emily Brontë"
   },
   "gallery": [
     {
-      "url": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80",
-      "title": "A Walk In The Rain",
-      "caption": "Where laughter came easy"
+      "url": "/jony-wedding/assets/couple/couple-1.jpg",
+      "title": "Balcony Over The Sea",
+      "caption": "Where the sea breeze whispers forever"
     },
     {
-      "url": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
-      "title": "The Golden Hour",
-      "caption": "Moments we will cherish forever"
+      "url": "/jony-wedding/assets/couple/couple-2.jpg",
+      "title": "Sunset Embrace",
+      "caption": "Golden hour over the Mediterranean cliffside"
     },
     {
-      "url": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",
-      "title": "The Promise",
-      "caption": "Two souls, one destiny"
+      "url": "/jony-wedding/assets/couple/couple-3.jpg",
+      "title": "Candlelit Garden Walk",
+      "caption": "Surrounded by blooming roses and laughter"
     },
     {
-      "url": "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=800&q=80",
-      "title": "Celebration of Smiles",
-      "caption": "With our hearts full of gratitude"
+      "url": "/jony-wedding/assets/couple/couple-4.jpg",
+      "title": "Cobblestone Romance",
+      "caption": "Every step leading hand in hand"
     }
   ],
   "music": {
@@ -103,8 +94,13 @@
     "src": "https://cdn.freesound.org/previews/612/612610_5674468-lq.mp3"
   },
   "closing": {
-    "message": "Your presence, warm wishes, and blessings mean the world to us as we step into this beautiful new chapter together.",
-    "signature": "With warmest love & gratitude,",
+    "heading": "With Love & Blessings",
+    "message": "Your presence and warm wishes are the greatest gift as we begin this new chapter of our lives together.",
+    "signature": "Forever & Always,",
     "hosts": "The Sharma & Verma Families"
-  }
+  },
+  "languages": [
+    { "code": "en", "label": "EN", "name": "English" },
+    { "code": "it", "label": "IT", "name": "Italiano" }
+  ]
 }

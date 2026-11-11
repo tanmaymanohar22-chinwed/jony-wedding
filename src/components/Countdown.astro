@@ -1,4 +1,4 @@
-﻿---
+---
 interface Props {
   weddingDate: string;
 }
@@ -7,38 +7,39 @@ const { weddingDate } = Astro.props;
 ---
 
 <section id="countdown-section" class="invite-section reveal-on-scroll">
-  <div class="countdown-card paper-card">
-    <div class="section-header" style="margin-bottom: 8px;">
-      <span class="section-tag">COUNTING DOWN THE MOMENTS</span>
-      <h2 class="section-title">Save The Date</h2>
-    </div>
+  <div class="countdown-frame-wrapper">
+    <!-- Decorative Rectangular Floral Frame -->
+    <img 
+      src="/jony-wedding/assets/decorations/countdown-floral-frame.jpg" 
+      alt="Floral Watercolor Frame" 
+      class="countdown-frame-art"
+    />
 
-    <div id="countdown-container">
-      <div class="countdown-grid">
-        <div class="countdown-box">
-          <span id="countdown-days" class="countdown-number">00</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-box">
-          <span id="countdown-hours" class="countdown-number">00</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-box">
-          <span id="countdown-mins" class="countdown-number">00</span>
-          <span class="countdown-label">Mins</span>
-        </div>
-        <div class="countdown-box">
-          <span id="countdown-secs" class="countdown-number">00</span>
-          <span class="countdown-label">Secs</span>
+    <!-- Centered Countdown Content -->
+    <div class="countdown-inner-content">
+      <span class="section-label">Awaiting The Day</span>
+      <h2 class="section-title" style="font-size: 1.85rem; margin-bottom: 2px;">Countdown</h2>
+      
+      <div id="countdown-container">
+        <div class="countdown-grid">
+          <div class="countdown-box">
+            <span id="countdown-days" class="countdown-num">00</span>
+            <span class="countdown-unit">Days</span>
+          </div>
+          <div class="countdown-box">
+            <span id="countdown-hours" class="countdown-num">00</span>
+            <span class="countdown-unit">Hours</span>
+          </div>
+          <div class="countdown-box">
+            <span id="countdown-mins" class="countdown-num">00</span>
+            <span class="countdown-unit">Mins</span>
+          </div>
+          <div class="countdown-box">
+            <span id="countdown-secs" class="countdown-num">00</span>
+            <span class="countdown-unit">Secs</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .countdown-card {
-    padding: 32px 20px;
-    text-align: center;
-  }
-</style>

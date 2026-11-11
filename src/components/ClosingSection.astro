@@ -1,5 +1,6 @@
-﻿---
+---
 interface ClosingData {
+  heading: string;
   message: string;
   signature: string;
   hosts: string;
@@ -13,52 +14,31 @@ interface Props {
 const { closing, monogram } = Astro.props;
 ---
 
-<section id="closing-section" class="invite-section reveal-on-scroll">
-  <div class="closing-card paper-card">
-    <div class="closing-icon font-script text-gold">{monogram}</div>
-    
-    <p class="closing-message font-serif">{closing.message}</p>
-    
-    <div class="gold-divider">
-      <span class="gold-divider-icon">❦</span>
-    </div>
+<section id="closing-section" class="invite-section reveal-on-scroll" style="padding-bottom: 30px;">
+  <div class="closing-landscape-wrapper">
+    <!-- Scenic Garden Fountain Watercolor Illustration -->
+    <img 
+      src="/jony-wedding/assets/backgrounds/garden-fountain-closing.jpg" 
+      alt="Scenic Garden Fountain" 
+      class="closing-garden-art"
+    />
 
-    <p class="closing-signature font-script text-rose">{closing.signature}</p>
-    <p class="closing-hosts font-sans text-charcoal">{closing.hosts}</p>
+    <!-- Layered Romantic Forest-Green Gradient Overlay -->
+    <div class="closing-card-overlay">
+      <span class="font-script" style="font-size: 2.8rem; color: var(--color-champagne-light); line-height: 1; margin-bottom: 8px;">
+        {monogram}
+      </span>
+
+      <h2 class="closing-heading">{closing.heading}</h2>
+
+      <div class="botanical-divider" style="max-width: 160px; margin: 4px auto 16px;">
+        <span class="botanical-divider-icon" style="color: var(--color-champagne-light);">❦</span>
+      </div>
+
+      <p class="closing-message-text">{closing.message}</p>
+
+      <p class="closing-signature-text">{closing.signature}</p>
+      <p class="closing-family-hosts">{closing.hosts}</p>
+    </div>
   </div>
 </section>
-
-<style>
-  .closing-card {
-    padding: 48px 24px;
-    text-align: center;
-  }
-
-  .closing-icon {
-    font-size: 3.2rem;
-    line-height: 1;
-    margin-bottom: 20px;
-  }
-
-  .closing-message {
-    font-size: 1.25rem;
-    line-height: 1.7;
-    max-width: 420px;
-    margin: 0 auto;
-    color: var(--color-charcoal);
-  }
-
-  .closing-signature {
-    font-size: 2.2rem;
-    line-height: 1.2;
-    margin-bottom: 4px;
-  }
-
-  .closing-hosts {
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--color-muted);
-  }
-</style>

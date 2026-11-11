@@ -1,14 +1,13 @@
-﻿---
+---
 import InvitationLayout from '../../layouts/InvitationLayout.astro';
-import EnvelopeIntro from '../../components/EnvelopeIntro.astro';
+import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
 import InvitationCover from '../../components/InvitationCover.astro';
-import CoupleDetails from '../../components/CoupleDetails.astro';
 import Countdown from '../../components/Countdown.astro';
 import EventSchedule from '../../components/EventSchedule.astro';
 import OurStory from '../../components/OurStory.astro';
 import PhotoGallery from '../../components/PhotoGallery.astro';
-import MusicPlayer from '../../components/MusicPlayer.astro';
 import ClosingSection from '../../components/ClosingSection.astro';
+import MusicPlayer from '../../components/MusicPlayer.astro';
 import weddingData from '../../data/wedding.json';
 
 export function getStaticPaths() {
@@ -17,36 +16,27 @@ export function getStaticPaths() {
   ];
 }
 
-const pageTitle = `${weddingData.couple.bride.firstName} & ${weddingData.couple.groom.firstName} - Wedding Invitation`;
+const pageTitle = `${weddingData.couple.bride.firstName} & ${weddingData.couple.groom.firstName} — Luxury Wedding Invitation`;
 const pageDescription = `Join us in celebrating the wedding of ${weddingData.couple.bride.fullName} and ${weddingData.couple.groom.fullName} on ${weddingData.formattedDate}.`;
-const coupleNames = `${weddingData.couple.bride.firstName} & ${weddingData.couple.groom.firstName}`;
 ---
 
 <InvitationLayout title={pageTitle} description={pageDescription}>
-  <EnvelopeIntro monogram={weddingData.monogram} coupleNames={coupleNames} />
+  <LanguageSwitcher languages={weddingData.languages} />
 
-  <main id="main-invitation-content" class="invitation-shell">
+  <main class="invitation-shell">
     <InvitationCover
       monogram={weddingData.monogram}
       brideName={weddingData.couple.bride.fullName}
       groomName={weddingData.couple.groom.fullName}
       welcomeMessage={weddingData.welcomeMessage}
       formattedDate={weddingData.formattedDate}
-    />
-
-    <CoupleDetails
-      bride={weddingData.couple.bride}
-      groom={weddingData.couple.groom}
+      destination={weddingData.destination}
     />
 
     <Countdown weddingDate={weddingData.weddingDate} />
-
     <EventSchedule events={weddingData.events} />
-
     <OurStory story={weddingData.story} />
-
     <PhotoGallery gallery={weddingData.gallery} />
-
     <ClosingSection closing={weddingData.closing} monogram={weddingData.monogram} />
   </main>
 
@@ -54,18 +44,18 @@ const coupleNames = `${weddingData.couple.bride.firstName} & ${weddingData.coupl
 </InvitationLayout>
 
 <script>
+  import { initRibbonReveal } from '../../scripts/ribbon';
   import { initCountdown } from '../../scripts/countdown';
   import { initMusic } from '../../scripts/music';
-  import { initEnvelope } from '../../scripts/envelope';
   import { initGallery, initScrollReveal } from '../../scripts/gallery';
   import weddingData from '../../data/wedding.json';
 
   document.addEventListener('DOMContentLoaded', () => {
-    initCountdown(weddingData.weddingDate);
     const musicController = initMusic(weddingData.music.src);
-    initEnvelope(() => {
+    initRibbonReveal(() => {
       musicController.play();
     });
+    initCountdown(weddingData.weddingDate);
     initGallery();
     initScrollReveal();
   });

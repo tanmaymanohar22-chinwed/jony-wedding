@@ -1,0 +1,30 @@
+---
+interface Props {
+  monogram: string;
+}
+
+const { monogram } = Astro.props;
+---
+
+<div id="ribbon-reveal-overlay" class="ribbon-overlay" aria-label="Tap to unwrap invitation">
+  <!-- Diagonal Satin Ribbon Band -->
+  <div class="ribbon-band"></div>
+
+  <!-- Centered Ribbon Bow Knot -->
+  <div class="ribbon-bow-container">
+    <img 
+      src="/jony-wedding/assets/decorations/satin-ribbon-bow.jpg" 
+      alt="Ivory Satin Ribbon Bow" 
+      class="ribbon-bow-img"
+    />
+  </div>
+
+  <!-- Elegant Tap Instruction Badge -->
+  <div class="ribbon-tap-instruction">
+    <div class="ribbon-tap-badge">
+      <span>✦</span>
+      <span>Tap to open invitation</span>
+      <span>✦</span>
+    </div>
+  </div>
+</div>

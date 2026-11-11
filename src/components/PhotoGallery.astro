@@ -1,4 +1,4 @@
-﻿---
+---
 interface PhotoItem {
   url: string;
   title: string;
@@ -13,86 +13,47 @@ const { gallery } = Astro.props;
 ---
 
 <section id="photo-gallery" class="invite-section reveal-on-scroll">
-  <div class="section-header">
-    <span class="section-tag">CAPTURED MOMENTS</span>
-    <h2 class="section-title">Memories & Smiles</h2>
-    <p class="section-subtitle">A glimpse into our cherished moments together</p>
+  <div class="section-heading-block">
+    <span class="section-label">MEMORIES & SMILES</span>
+    <h2 class="section-title">Cherished Moments</h2>
+    <p class="section-desc">A glimpse into our journey together along the coastline</p>
+  </div>
+
+  <div class="botanical-divider" style="margin-bottom: 24px;">
+    <span class="botanical-divider-icon">❦</span>
   </div>
 
   <div class="gallery-grid">
-    {gallery.map((item) => (
-      <div class="gallery-item" data-caption={item.caption}>
-        <img src={item.url} alt={item.title} loading="lazy" />
-        <div class="gallery-caption">
-          <p>{item.caption}</p>
+    {gallery.map((photo, index) => (
+      <div 
+        class="gallery-card" 
+        data-index={index} 
+        data-src={photo.url} 
+        data-title={photo.title} 
+        data-caption={photo.caption}
+      >
+        <img 
+          src={photo.url} 
+          alt={photo.title} 
+          loading="lazy" 
+        />
+        <div class="gallery-caption-bar">
+          <p>{photo.title}</p>
         </div>
       </div>
     ))}
   </div>
 
   <!-- Interactive Lightbox Modal -->
-  <div id="gallery-modal" class="lightbox-modal">
-    <button id="modal-close" class="modal-close-btn" aria-label="Close photo preview">✕</button>
-    <div class="modal-inner">
-      <img id="modal-image" src="" alt="Gallery preview" />
-      <p id="modal-caption" class="font-serif"></p>
+  <div id="gallery-lightbox" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Photo Preview">
+    <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close preview">✕</button>
+    
+    <div class="lightbox-img-box">
+      <img id="lightbox-preview-img" src="" alt="Enlarged photo preview" />
+      <div style="text-align: center;">
+        <h4 id="lightbox-preview-title" class="font-serif" style="color: #FFFDF8; font-size: 1.25rem;"></h4>
+        <p id="lightbox-preview-caption" class="font-serif-sub" style="color: var(--color-champagne-light); font-size: 0.95rem; font-style: italic;"></p>
+      </div>
     </div>
   </div>
 </section>
-
-<style>
-  .lightbox-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(28, 25, 23, 0.92);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    backdrop-filter: blur(12px);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .lightbox-modal.is-active {
-    opacity: 1;
-  }
-
-  .modal-close-btn {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    background: none;
-    border: none;
-    color: #FFF;
-    font-size: 1.8rem;
-    cursor: pointer;
-    line-height: 1;
-  }
-
-  .modal-inner {
-    max-width: 90vw;
-    max-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .modal-inner img {
-    max-width: 100%;
-    max-height: 75vh;
-    border-radius: var(--radius-md);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    object-fit: contain;
-  }
-
-  #modal-caption {
-    color: #FFFDF9;
-    font-size: 1.15rem;
-    letter-spacing: 0.05em;
-    text-align: center;
-  }
-</style>
