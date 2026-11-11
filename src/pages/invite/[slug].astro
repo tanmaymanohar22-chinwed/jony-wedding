@@ -1,8 +1,10 @@
 ---
 import InvitationLayout from '../../layouts/InvitationLayout.astro';
 import IntroOverlay from '../../components/IntroOverlay.astro';
+import TheatreCurtain from '../../components/TheatreCurtain.astro';
 import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
 import InvitationCover from '../../components/InvitationCover.astro';
+import ScratchToReveal from '../../components/ScratchToReveal.astro';
 import Countdown from '../../components/Countdown.astro';
 import EventSchedule from '../../components/EventSchedule.astro';
 import OurStory from '../../components/OurStory.astro';
@@ -21,7 +23,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 ---
 
 <InvitationLayout title={pageTitle} description={pageDescription}>
-  <!-- 1. FULL-SCREEN DEDICATED INTRO OVERLAY (Occupies 100% viewport, hides website until animation finishes) -->
+  <!-- 1. FULL-SCREEN DEDICATED INTRO OVERLAY (Edge-to-edge watercolor, ribbon & folded paper) -->
   <IntroOverlay
     monogram={weddingData.monogram}
     brideName={weddingData.couple.bride.fullName}
@@ -31,11 +33,15 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
     destination={weddingData.destination}
   />
 
-  <!-- 2. MAIN WEDDING WEBSITE (Completely hidden & inert until opening sequence finishes) -->
+  <!-- 2. THEATRE CURTAIN REVEAL OVERLAY (Parts outward to reveal live HTML website) -->
+  <TheatreCurtain />
+
+  <!-- 3. MAIN WEDDING WEBSITE (Live HTML website revealed behind parting curtains) -->
   <main id="wedding-site" class="wedding-site" inert aria-hidden="true">
     <LanguageSwitcher languages={weddingData.languages} />
 
     <div class="invitation-shell">
+      <!-- Section 1: Main Wedding Invitation Hero -->
       <InvitationCover
         brideName={weddingData.couple.bride.fullName}
         groomName={weddingData.couple.groom.fullName}
@@ -44,20 +50,39 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
         destination={weddingData.destination}
       />
 
+      <!-- Section 2: Heart-Shaped Scratch to Reveal Wedding Date & Save-the-Date -->
+      <ScratchToReveal
+        weddingDate={weddingData.weddingDate}
+        formattedDate={weddingData.formattedDate}
+        venue={weddingData.venue}
+        address={weddingData.address}
+      />
+
+      <!-- Section 3: Live Wedding Countdown (Activated ONLY after scratch reveal) -->
       <Countdown weddingDate={weddingData.weddingDate} />
+
+      <!-- Section 4: Wedding Event Schedule & Directions -->
       <EventSchedule events={weddingData.events} />
+
+      <!-- Section 5: Our Love Story -->
       <OurStory story={weddingData.story} />
+
+      <!-- Section 6: Editorial Photo Gallery -->
       <PhotoGallery gallery={weddingData.gallery} />
+
+      <!-- Section 7: Scenic Closing Garden Illustration -->
       <ClosingSection closing={weddingData.closing} monogram={weddingData.monogram} />
     </div>
 
+    <!-- Section 8: Bottom-Center Floating Music Player -->
     <MusicPlayer music={weddingData.music} />
   </main>
 </InvitationLayout>
 
 <script>
   import { initFoldedOpening } from '../../scripts/folded-opening';
-  import { initCountdown } from '../../scripts/countdown';
+  import { initScratchCard } from '../../scripts/scratch-card';
+  import { setupCountdownListener } from '../../scripts/countdown';
   import { initMusic } from '../../scripts/music';
   import { initGallery, initScrollReveal } from '../../scripts/gallery';
   import weddingData from '../../data/wedding.json';
@@ -67,7 +92,8 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
     initFoldedOpening(() => {
       musicController.play();
     });
-    initCountdown(weddingData.weddingDate);
+    initScratchCard();
+    setupCountdownListener(weddingData.weddingDate);
     initGallery();
     initScrollReveal();
   });

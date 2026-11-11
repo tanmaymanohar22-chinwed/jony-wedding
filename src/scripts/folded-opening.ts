@@ -3,6 +3,7 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
   const stage = document.getElementById("invitation-opening-stage");
   const tapBtn = document.getElementById("tap-to-open-btn");
   const weddingSite = document.getElementById("wedding-site");
+  const curtainOverlay = document.getElementById("theatre-curtain-overlay");
 
   if (!overlay || !stage || !tapBtn) return;
 
@@ -34,32 +35,61 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
     setTimeout(() => {
       setStageState("revealed");
 
-      // Hold on the fully revealed stationery inside the overlay for 800ms,
-      // then initiate the seamless 1000ms cinematic crossfade to the complete wedding site
+      // Hold for 700ms, then engage Theatre Curtain Reveal sequence
       setTimeout(() => {
-        // 1. Simultaneously fade in the complete wedding website
-        if (weddingSite) {
-          weddingSite.classList.add("is-revealed");
-          weddingSite.removeAttribute("inert");
-          weddingSite.setAttribute("aria-hidden", "false");
+        if (curtainOverlay) {
+          // 1. Activate curtain stage
+          curtainOverlay.setAttribute("data-state", "active");
+
+          // 2. Fade out intro overlay seamlessly behind the curtain
+          overlay.classList.add("is-hidden");
+
+          // 3. Briefly settle fabric (400ms), then begin parting curtains outward
+          setTimeout(() => {
+            curtainOverlay.setAttribute("data-state", "opening");
+
+            // 4. Live HTML wedding website becomes active underneath the parting curtains
+            if (weddingSite) {
+              weddingSite.classList.add("is-revealed");
+              weddingSite.removeAttribute("inert");
+              weddingSite.setAttribute("aria-hidden", "false");
+            }
+
+            // 5. Once curtains have parted completely (1.8s):
+            setTimeout(() => {
+              curtainOverlay.setAttribute("data-state", "opened");
+              curtainOverlay.classList.add("is-fading-out");
+
+              // 6. Start serene background audio
+              if (onRevealAudio) {
+                onRevealAudio();
+              }
+
+              // 7. Remove overlay elements and restore normal page scrolling
+              setTimeout(() => {
+                curtainOverlay.style.display = "none";
+                overlay.style.display = "none";
+                document.documentElement.classList.remove("intro-active");
+                document.body.classList.remove("intro-active");
+              }, 400);
+            }, 1800);
+          }, 400);
+        } else {
+          // Fallback if curtain overlay element not present
+          if (weddingSite) {
+            weddingSite.classList.add("is-revealed");
+            weddingSite.removeAttribute("inert");
+            weddingSite.setAttribute("aria-hidden", "false");
+          }
+          overlay.classList.add("is-hidden");
+          if (onRevealAudio) onRevealAudio();
+          setTimeout(() => {
+            overlay.style.display = "none";
+            document.documentElement.classList.remove("intro-active");
+            document.body.classList.remove("intro-active");
+          }, 1000);
         }
-
-        // 2. Begin smooth fade-out of intro overlay
-        overlay.classList.add("is-hidden");
-
-        // 3. Start serene background audio
-        if (onRevealAudio) {
-          onRevealAudio();
-        }
-
-        // 4. Once the overlay fade finishes (1000ms):
-        setTimeout(() => {
-          overlay.style.display = "none";
-          // Remove overflow lock on html & body to restore normal page scrolling
-          document.documentElement.classList.remove("intro-active");
-          document.body.classList.remove("intro-active");
-        }, 1000);
-      }, 800);
+      }, 700);
     }, 3600);
   }
 

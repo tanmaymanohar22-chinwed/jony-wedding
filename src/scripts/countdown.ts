@@ -1,40 +1,67 @@
-﻿export function initCountdown(targetIsoDate: string) {
-  const targetTime = new Date(targetIsoDate).getTime();
+// Event-Driven Live Wedding Countdown
+// Activates ONLY upon receipt of the "wedding-date-revealed" event
+
+export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T00:00:00+05:30") {
+  const section = document.getElementById("countdown-section");
   const daysEl = document.getElementById("countdown-days");
   const hoursEl = document.getElementById("countdown-hours");
   const minsEl = document.getElementById("countdown-mins");
   const secsEl = document.getElementById("countdown-secs");
   const containerEl = document.getElementById("countdown-container");
 
-  if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
+  if (!section || !daysEl || !hoursEl || !minsEl || !secsEl) return;
 
-  function update() {
-    const now = new Date().getTime();
-    const distance = targetTime - now;
+  let countdownInterval: ReturnType<typeof setInterval> | null = null;
+  let isActive = false;
 
-    if (distance <= 0) {
-      if (containerEl) {
-        containerEl.innerHTML = `
-          <div class="paper-card" style="padding: 24px; text-align: center;">
-            <p class="font-script text-rose" style="font-size: 2.5rem; margin-bottom: 8px;">Happily Married!</p>
-            <p class="font-serif text-muted" style="font-size: 1.1rem;">Thank you for blessing our sacred union.</p>
-          </div>
-        `;
+  function startCountdown(targetIsoDate: string) {
+    if (isActive) return;
+    isActive = true;
+
+    console.log("Starting wedding countdown to:", targetIsoDate);
+    const targetTime = new Date(targetIsoDate).getTime();
+
+    // Reveal the countdown section with smooth entrance
+    section.classList.remove("countdown-dormant");
+    section.classList.add("countdown-active");
+    section.setAttribute("aria-hidden", "false");
+
+    function update() {
+      const now = new Date().getTime();
+      const distance = targetTime - now;
+
+      if (distance <= 0) {
+        if (countdownInterval) clearInterval(countdownInterval);
+        if (containerEl) {
+          containerEl.innerHTML = `
+            <div class="paper-card" style="padding: 24px; text-align: center;">
+              <p class="font-script text-rose" style="font-size: 2.5rem; margin-bottom: 8px;">Happily Married!</p>
+              <p class="font-serif text-muted" style="font-size: 1.1rem;">Thank you for blessing our sacred wedding union.</p>
+            </div>
+          `;
+        }
+        return;
       }
-      return;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      daysEl.textContent = String(days).padStart(2, "0");
+      hoursEl.textContent = String(hours).padStart(2, "0");
+      minsEl.textContent = String(minutes).padStart(2, "0");
+      secsEl.textContent = String(seconds).padStart(2, "0");
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    daysEl!.textContent = String(days).padStart(2, "0");
-    hoursEl!.textContent = String(hours).padStart(2, "0");
-    minsEl!.textContent = String(minutes).padStart(2, "0");
-    secsEl!.textContent = String(seconds).padStart(2, "0");
+    update();
+    countdownInterval = setInterval(update, 1000);
   }
 
-  update();
-  setInterval(update, 1000);
+  // Listen for the custom event dispatched by the Scratch Card
+  window.addEventListener("wedding-date-revealed", (e: Event) => {
+    const customEvent = e as CustomEvent<{ date?: string }>;
+    const targetDate = customEvent.detail?.date || section.getAttribute("data-target-date") || defaultIsoDate;
+    startCountdown(targetDate);
+  });
 }

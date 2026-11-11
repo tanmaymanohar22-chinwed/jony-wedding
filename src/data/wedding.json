@@ -17,53 +17,56 @@
     }
   },
   "monogram": "J & S",
-  "weddingDate": "2027-02-14T10:00:00+05:30",
-  "formattedDate": "Sunday, February 14, 2027",
-  "weddingYear": "2027",
-  "destination": "Amalfi Coast & Jaipur",
+  "weddingDate": "2026-12-29T00:00:00+05:30",
+  "formattedDate": "Tuesday, December 29, 2026",
+  "weddingYear": "2026",
+  "destination": "Sanathnagar, Hyderabad",
+  "venue": "Baptist Church Sanathnagar",
+  "address": "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018, India",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
   "welcomeMessage": "Together with their families, cordially invite you to celebrate their wedding",
   "events": [
     {
       "id": "mehendi",
       "name": "Mehendi & Sangeet Soirée",
-      "date": "Saturday, February 13, 2027",
-      "time": "04:30 PM onwards",
-      "venue": "Villa Cimbrone Gardens",
-      "address": "Via Santa Chiara 26, Ravello, Italy",
-      "mapsUrl": "https://maps.google.com/?q=Villa+Cimbrone+Ravello+Italy",
-      "dressCode": "Pastel Florals & Cocktail Chic",
+      "date": "Monday, December 28, 2026",
+      "time": "05:00 PM onwards",
+      "venue": "Czech Colony Celebration Lawn",
+      "address": "Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
+      "dressCode": "Traditional Festive / Pastel Elegance",
       "badge": "Pre-Wedding Celebration"
     },
     {
       "id": "ceremony",
-      "name": "The Wedding Ceremony",
-      "date": "Sunday, February 14, 2027",
-      "time": "10:30 AM - 01:30 PM",
-      "venue": "Belmond Hotel Caruso Belvedere",
-      "address": "Piazza San Giovanni del Toro 2, Ravello, Italy",
-      "mapsUrl": "https://maps.google.com/?q=Belmond+Hotel+Caruso+Ravello+Italy",
-      "dressCode": "Formal Festive / Traditional Elegance",
-      "badge": "Holy Vows & Muhurtham"
+      "name": "The Holy Wedding Ceremony",
+      "date": "Tuesday, December 29, 2026",
+      "time": "10:30 AM - 01:00 PM",
+      "venue": "Baptist Church Sanathnagar",
+      "address": "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018, India",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
+      "dressCode": "Formal Wedding Attire / Traditional Finery",
+      "badge": "Holy Vows & Nuptials"
     },
     {
       "id": "reception",
-      "name": "Grand Reception & Dinner",
-      "date": "Sunday, February 14, 2027",
-      "time": "07:30 PM onwards",
-      "venue": "The Olive Grove Terrace",
-      "address": "Via Panoramica 14, Amalfi Coast, Italy",
-      "mapsUrl": "https://maps.google.com/?q=Amalfi+Coast+Italy",
-      "dressCode": "Black Tie & Evening Glamour",
-      "badge": "Dinner & Dancing"
+      "name": "Grand Wedding Reception & Dinner",
+      "date": "Tuesday, December 29, 2026",
+      "time": "07:00 PM onwards",
+      "venue": "Baptist Church Fellowship Hall & Grounds",
+      "address": "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018, India",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
+      "dressCode": "Evening Formal / Black Tie / Royal Ethnic",
+      "badge": "Dinner & Celebrations"
     }
   ],
   "story": {
     "title": "Our Love Story",
     "subtitle": "From serendipitous beginnings to a lifetime of love and discovery",
     "paragraphs": [
-      "It all started on a crisp autumn evening at a quiet cafe overlooking the harbour. What began as an hour-long coffee conversation effortlessly stretched into midnight walks under amber street lamps, filled with shared laughter, dreams of foreign travels, and an unmistakable sense that we had found home in one another.",
-      "Over four beautiful years of journeys—from road trips along cliffside coastlines to celebrating life's quiet milestones together—every memory has brought us closer.",
-      "Now, with immense joy and gratitude, we invite you to join us where the azure sea meets the sky to witness and celebrate our sacred vows."
+      "It all started on a crisp autumn evening at a quiet cafe. What began as an hour-long conversation effortlessly stretched into midnight walks under amber street lamps, filled with shared laughter, dreams of foreign travels, and an unmistakable sense that we had found home in one another.",
+      "Over four beautiful years of journeys—celebrating life's quiet milestones together—every memory has brought us closer.",
+      "Now, with immense joy and gratitude, we invite you to join us at Baptist Church Sanathnagar to witness and celebrate our sacred vows."
     ],
     "quote": "“Whatever our souls are made of, his and mine are the same.” — Emily Brontë"
   },
@@ -76,7 +79,7 @@
     {
       "url": "/jony-wedding/assets/couple/couple-2.jpg",
       "title": "Sunset Embrace",
-      "caption": "Golden hour over the Mediterranean cliffside"
+      "caption": "Golden hour over the cliffside"
     },
     {
       "url": "/jony-wedding/assets/couple/couple-3.jpg",
@@ -95,7 +98,7 @@
   },
   "closing": {
     "heading": "With Love & Blessings",
-    "message": "Your presence and warm wishes are the greatest gift as we begin this new chapter of our lives together.",
+    "message": "Your presence, prayers and warm wishes are the greatest gift as we begin this new chapter of our lives together.",
     "signature": "Forever & Always,",
     "hosts": "The Families of Jony & Sunny"
   },

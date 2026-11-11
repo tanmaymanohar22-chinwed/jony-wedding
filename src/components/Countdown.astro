@@ -6,7 +6,13 @@ interface Props {
 const { weddingDate } = Astro.props;
 ---
 
-<section id="countdown-section" class="invite-section reveal-on-scroll">
+<!-- Live Countdown Section (Initially dormant and hidden until wedding-date-revealed event) -->
+<section 
+  id="countdown-section" 
+  class="invite-section countdown-dormant" 
+  data-target-date={weddingDate}
+  aria-hidden="true"
+>
   <div class="countdown-frame-wrapper">
     <!-- Decorative Rectangular Floral Frame -->
     <img 
@@ -17,25 +23,26 @@ const { weddingDate } = Astro.props;
 
     <!-- Centered Countdown Content -->
     <div class="countdown-inner-content">
-      <span class="section-label">Awaiting The Day</span>
-      <h2 class="section-title" style="font-size: 1.85rem; margin-bottom: 2px;">Countdown</h2>
+      <span class="section-label">Awaiting The Holy Day</span>
+      <h2 class="section-title" style="font-size: 1.85rem; margin-bottom: 2px;">Wedding Countdown</h2>
+      <p class="countdown-target-label">December 29, 2026 • Baptist Church Sanathnagar</p>
       
       <div id="countdown-container">
         <div class="countdown-grid">
           <div class="countdown-box">
-            <span id="countdown-days" class="countdown-num">00</span>
+            <span id="countdown-days" class="countdown-num">--</span>
             <span class="countdown-unit">Days</span>
           </div>
           <div class="countdown-box">
-            <span id="countdown-hours" class="countdown-num">00</span>
+            <span id="countdown-hours" class="countdown-num">--</span>
             <span class="countdown-unit">Hours</span>
           </div>
           <div class="countdown-box">
-            <span id="countdown-mins" class="countdown-num">00</span>
+            <span id="countdown-mins" class="countdown-num">--</span>
             <span class="countdown-unit">Mins</span>
           </div>
           <div class="countdown-box">
-            <span id="countdown-secs" class="countdown-num">00</span>
+            <span id="countdown-secs" class="countdown-num">--</span>
             <span class="countdown-unit">Secs</span>
           </div>
         </div>

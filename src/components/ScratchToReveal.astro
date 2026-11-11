@@ -1,0 +1,90 @@
+---
+interface Props {
+  weddingDate: string;
+  formattedDate: string;
+  venue: string;
+  address: string;
+}
+
+const { weddingDate, formattedDate, venue, address } = Astro.props;
+---
+
+<section id="scratch-reveal-section" class="invite-section reveal-on-scroll">
+  <div class="scratch-section-header">
+    <span class="section-label">Interactive Experience</span>
+    <h2 class="section-title">Scratch to Reveal</h2>
+    <div class="botanical-divider">
+      <span class="botanical-divider-icon">❦</span>
+    </div>
+    <p class="scratch-prompt-lead">Scratch the heart below to unveil our sacred wedding date</p>
+  </div>
+
+  <div class="scratch-card-wrapper">
+    <!-- Heart-shaped Card Container -->
+    <div id="scratch-card-container" class="scratch-card-container" data-revealed="false">
+      
+      <!-- 1. UNDERNEATH: Revealed Heart Card -->
+      <div class="scratch-underneath-card" aria-live="polite">
+        <div class="scratch-heart-shape">
+          <div class="scratch-inner-typography">
+            <span class="scratch-tagline">Save the Date</span>
+            <div class="scratch-date-highlight">
+              <span class="scratch-day-num">29</span>
+              <span class="scratch-month-year">December 2026</span>
+            </div>
+            <p class="scratch-weekday">Tuesday • Morning Ceremony</p>
+            <div class="scratch-mini-divider">✦</div>
+            <p class="scratch-invitation-lead">You're Cordially Invited</p>
+            <p class="scratch-venue-name">{venue}</p>
+            <p class="scratch-city">Czech Colony, Sanathnagar, Hyderabad</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. TOP: HTML5 Canvas Scratch Coating (Sage Green Glitter + Gold Speckles) -->
+      <canvas 
+        id="scratch-canvas" 
+        class="scratch-canvas-overlay"
+        width="340" 
+        height="320"
+        aria-label="Scratch card canvas surface"
+      ></canvas>
+
+      <!-- Scratch Instruction Badge Floating over Canvas -->
+      <div id="scratch-instruction-pill" class="scratch-instruction-pill">
+        <span class="scratch-hand-icon">✍</span>
+        <span class="scratch-instruction-text">Scratch here to reveal your special date</span>
+      </div>
+    </div>
+
+    <!-- Accessible Alternative Button for screen-readers or users who prefer clicking -->
+    <div class="scratch-accessible-row">
+      <button 
+        id="reveal-date-accessible-btn" 
+        type="button" 
+        class="reveal-accessible-button"
+        aria-controls="scratch-card-container"
+      >
+        ✦ Reveal Date Directly ✦
+      </button>
+    </div>
+
+    <!-- PART 4: SAVE THE DATE ACTION BUTTON (Appears upon reveal) -->
+    <div id="save-date-action-container" class="save-date-container" style="display: none;">
+      <button 
+        id="save-the-date-btn" 
+        type="button" 
+        class="save-the-date-button"
+        data-date={weddingDate}
+        data-venue={venue}
+        data-address={address}
+        aria-label="Save wedding date to your calendar"
+      >
+        <span class="cal-icon">📅</span>
+        <span class="cal-text">Save the Date (Calendar .ics)</span>
+        <span class="cal-sparkle">✦</span>
+      </button>
+      <p class="save-date-hint">Downloads a standard calendar event for Apple, Google & Outlook</p>
+    </div>
+  </div>
+</section>
