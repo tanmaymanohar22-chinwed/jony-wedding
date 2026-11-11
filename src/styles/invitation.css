@@ -24,14 +24,12 @@ body.intro-active .music-control-pill {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  z-index: 99999;
+  z-index: 99990;
   overflow: hidden;
   margin: 0;
   padding: 0;
   background: #F8F3EA;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   touch-action: none;
   transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s ease;
 }
@@ -66,35 +64,37 @@ body.intro-active .music-control-pill {
 }
 
 .intro-stage-box {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 100%;
-  max-width: 440px;
   height: 100%;
+  max-width: none;
   box-sizing: border-box;
-  padding: max(16px, env(safe-area-inset-top, 16px)) 16px max(24px, env(safe-area-inset-bottom, 24px));
-  margin: 0 auto;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
 .intro-stage-box .cover-stationery-wrapper {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: min(390px, 86vw);
-  margin: 0 auto;
-  border-radius: var(--radius-md);
-  box-shadow: 0 20px 50px rgba(58, 48, 40, 0.35);
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
   overflow: hidden;
   background-color: #FFFDF8;
 }
 
 .intro-stage-box .coastal-scene-bg {
   width: 100%;
-  aspect-ratio: 3/4.2;
-  max-height: 68dvh;
+  height: 100%;
+  aspect-ratio: auto;
+  max-height: none;
   object-fit: cover;
   display: block;
 }
@@ -200,16 +200,22 @@ body.intro-active .music-control-pill {
 }
 
 .cover-stationery-wrapper {
-  position: relative;
-  border-radius: var(--radius-md);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-float);
+  box-shadow: none;
   background-color: #FFFDF8;
 }
 
 .coastal-scene-bg {
   width: 100%;
-  aspect-ratio: 3/4.2;
+  height: 100%;
+  aspect-ratio: auto;
   object-fit: cover;
   display: block;
 }
@@ -217,7 +223,9 @@ body.intro-active .music-control-pill {
 /* Gatefold Paper Structure (Left & Right Panels Meeting at Center) */
 .folio-paper-structure {
   position: absolute;
-  inset: 18px 14px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
   pointer-events: none;
   z-index: 41;
@@ -228,6 +236,7 @@ body.intro-active .music-control-pill {
   top: 0;
   bottom: 0;
   width: 50.5%;
+  height: 100%;
   transform-style: preserve-3d;
   backface-visibility: visible;
 }
@@ -242,10 +251,10 @@ body.intro-active .music-control-pill {
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, #FFFDF8 0%, #F5ECE0 70%, #E8D9C5 100%);
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-  box-shadow: 4px 0 16px rgba(81, 70, 63, 0.22);
-  border: 1px solid rgba(199, 167, 123, 0.35);
-  border-right: 1px solid rgba(199, 167, 123, 0.5);
+  border-radius: 0;
+  box-shadow: 4px 0 24px rgba(81, 70, 63, 0.18);
+  border: none;
+  border-right: 1px solid rgba(199, 167, 123, 0.45);
   position: relative;
 }
 
@@ -259,10 +268,10 @@ body.intro-active .music-control-pill {
   width: 100%;
   height: 100%;
   background: linear-gradient(225deg, #FFFDF8 0%, #F5ECE0 70%, #E4D4BE 100%);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  box-shadow: -4px 0 18px rgba(81, 70, 63, 0.25);
-  border: 1px solid rgba(199, 167, 123, 0.35);
-  border-left: none;
+  border-radius: 0;
+  box-shadow: -4px 0 24px rgba(81, 70, 63, 0.18);
+  border: none;
+  border-left: 1px solid rgba(199, 167, 123, 0.45);
   position: relative;
 }
 
@@ -290,6 +299,8 @@ body.intro-active .music-control-pill {
 .ribbon-rig {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 46;
   pointer-events: none;
   overflow: hidden;
@@ -299,10 +310,11 @@ body.intro-active .music-control-pill {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 160%;
-  height: 52px;
+  width: 250vmax;
+  min-width: 200vw;
+  height: clamp(44px, 5.5vh, 56px);
   background: linear-gradient(180deg, #FFFFFF 0%, #F8F1E7 25%, #E3D1BE 55%, #D6BFAB 80%, #F8F2E9 100%);
-  box-shadow: 0 6px 18px rgba(74, 62, 54, 0.26);
+  box-shadow: 0 6px 20px rgba(74, 62, 54, 0.28);
   border-top: 1px solid rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(186, 158, 130, 0.5);
   pointer-events: none;
@@ -333,8 +345,8 @@ body.intro-active .music-control-pill {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 180px;
-  height: 160px;
+  width: clamp(170px, 22vw, 220px);
+  height: clamp(150px, 19vw, 190px);
   z-index: 52;
 }
 
@@ -348,13 +360,18 @@ body.intro-active .music-control-pill {
    LUXURY "TAP TO OPEN" BUTTON
    ======================================================== */
 .tap-to-open-container {
+  position: absolute;
+  left: 50%;
+  bottom: max(28px, calc(env(safe-area-inset-bottom) + 20px));
+  transform: translateX(-50%);
+  width: auto;
+  margin: 0;
+  padding: 0;
+  z-index: 60;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  width: 100%;
-  z-index: 55;
-  position: relative;
+  pointer-events: auto;
 }
 
 .tap-to-open-button {
@@ -375,6 +392,8 @@ body.intro-active .music-control-pill {
   box-shadow: var(--shadow-gold);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
+  white-space: nowrap;
+  min-width: max-content;
 }
 
 .tap-to-open-button:hover,
@@ -1147,13 +1166,12 @@ body.intro-active .music-control-pill {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  z-index: 99990;
+  z-index: 100000;
   overflow: hidden;
   pointer-events: none;
   background: radial-gradient(circle at 50% 50%, rgba(26, 20, 16, 0.45) 0%, rgba(15, 10, 8, 0.75) 100%);
   display: none;
-  opacity: 0;
-  transition: opacity 0.8s ease;
+  opacity: 1;
 }
 
 .curtain-overlay[data-state="active"],
