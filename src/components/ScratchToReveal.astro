@@ -9,7 +9,23 @@ interface Props {
 const { weddingDate, formattedDate, venue, address } = Astro.props;
 ---
 
-<section id="scratch-reveal-section" class="invite-section reveal-on-scroll">
+<section id="scratch-reveal-section" class="scratch-section-fullbleed reveal-on-scroll">
+  <!-- Scalable Vector Heart Definition for Responsive Clipping -->
+  <svg width="0" height="0" style="position: absolute; pointer-events: none;" aria-hidden="true">
+    <defs>
+      <clipPath id="svg-heart-clip" clipPathUnits="objectBoundingBox">
+        <path d="M 0.5,0.16 C 0.5,0.05 0.35,0 0.24,0 C 0.1,0 0,0.12 0,0.28 C 0,0.52 0.33,0.74 0.5,0.98 C 0.67,0.74 1,0.52 1,0.28 C 1,0.12 0.9,0 0.76,0 C 0.65,0 0.5,0.05 0.5,0.16 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- Ambient Backdrop Glow & Botanical Flourishes -->
+  <div class="scratch-ambient-backdrop" aria-hidden="true">
+    <div class="scratch-glow-radial"></div>
+    <div class="scratch-botanical-accent scratch-accent-left"></div>
+    <div class="scratch-botanical-accent scratch-accent-right"></div>
+  </div>
+
   <div class="scratch-section-header">
     <span class="section-label">Interactive Experience</span>
     <h2 class="section-title">Scratch to Reveal</h2>
@@ -20,7 +36,7 @@ const { weddingDate, formattedDate, venue, address } = Astro.props;
   </div>
 
   <div class="scratch-card-wrapper">
-    <!-- Heart-shaped Card Container -->
+    <!-- Responsive Heart-shaped Card Container -->
     <div id="scratch-card-container" class="scratch-card-container" data-revealed="false">
       
       <!-- 1. UNDERNEATH: Revealed Heart Card -->
@@ -45,8 +61,6 @@ const { weddingDate, formattedDate, venue, address } = Astro.props;
       <canvas 
         id="scratch-canvas" 
         class="scratch-canvas-overlay"
-        width="340" 
-        height="320"
         aria-label="Scratch card canvas surface"
       ></canvas>
 

@@ -18,60 +18,54 @@ export function initScratchCard() {
   let totalHeartPixels = 0;
   let scratchedPixels = 0;
 
-  // Handle High DPI displays
+  // Dynamic responsive canvas dimensions matching the heart container
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const displayWidth = 340;
-  const displayHeight = 320;
+  let displayWidth = 340;
+  let displayHeight = 320;
 
-  canvas.width = displayWidth * dpr;
-  canvas.height = displayHeight * dpr;
-  canvas.style.width = `${displayWidth}px`;
-  canvas.style.height = `${displayHeight}px`;
-  ctx.scale(dpr, dpr);
+  function resizeCanvas() {
+    if (!canvas || !container) return;
+    const rect = container.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) {
+      displayWidth = Math.round(rect.width);
+      displayHeight = Math.round(rect.height);
+    } else {
+      displayWidth = Math.min(Math.round(window.innerWidth * 0.82), 380);
+      displayHeight = Math.round(displayWidth * (320 / 340));
+    }
 
-  // Helper to draw a heart path centered in a width x height box
-  function drawHeartPath(context: CanvasRenderingContext2D, cx: number, cy: number, w: number, h: number) {
+    canvas.width = displayWidth * dpr;
+    canvas.height = displayHeight * dpr;
+    canvas.style.width = `${displayWidth}px`;
+    canvas.style.height = `${displayHeight}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  // Draw heart path matching the SVG clip-path exactly (0..1 normalized curve scaled to w x h)
+  function drawHeartPath(context: CanvasRenderingContext2D, w: number, h: number) {
     context.beginPath();
-    const topCurveHeight = h * 0.3;
-    context.moveTo(cx, cy + topCurveHeight);
-    
-    // Top left curve
-    context.bezierCurveTo(
-      cx, cy, 
-      cx - w / 2, cy, 
-      cx - w / 2, cy + topCurveHeight
-    );
-    
-    // Bottom left curve to tip
-    context.bezierCurveTo(
-      cx - w / 2, cy + (h + topCurveHeight) / 2, 
-      cx, cy + (h + topCurveHeight) / 1.4, 
-      cx, cy + h
-    );
-    
-    // Bottom right curve from tip
-    context.bezierCurveTo(
-      cx, cy + (h + topCurveHeight) / 1.4, 
-      cx + w / 2, cy + (h + topCurveHeight) / 2, 
-      cx + w / 2, cy + topCurveHeight
-    );
-    
-    // Top right curve
-    context.bezierCurveTo(
-      cx + w / 2, cy, 
-      cx, cy, 
-      cx, cy + topCurveHeight
-    );
+    context.moveTo(w * 0.5, h * 0.16);
+    // top-left lobe
+    context.bezierCurveTo(w * 0.5, h * 0.05, w * 0.35, 0, w * 0.24, 0);
+    context.bezierCurveTo(w * 0.10, 0, 0, h * 0.12, 0, h * 0.28);
+    // left edge to bottom tip
+    context.bezierCurveTo(0, h * 0.52, w * 0.33, h * 0.74, w * 0.5, h * 0.98);
+    // bottom tip to right edge
+    context.bezierCurveTo(w * 0.67, h * 0.74, w * 1.0, h * 0.52, w * 1.0, h * 0.28);
+    // top-right lobe back to center
+    context.bezierCurveTo(w * 1.0, h * 0.12, w * 0.90, 0, w * 0.76, 0);
+    context.bezierCurveTo(w * 0.65, 0, w * 0.5, h * 0.05, w * 0.5, h * 0.16);
     context.closePath();
   }
 
   // Paint initial sage-green glitter coating with gold speckles
   function paintCoating() {
     if (!ctx) return;
+    resizeCanvas();
     ctx.save();
     
     // Clip to heart shape
-    drawHeartPath(ctx, displayWidth / 2, 10, displayWidth * 0.88, displayHeight * 0.86);
+    drawHeartPath(ctx, displayWidth, displayHeight);
     ctx.clip();
 
     // Sage green base gradient
@@ -109,7 +103,7 @@ export function initScratchCard() {
     // Outer heart gold rim border
     ctx.strokeStyle = "rgba(212, 175, 55, 0.85)";
     ctx.lineWidth = 3.5;
-    drawHeartPath(ctx, displayWidth / 2, 10, displayWidth * 0.88, displayHeight * 0.86);
+    drawHeartPath(ctx, displayWidth, displayHeight);
     ctx.stroke();
 
     ctx.restore();
@@ -151,8 +145,8 @@ export function initScratchCard() {
     ctx.save();
     ctx.globalCompositeOperation = "destination-out";
     
-    // Soft circular scratch brush
-    const brushRadius = 24;
+    // Soft circular scratch brush scaled with display width
+    const brushRadius = Math.max(22, Math.round(displayWidth * 0.075));
     const radialGrad = ctx.createRadialGradient(x, y, brushRadius * 0.4, x, y, brushRadius);
     radialGrad.addColorStop(0, "rgba(0,0,0,1)");
     radialGrad.addColorStop(1, "rgba(0,0,0,0.85)");

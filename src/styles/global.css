@@ -32,10 +32,18 @@
   --radius-lg: 20px;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: clip;
 }
 
 html {
@@ -52,7 +60,6 @@ body {
   color: var(--color-text);
   min-height: 100vh;
   line-height: 1.7;
-  overflow-x: hidden;
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(233, 199, 195, 0.15) 0%, transparent 40%),
     radial-gradient(circle at 90% 80%, rgba(130, 158, 186, 0.12) 0%, transparent 45%);

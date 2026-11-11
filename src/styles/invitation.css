@@ -100,16 +100,19 @@ body.intro-active .music-control-pill {
 }
 
 /* Main Wedding Site Container (Hidden until intro animation completes) */
+#wedding-site,
 .wedding-site {
+  width: 100%;
+  max-width: none;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   max-height: 0;
   overflow: hidden;
   transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 100%;
 }
 
+#wedding-site.is-revealed,
 .wedding-site.is-revealed {
   opacity: 1;
   visibility: visible;
@@ -124,14 +127,20 @@ body.intro-active .music-control-pill {
   filter: none !important;
 }
 
-/* Main Invitation Responsive Container */
+/* Main Website Full-Width Shell (No 480px constraint) */
 .invitation-shell {
   width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
   position: relative;
-  min-height: 100vh;
-  padding: 0 14px 100px;
+}
+
+/* Responsive Content Container for Standard Sections */
+.content-container {
+  width: min(100% - 40px, 1100px);
+  margin-inline: auto;
+  position: relative;
 }
 
 /* Header & Language Switcher Bar */
@@ -139,11 +148,18 @@ body.intro-active .music-control-pill {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 16px 8px 8px;
-  max-width: 480px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 60;
+  padding: 16px 24px;
+  width: 100%;
+  max-width: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 70;
+  pointer-events: none;
+}
+
+.invitation-top-bar .language-switch-btn {
+  pointer-events: auto;
 }
 
 .language-switch-btn {
@@ -375,95 +391,237 @@ body.intro-active .music-control-pill {
 }
 
 /* ========================================================
-   SECTION 2: REVEALED INVITATION COVER
+   SECTION 1: FULL-BLEED INVITATION HERO (#invitation-cover)
    ======================================================== */
-.cover-card-overlay {
-  position: absolute;
-  inset: 20px 16px;
-  background: rgba(255, 253, 248, 0.94);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-sm);
+#invitation-cover,
+.hero-section-fullbleed {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 30px 16px 22px;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(4px);
+  justify-content: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.cover-card-overlay::before {
-  content: '';
+/* Full Coastal Watercolor Background Spanning 100% of Viewport */
+.hero-bg-backdrop {
   position: absolute;
-  inset: 5px;
-  border: 1px solid rgba(199, 167, 123, 0.25);
-  border-radius: 4px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-fullbleed-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   pointer-events: none;
 }
 
-.floral-header-img {
-  width: 100%;
-  max-width: 230px;
+.hero-scenic-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 253, 248, 0.45) 0%, rgba(248, 243, 234, 0.68) 65%, rgba(243, 232, 218, 0.88) 100%);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+/* Decorative Florals for Landscape & Desktop Balance */
+.hero-botanical-decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.hero-botanical-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(240px, 42vw, 440px);
   height: auto;
-  margin-bottom: 6px;
   opacity: 0.92;
 }
 
+.hero-side-botanical {
+  position: absolute;
+  top: 50%;
+  width: clamp(160px, 18vw, 280px);
+  height: auto;
+  opacity: 0.82;
+  display: none;
+}
+
+.hero-side-botanical-left {
+  left: -20px;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.hero-side-botanical-right {
+  right: -20px;
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+@media (min-width: 960px) {
+  .hero-side-botanical {
+    display: block;
+  }
+}
+
+/* Foreground Centered Content Layer */
+.hero-foreground-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: clamp(52px, 8vh, 84px) 20px clamp(32px, 5vh, 48px);
+  margin: auto;
+}
+
+.hero-card-panel {
+  background: rgba(255, 253, 248, 0.94);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: 0 16px 45px rgba(81, 70, 63, 0.16);
+  backdrop-filter: blur(8px);
+  padding: clamp(28px, 5vh, 48px) clamp(20px, 5vw, 56px);
+  width: 100%;
+  max-width: min(92vw, 680px);
+  position: relative;
+  text-align: center;
+}
+
+.hero-card-panel::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(199, 167, 123, 0.35);
+  border-radius: calc(var(--radius-md) - 6px);
+  pointer-events: none;
+}
+
+.hero-crest-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-champagne);
+  background: #FFFDF8;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+.hero-monogram {
+  font-family: var(--font-serif-primary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--color-champagne);
+  margin-left: 2px;
+}
+
+.hero-intro-lead,
 .cover-intro-lead {
   font-family: var(--font-sans);
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
+  font-size: clamp(0.72rem, 1.6vw, 0.84rem);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  max-width: 280px;
+  max-width: 440px;
   line-height: 1.6;
+  margin: 0 auto;
 }
 
+.hero-couple-names,
 .cover-couple-names {
-  margin: 10px 0 6px;
+  margin: clamp(10px, 2vh, 18px) 0 clamp(6px, 1.5vh, 12px);
 }
 
+.hero-bride-name,
+.hero-groom-name,
 .cover-bride-name,
 .cover-groom-name {
   font-family: var(--font-serif-primary);
-  font-size: 2.75rem;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.05;
   color: var(--color-text);
   letter-spacing: 0.02em;
 }
 
+.hero-ampersand,
 .cover-ampersand {
   font-family: var(--font-script);
-  font-size: 2.2rem;
+  font-size: clamp(2.2rem, 5.5vw, 3.4rem);
   color: var(--color-champagne);
   display: block;
   line-height: 0.9;
-  margin: 2px 0;
+  margin: 4px 0;
 }
 
+.hero-date-banner,
 .cover-date-banner {
-  margin-top: 8px;
+  margin-top: 10px;
   text-align: center;
 }
 
+.hero-wedding-date,
 .cover-wedding-date {
   font-family: var(--font-serif-secondary);
-  font-size: 1.2rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
   font-weight: 500;
   color: var(--color-text);
   letter-spacing: 0.04em;
 }
 
+.hero-wedding-venue,
 .cover-wedding-venue {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
+  font-size: clamp(0.72rem, 1.6vw, 0.88rem);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-champagne);
-  margin-top: 4px;
+  margin-top: 6px;
   font-weight: 700;
+}
+
+.hero-scroll-cue {
+  margin-top: clamp(14px, 2.5vh, 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-text-muted);
+  opacity: 0.75;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+}
+
+.hero-scroll-arrow {
+  font-size: 0.88rem;
+  animation: heroBounce 2s infinite ease-in-out;
 }
 
 /* ========================================================
@@ -473,7 +631,7 @@ body.intro-active .music-control-pill {
   position: relative;
   width: 100%;
   aspect-ratio: 1/1;
-  max-width: 440px;
+  max-width: min(92vw, 480px);
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -493,28 +651,28 @@ body.intro-active .music-control-pill {
   position: relative;
   z-index: 2;
   text-align: center;
-  width: 72%;
-  padding: 16px;
+  width: 76%;
+  padding: 16px 8px;
 }
 
 .countdown-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: clamp(6px, 1.5vw, 12px);
   margin-top: 14px;
 }
 
 .countdown-box {
-  background: rgba(255, 253, 248, 0.88);
-  border: 1px solid rgba(199, 167, 123, 0.3);
+  background: rgba(255, 253, 248, 0.92);
+  border: 1px solid rgba(199, 167, 123, 0.35);
   border-radius: var(--radius-sm);
-  padding: 10px 4px;
+  padding: clamp(8px, 1.8vw, 14px) 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .countdown-num {
   font-family: var(--font-serif-primary);
-  font-size: 1.85rem;
+  font-size: clamp(1.65rem, 3.8vw, 2.3rem);
   font-weight: 600;
   color: var(--color-text);
   line-height: 1;
@@ -532,10 +690,26 @@ body.intro-active .music-control-pill {
   font-weight: 700;
 }
 
-/* Section Shared Rules */
-.invite-section {
-  padding: 38px 0;
+/* Section Shared Rules (Responsive container up to 1100px on desktop) */
+.invite-section:not(.hero-section-fullbleed):not(.scratch-section-fullbleed) {
+  width: min(100% - 40px, 1100px);
+  margin-inline: auto;
+  padding: clamp(40px, 6vh, 64px) 0;
   position: relative;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .invite-section:not(.hero-section-fullbleed):not(.scratch-section-fullbleed) {
+    width: 100%;
+    padding: 36px 18px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .invite-section:not(.hero-section-fullbleed):not(.scratch-section-fullbleed) {
+    width: min(100% - 32px, 900px);
+  }
 }
 
 .section-heading-block {
@@ -580,11 +754,32 @@ body.intro-active .music-control-pill {
   display: flex;
   flex-direction: column;
   gap: 22px;
+  width: 100%;
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .events-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .events-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    align-items: stretch;
+  }
 }
 
 .event-card {
-  padding: 26px 20px;
+  padding: 28px 24px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .event-badge {
@@ -599,6 +794,7 @@ body.intro-active .music-control-pill {
   padding: 4px 12px;
   border-radius: 14px;
   margin-bottom: 12px;
+  align-self: center;
 }
 
 .event-title {
@@ -635,6 +831,8 @@ body.intro-active .music-control-pill {
   overflow: hidden;
   box-shadow: var(--shadow-soft);
   background-color: #FFFDF8;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .story-bg-img {
@@ -643,6 +841,26 @@ body.intro-active .music-control-pill {
   object-fit: cover;
   display: block;
   opacity: 0.55;
+}
+
+@media (min-width: 860px) {
+  .story-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    min-height: 480px;
+  }
+  .story-bg-img {
+    height: 100%;
+    aspect-ratio: auto;
+    opacity: 0.85;
+  }
+  .story-card-overlay {
+    position: relative !important;
+    inset: auto !important;
+    background: #FFFDF8 !important;
+    border: none !important;
+    padding: 40px 32px !important;
+  }
 }
 
 .story-card-overlay {
@@ -686,7 +904,22 @@ body.intro-active .music-control-pill {
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 12px;
+  width: 100%;
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
 }
 
 .gallery-card {
@@ -780,6 +1013,9 @@ body.intro-active .music-control-pill {
   overflow: hidden;
   box-shadow: var(--shadow-float);
   background-color: var(--color-forest);
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 .closing-garden-art {
@@ -787,6 +1023,13 @@ body.intro-active .music-control-pill {
   aspect-ratio: 3/4.2;
   object-fit: cover;
   display: block;
+}
+
+@media (min-width: 768px) {
+  .closing-garden-art {
+    aspect-ratio: 16/9;
+    max-height: 520px;
+  }
 }
 
 .closing-card-overlay {
@@ -1119,6 +1362,87 @@ body.intro-active .music-control-pill {
   font-style: italic;
 }
 
+/* ========================================================
+   SECTION 2: FULL-BLEED SCRATCH-TO-REVEAL (#scratch-reveal-section)
+   ======================================================== */
+#scratch-reveal-section,
+.scratch-section-fullbleed {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: clamp(48px, 7vh, 80px) 20px;
+  box-sizing: border-box;
+  background: radial-gradient(circle at 50% 35%, #FFFDF8 0%, #F8EFE4 55%, #EBDBC8 100%);
+}
+
+.scratch-ambient-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scratch-glow-radial {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(100vw, 800px);
+  height: min(100vw, 800px);
+  background: radial-gradient(circle, rgba(255, 253, 248, 0.95) 0%, rgba(248, 239, 226, 0.5) 50%, transparent 75%);
+  pointer-events: none;
+}
+
+.scratch-botanical-accent {
+  position: absolute;
+  top: 50%;
+  width: clamp(140px, 16vw, 240px);
+  height: auto;
+  opacity: 0.75;
+  pointer-events: none;
+  display: none;
+}
+
+.scratch-accent-left {
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.scratch-accent-right {
+  right: 0;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+@media (min-width: 960px) {
+  .scratch-botanical-accent {
+    display: block;
+  }
+}
+
+.scratch-section-header {
+  text-align: center;
+  margin-bottom: clamp(18px, 3vh, 28px);
+  position: relative;
+  z-index: 5;
+}
+
+.scratch-prompt-lead {
+  font-family: var(--font-serif-secondary);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: var(--color-text-muted);
+  max-width: 420px;
+  margin: 6px auto 0;
+  font-style: italic;
+}
+
 .scratch-card-wrapper {
   display: flex;
   flex-direction: column;
@@ -1126,12 +1450,14 @@ body.intro-active .music-control-pill {
   justify-content: center;
   position: relative;
   width: 100%;
+  z-index: 5;
 }
 
 .scratch-card-container {
   position: relative;
-  width: 340px;
-  height: 320px;
+  width: min(82vw, 380px);
+  aspect-ratio: 340 / 320;
+  height: auto;
   margin: 0 auto;
 }
 
@@ -1139,6 +1465,8 @@ body.intro-active .music-control-pill {
 .scratch-underneath-card {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1146,16 +1474,16 @@ body.intro-active .music-control-pill {
 }
 
 .scratch-heart-shape {
-  width: 300px;
-  height: 275px;
+  width: 100%;
+  height: 100%;
   background: radial-gradient(circle at 50% 30%, #FFFDF8 0%, #FBF4E8 70%, #EFE1CF 100%);
-  clip-path: path("M150,45 C150,15 110,0 75,0 C30,0 0,35 0,80 C0,145 100,205 150,265 C200,205 300,145 300,80 C300,35 270,0 225,0 C190,0 150,15 150,45 Z");
-  box-shadow: 0 14px 38px rgba(81, 70, 63, 0.22);
+  clip-path: url(#svg-heart-clip);
+  box-shadow: 0 16px 42px rgba(81, 70, 63, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 30px 24px 20px;
+  padding: clamp(20px, 4vw, 34px) clamp(16px, 3vw, 26px);
   box-sizing: border-box;
   border: 1px solid rgba(199, 167, 123, 0.4);
 }
@@ -1165,28 +1493,29 @@ body.intro-active .music-control-pill {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .scratch-tagline {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: clamp(0.64rem, 1.4vw, 0.74rem);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-champagne);
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .scratch-date-highlight {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2px 0 4px;
+  margin: 2px 0;
 }
 
 .scratch-day-num {
   font-family: var(--font-serif-primary);
-  font-size: 3.4rem;
+  font-size: clamp(2.8rem, 7.5vw, 3.8rem);
   font-weight: 600;
   line-height: 0.95;
   color: var(--color-text);
@@ -1195,7 +1524,7 @@ body.intro-active .music-control-pill {
 
 .scratch-month-year {
   font-family: var(--font-serif-secondary);
-  font-size: 1.25rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
   font-weight: 600;
   color: var(--color-rose);
   letter-spacing: 0.05em;
@@ -1204,10 +1533,10 @@ body.intro-active .music-control-pill {
 
 .scratch-weekday {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: clamp(0.68rem, 1.5vw, 0.76rem);
   color: var(--color-text-muted);
   letter-spacing: 0.12em;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .scratch-mini-divider {
@@ -1218,7 +1547,7 @@ body.intro-active .music-control-pill {
 
 .scratch-invitation-lead {
   font-family: var(--font-script);
-  font-size: 1.45rem;
+  font-size: clamp(1.25rem, 3vw, 1.55rem);
   color: var(--color-forest);
   line-height: 1.1;
   margin-bottom: 2px;
@@ -1226,7 +1555,7 @@ body.intro-active .music-control-pill {
 
 .scratch-venue-name {
   font-family: var(--font-serif-primary);
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
   font-weight: 700;
   color: var(--color-text);
   line-height: 1.2;
@@ -1234,7 +1563,7 @@ body.intro-active .music-control-pill {
 
 .scratch-city {
   font-family: var(--font-sans);
-  font-size: 0.68rem;
+  font-size: clamp(0.62rem, 1.3vw, 0.72rem);
   letter-spacing: 0.08em;
   color: var(--color-text-muted);
   margin-top: 2px;
@@ -1243,10 +1572,9 @@ body.intro-active .music-control-pill {
 /* Canvas Scratch Coating */
 .scratch-canvas-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 340px;
-  height: 320px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 10;
   cursor: grab;
   touch-action: none;

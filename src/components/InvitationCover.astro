@@ -10,45 +10,64 @@ interface Props {
 const { brideName, groomName, welcomeMessage, formattedDate, destination } = Astro.props;
 ---
 
-<section id="invitation-cover" class="invite-section" style="padding-top: 10px;">
-  <!-- Revealed Mediterranean Coastal Stationery Header on the Website -->
-  <div class="cover-stationery-wrapper">
-    <div class="invitation-underneath is-revealed-static">
-      <!-- Full Coastal Watercolor Background -->
-      <img 
-        src="/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg" 
-        alt="Mediterranean Coastal Castle" 
-        class="coastal-scene-bg"
-      />
+<section id="invitation-cover" class="hero-section-fullbleed">
+  <!-- Full Coastal Watercolor Background Spanning 100% of Viewport -->
+  <div class="hero-bg-backdrop" aria-hidden="true">
+    <img 
+      src="/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg" 
+      alt="Mediterranean Coastal Castle" 
+      class="hero-fullbleed-bg"
+    />
+    <div class="hero-scenic-overlay"></div>
+  </div>
 
-      <!-- Inset Ivory Paper Panel -->
-      <div class="cover-card-overlay">
-        <!-- Floral Top Header -->
-        <img 
-          src="/jony-wedding/assets/decorations/floral-top-border.jpg" 
-          alt="Watercolor Floral Header" 
-          class="floral-header-img floating-botanical"
-        />
+  <!-- Decorative Corner & Side Florals for Desktop Landscape Balance -->
+  <div class="hero-botanical-decorations" aria-hidden="true">
+    <img 
+      src="/jony-wedding/assets/decorations/floral-top-border.jpg" 
+      alt="" 
+      class="hero-botanical-top floating-botanical"
+    />
+    <div class="hero-side-botanical hero-side-botanical-left">
+      <img src="/jony-wedding/assets/decorations/floral-top-border.jpg" alt="" />
+    </div>
+    <div class="hero-side-botanical hero-side-botanical-right">
+      <img src="/jony-wedding/assets/decorations/floral-top-border.jpg" alt="" />
+    </div>
+  </div>
 
-        <!-- Welcome Message -->
-        <p class="cover-intro-lead">{welcomeMessage}</p>
+  <!-- Separate Foreground Content Layer -->
+  <div class="hero-foreground-content">
+    <div class="hero-card-panel">
+      <!-- Monogram Crest -->
+      <div class="hero-crest-badge">
+        <span class="hero-monogram">J & S</span>
+      </div>
 
-        <!-- Couple Names Display -->
-        <div class="cover-couple-names">
-          <h1 class="cover-bride-name">{brideName}</h1>
-          <span class="cover-ampersand">&</span>
-          <h1 class="cover-groom-name">{groomName}</h1>
-        </div>
+      <!-- Welcome Message -->
+      <p class="hero-intro-lead cover-intro-lead">{welcomeMessage}</p>
 
-        <div class="botanical-divider">
-          <span class="botanical-divider-icon">❦</span>
-        </div>
+      <!-- Couple Names Display -->
+      <div class="hero-couple-names cover-couple-names">
+        <h1 class="hero-bride-name cover-bride-name">{brideName}</h1>
+        <span class="hero-ampersand cover-ampersand">&</span>
+        <h1 class="hero-groom-name cover-groom-name">{groomName}</h1>
+      </div>
 
-        <!-- Date & Venue -->
-        <div class="cover-date-banner">
-          <p class="cover-wedding-date">{formattedDate}</p>
-          <p class="cover-wedding-venue">{destination}</p>
-        </div>
+      <div class="botanical-divider">
+        <span class="botanical-divider-icon">❦</span>
+      </div>
+
+      <!-- Date & Venue -->
+      <div class="hero-date-banner cover-date-banner">
+        <p class="hero-wedding-date cover-wedding-date">{formattedDate}</p>
+        <p class="hero-wedding-venue cover-wedding-venue">{destination}</p>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="hero-scroll-cue" aria-hidden="true">
+        <span class="hero-scroll-text">✦ Scroll to Discover ✦</span>
+        <span class="hero-scroll-arrow">↓</span>
       </div>
     </div>
   </div>
