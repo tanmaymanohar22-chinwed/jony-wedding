@@ -1,109 +1,170 @@
-/* Ribbon Unwrapping Sequence */
-.ribbon-overlay {
+/* ===================================================
+   PHYSICAL 3D FOLDED INVITATION & RIBBON ANIMATIONS
+   =================================================== */
+
+.folded-card-scene {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+.physical-folded-card {
   position: absolute;
   inset: 0;
-  z-index: 50;
+  z-index: 40;
+  transform-style: preserve-3d;
   pointer-events: auto;
   cursor: pointer;
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), visibility 1s ease;
-  overflow: hidden;
-  border-radius: var(--radius-md);
+  transition: opacity 0.8s ease;
 }
 
-.ribbon-band {
-  position: absolute;
-  top: 50%;
-  left: -20%;
-  width: 140%;
-  height: 64px;
-  background: linear-gradient(180deg, #FDF9F2 0%, #F5ECE0 45%, #EADBCA 55%, #FAF5ED 100%);
-  box-shadow: 0 10px 25px rgba(81, 70, 63, 0.22);
-  transform: translateY(-50%) rotate(-28deg);
-  transform-origin: center center;
-  transition: transform 1.1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+/* ===================================================
+   STAGE A: CLOSED (Default State)
+   =================================================== */
+[data-state="closed"] .fold-panel-top {
+  transform: rotateX(0deg);
+}
+[data-state="closed"] .fold-panel-left {
+  transform: rotateY(0deg);
+}
+[data-state="closed"] .fold-panel-right {
+  transform: rotateY(0deg);
+}
+
+[data-state="closed"] .invitation-underneath {
+  transform: scale(0.98);
+  filter: blur(1px);
+  opacity: 0.65;
+}
+
+/* ===================================================
+   STAGE B: UNTYING (Bow Untying & Ribbon Slide Off)
+   =================================================== */
+[data-state="untying"] .bow-center-knot {
+  transform: translate(-50%, -50%) scale(1.25) rotate(-15deg);
+  opacity: 0;
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease 0.35s;
+}
+
+[data-state="untying"] .bow-loop-left {
+  transform: translate(-50%, -50%) scaleX(0.12) scaleY(1.35) translate(-70px, -20px) rotate(-25deg);
+  opacity: 0;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease 0.25s;
+}
+
+[data-state="untying"] .bow-loop-right {
+  transform: translate(-50%, -50%) scaleX(0.12) scaleY(1.35) translate(70px, -20px) rotate(25deg);
+  opacity: 0;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease 0.25s;
+}
+
+[data-state="untying"] .bow-tail-left {
+  transform: translate(-60px, 90px) rotate(-45deg);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease 0.2s;
+}
+
+[data-state="untying"] .bow-tail-right {
+  transform: translate(60px, 90px) rotate(45deg);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease 0.2s;
+}
+
+[data-state="untying"] .ribbon-band-topleft {
+  transform: translate(-150%, -150%) rotate(-32deg);
+  opacity: 0;
+  transition: transform 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.15s, opacity 0.8s ease 0.4s;
+}
+
+[data-state="untying"] .ribbon-band-bottomright {
+  transform: translate(150%, 150%) rotate(-32deg);
+  opacity: 0;
+  transition: transform 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.15s, opacity 0.8s ease 0.4s;
+}
+
+/* ===================================================
+   STAGE C: UNFOLDING (3D Paper Flaps Lifting & Opening)
+   =================================================== */
+[data-state="unfolding"] .ribbon-rig {
+  opacity: 0;
   pointer-events: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.8);
-  border-bottom: 1px solid rgba(199, 167, 123, 0.35);
+  visibility: hidden;
 }
 
-.ribbon-bow-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 170px;
-  height: 170px;
-  z-index: 55;
-  pointer-events: none;
-  transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.7s ease;
+[data-state="unfolding"] .fold-panel-top {
+  transform: rotateX(165deg);
+  opacity: 0.15;
+  transition: transform 1.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.4s ease 0.3s;
 }
 
-.ribbon-bow-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 18px rgba(81, 70, 63, 0.25));
-  animation: bowPulse 3s infinite ease-in-out;
+[data-state="unfolding"] .fold-panel-left {
+  transform: rotateY(-165deg);
+  opacity: 0.15;
+  transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, opacity 1.4s ease 0.4s;
 }
 
-@keyframes bowPulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.04);
-  }
+[data-state="unfolding"] .fold-panel-right {
+  transform: rotateY(165deg);
+  opacity: 0.15;
+  transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, opacity 1.4s ease 0.4s;
 }
 
-/* When Ribbon is Opened */
-.ribbon-overlay.is-unwrapped {
+[data-state="unfolding"] .paper-crease-shadow {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+[data-state="unfolding"] .invitation-underneath {
+  transform: scale(1);
+  filter: blur(0px);
+  opacity: 1;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease, filter 1.2s ease;
+}
+
+/* ===================================================
+   STAGE D: REVEALED (Full Stationery Presentation)
+   =================================================== */
+[data-state="revealed"] .physical-folded-card {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
 
-.ribbon-overlay.is-unwrapped .ribbon-band {
-  transform: translateY(-50%) rotate(-45deg) scaleX(0);
+[data-state="revealed"] .invitation-underneath {
+  transform: scale(1);
+  filter: blur(0px);
+  opacity: 1;
+}
+
+[data-state="revealed"] .tap-to-open-container {
   opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+  margin: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, max-height 0.6s ease;
 }
 
-.ribbon-overlay.is-unwrapped .ribbon-bow-container {
-  transform: translate(-50%, -50%) scale(1.3) rotate(15deg);
-  opacity: 0;
-}
-
-/* Invitation Reveal State */
-.invitation-underneath {
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1s ease;
-}
-
-.ribbon-overlay:not(.is-unwrapped) ~ .invitation-underneath {
-  transform: scale(0.985);
-  filter: blur(0.5px);
-}
-
-/* Gentle Floating Botanical Leaves Effect */
-@keyframes floatGentle {
+/* Luxury TAP TO OPEN Button Breathing Glow */
+@keyframes tapPulse {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    box-shadow: 0 4px 18px rgba(199, 167, 123, 0.25);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px) rotate(2deg);
+    box-shadow: 0 8px 26px rgba(199, 167, 123, 0.5);
+    transform: translateY(-2px);
   }
 }
 
-.floating-botanical {
-  animation: floatGentle 6s ease-in-out infinite;
+.tap-to-open-button {
+  animation: tapPulse 2.8s infinite ease-in-out;
 }
 
-/* Vinyl Music Player Spin */
+/* Spinning Vinyl Music Controller */
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .spin-slow {
@@ -114,10 +175,20 @@
   animation-play-state: paused !important;
 }
 
-/* Scroll Reveal */
+/* Gentle Floating Botanical Leaves Effect */
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(2deg); }
+}
+
+.floating-botanical {
+  animation: floatGentle 6s ease-in-out infinite;
+}
+
+/* Section Reveal on Scroll */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(22px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }

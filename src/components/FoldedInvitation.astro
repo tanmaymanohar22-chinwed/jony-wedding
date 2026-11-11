@@ -1,0 +1,82 @@
+---
+interface Props {
+  monogram?: string;
+}
+
+const { monogram = "J & S" } = Astro.props;
+---
+
+<div id="invitation-opening-stage" class="folded-stage-wrapper" data-state="closed">
+  <!-- 3D Perspective Card Scene -->
+  <div class="folded-card-scene">
+    <!-- Physical Folded Stationery Container -->
+    <div id="physical-folded-card" class="physical-folded-card">
+      
+      <!-- Folded Paper Layer (3D Panels) -->
+      <div class="paper-fold-structure">
+        <!-- Top Triangular Flap -->
+        <div class="fold-panel fold-panel-top">
+          <div class="fold-panel-surface">
+            <div class="paper-crease-shadow"></div>
+          </div>
+        </div>
+
+        <!-- Left Fold Panel -->
+        <div class="fold-panel fold-panel-left">
+          <div class="fold-panel-surface">
+            <div class="paper-crease-shadow"></div>
+          </div>
+        </div>
+
+        <!-- Right Fold Panel (Overlapping) -->
+        <div class="fold-panel fold-panel-right">
+          <div class="fold-panel-surface">
+            <div class="paper-crease-shadow"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-Part Composable Satin Ribbon & Bow -->
+      <div id="ribbon-rig" class="ribbon-rig">
+        <!-- Diagonal Satin Ribbon Bands -->
+        <div class="ribbon-band-diagonal ribbon-band-topleft"></div>
+        <div class="ribbon-band-diagonal ribbon-band-bottomright"></div>
+
+        <!-- Independent Bow Assemblies -->
+        <div class="bow-rig">
+          <!-- Left Ribbon Loop -->
+          <div class="bow-element bow-loop bow-loop-left"></div>
+
+          <!-- Right Ribbon Loop -->
+          <div class="bow-element bow-loop bow-loop-right"></div>
+
+          <!-- Central Knot -->
+          <div class="bow-element bow-center-knot">
+            <span class="knot-monogram font-serif">{monogram}</span>
+          </div>
+
+          <!-- Left Ribbon Tail -->
+          <div class="bow-element bow-tail bow-tail-left"></div>
+
+          <!-- Right Ribbon Tail -->
+          <div class="bow-element bow-tail bow-tail-right"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Luxury "TAP TO OPEN" Button -->
+  <div class="tap-to-open-container">
+    <button 
+      id="tap-to-open-btn" 
+      class="tap-to-open-button" 
+      type="button"
+      aria-label="Tap to open the wedding invitation"
+    >
+      <span class="tap-sparkle">✦</span>
+      <span class="tap-text">TAP TO OPEN</span>
+      <span class="tap-sparkle">✦</span>
+    </button>
+  </div>
+</div>

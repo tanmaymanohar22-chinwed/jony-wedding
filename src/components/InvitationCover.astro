@@ -1,5 +1,5 @@
 ---
-import RibbonReveal from './RibbonReveal.astro';
+import FoldedInvitation from './FoldedInvitation.astro';
 
 interface Props {
   monogram: string;
@@ -14,11 +14,12 @@ const { monogram, brideName, groomName, welcomeMessage, formattedDate, destinati
 ---
 
 <section id="invitation-cover" class="invite-section" style="padding-top: 10px;">
+  <!-- Physical Folded Stationery Canvas with 3D Panels & Ribbon -->
   <div class="cover-stationery-wrapper">
-    <!-- Section 1: Interactive Ribbon & Bow Reveal Overlay -->
-    <RibbonReveal monogram={monogram} />
+    <!-- Stage A-C: Folded Paper & Ribbon Rig -->
+    <FoldedInvitation monogram={monogram} />
 
-    <!-- Section 2: Underlying Mediterranean Coastal Stationery -->
+    <!-- Stage D: Underlying Mediterranean Coastal Stationery Revealed -->
     <div class="invitation-underneath">
       <!-- Full Coastal Watercolor Background -->
       <img 

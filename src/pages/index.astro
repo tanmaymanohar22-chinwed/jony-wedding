@@ -19,7 +19,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
   <LanguageSwitcher languages={weddingData.languages} />
 
   <main class="invitation-shell">
-    <!-- Section 1 & 2: Ribbon Opening + Main Coastal Stationery Cover -->
+    <!-- Section 1 & 2: Physical Folded Stationery + Main Coastal Cover -->
     <InvitationCover
       monogram={weddingData.monogram}
       brideName={weddingData.couple.bride.fullName}
@@ -50,18 +50,19 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 </InvitationLayout>
 
 <script>
-  import { initRibbonReveal } from '../scripts/ribbon';
+  import { initFoldedOpening } from '../scripts/folded-opening';
   import { initCountdown } from '../scripts/countdown';
   import { initMusic } from '../scripts/music';
   import { initGallery, initScrollReveal } from '../scripts/gallery';
   import weddingData from '../data/wedding.json';
 
   document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initialize Music Player (audio does not autoplay without interaction)
+    // 1. Initialize Music Player (does not autoplay without interaction)
     const musicController = initMusic(weddingData.music.src);
 
-    // 2. Initialize Interactive Satin Ribbon Reveal on tap
-    initRibbonReveal(() => {
+    // 2. Initialize Physical Folded Stationery Reveal Sequence
+    // Requires explicit click on "TAP TO OPEN"
+    initFoldedOpening(() => {
       musicController.play();
     });
 

@@ -44,7 +44,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 </InvitationLayout>
 
 <script>
-  import { initRibbonReveal } from '../../scripts/ribbon';
+  import { initFoldedOpening } from '../../scripts/folded-opening';
   import { initCountdown } from '../../scripts/countdown';
   import { initMusic } from '../../scripts/music';
   import { initGallery, initScrollReveal } from '../../scripts/gallery';
@@ -52,7 +52,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 
   document.addEventListener('DOMContentLoaded', () => {
     const musicController = initMusic(weddingData.music.src);
-    initRibbonReveal(() => {
+    initFoldedOpening(() => {
       musicController.play();
     });
     initCountdown(weddingData.weddingDate);
