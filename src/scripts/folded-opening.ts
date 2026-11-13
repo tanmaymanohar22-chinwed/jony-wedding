@@ -96,10 +96,10 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
       }
     }
 
-    // STAGE B: UNTYING (0.0s – 1.6s)
-    setStageState("untying");
+    // STEP 3: J & S logo smoothly fades and scales away
+    setStageState("opening");
 
-    // STAGE C: UNFOLDING (1.6s – Gatefold panels swing open in 3D)
+    // STEP 4: Folded-paper doors begin opening (200ms grace as logo dissolves)
     setTimeout(() => {
       setStageState("unfolding");
 
@@ -129,7 +129,7 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
           triggerImmediateCurtainOpening();
         }
       }, 1800);
-    }, 1600);
+    }, 200);
   }
 
   // Strict Activation: ONLY clicking the actual TAP TO OPEN button starts the animation
