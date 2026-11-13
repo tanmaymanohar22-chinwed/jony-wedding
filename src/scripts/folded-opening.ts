@@ -1,10 +1,9 @@
 export function initFoldedOpening(onRevealAudio?: () => void) {
   const overlay = document.getElementById("intro-overlay");
-  const stage = document.getElementById("invitation-opening-stage");
   const tapBtn = document.getElementById("tap-to-open-btn");
   const weddingSite = document.getElementById("wedding-site");
 
-  if (!overlay || !stage || !tapBtn) return;
+  if (!overlay || !tapBtn) return;
 
   // Pre-render the actual wedding website directly underneath the folded paper doors
   if (weddingSite) {
@@ -22,17 +21,21 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
     tapBtn.style.pointerEvents = "none";
     tapBtn.classList.add("is-disabled");
 
-    // Start logo fade and paper doors unfolding simultaneously (Target duration ~2.8s)
-    stage.setAttribute("data-state", "opening");
-    overlay.setAttribute("data-state", "opening");
+    // PHASE 1: RIBBON_RELEASING (Bow knot loosens, loops untie, tails cascade, straps slide away)
+    overlay.setAttribute("data-state", "ribbon-releasing");
 
+    // PHASE 2: RIBBON_REMOVED (At ~1000ms, ribbons are cleared, ivory panel & burgundy box begin dissolving smoothly)
+    setTimeout(() => {
+      overlay.setAttribute("data-state", "ribbon-removed");
+    }, 1000);
+
+    // PHASE 3: WEBSITE_REVEALED (At ~2800ms, dissolve finishes, website is fully revealed, scrolling and interactivity restored)
     let sequenceCompleted = false;
-    const onDoorOpeningComplete = () => {
+    const onRevealComplete = () => {
       if (sequenceCompleted) return;
       sequenceCompleted = true;
 
-      stage.setAttribute("data-state", "revealed");
-      overlay.setAttribute("data-state", "revealed");
+      overlay.setAttribute("data-state", "website-revealed");
       overlay.classList.add("is-hidden");
       overlay.style.display = "none";
 
@@ -50,21 +53,8 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
       }
     };
 
-    // Listen for paper door transition completion on the left panel
-    const leftDoorPanel = stage.querySelector(".folio-panel-left");
-    if (leftDoorPanel) {
-      const handleDoorEnd = (e: Event) => {
-        const te = e as TransitionEvent;
-        if (te.target === leftDoorPanel && te.propertyName === "transform") {
-          leftDoorPanel.removeEventListener("transitionend", handleDoorEnd);
-          onDoorOpeningComplete();
-        }
-      };
-      leftDoorPanel.addEventListener("transitionend", handleDoorEnd);
-    }
-
-    // Safety timeout matching the 2800ms transition duration (+60ms grace)
-    setTimeout(onDoorOpeningComplete, 2860);
+    // Safety timeout matching the total 2800ms duration (+50ms buffer)
+    setTimeout(onRevealComplete, 2850);
   }
 
   // Strict Activation: ONLY clicking the actual TAP TO OPEN button starts the animation
