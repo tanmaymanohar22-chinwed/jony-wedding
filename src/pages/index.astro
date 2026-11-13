@@ -1,7 +1,6 @@
 ---
 import InvitationLayout from '../layouts/InvitationLayout.astro';
 import IntroOverlay from '../components/IntroOverlay.astro';
-import TheatreCurtain from '../components/TheatreCurtain.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import InvitationCover from '../components/InvitationCover.astro';
 import ScratchToReveal from '../components/ScratchToReveal.astro';
@@ -17,7 +16,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 ---
 
 <InvitationLayout title={pageTitle} description={pageDescription}>
-  <!-- 1. FULL-SCREEN DEDICATED INTRO OVERLAY (Edge-to-edge watercolor, ribbon & folded paper) -->
+  <!-- 1. FULL-SCREEN DEDICATED INTRO OVERLAY (Edge-to-edge watercolor & folded paper) -->
   <IntroOverlay
     monogram={weddingData.monogram}
     brideName={weddingData.couple.bride.fullName}
@@ -27,10 +26,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
     destination={weddingData.destination}
   />
 
-  <!-- 2. THEATRE CURTAIN REVEAL OVERLAY (Parts outward to reveal live HTML website) -->
-  <TheatreCurtain />
-
-  <!-- 3. MAIN WEDDING WEBSITE (Live HTML website revealed behind parting curtains) -->
+  <!-- 2. MAIN WEDDING WEBSITE (Live HTML website revealed directly behind opening paper doors) -->
   <main id="wedding-site" class="wedding-site" inert aria-hidden="true">
     <LanguageSwitcher languages={weddingData.languages} />
 
@@ -82,7 +78,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
     // 1. Initialize Background Music Player
     const musicController = initMusic(weddingData.music.src);
 
-    // 2. Initialize Single-Tap Entrance Sequence (Ribbon -> Curtains -> Live Site)
+    // 2. Initialize Single-Tap Entrance Sequence (Paper Doors -> Live Site)
     initFoldedOpening(() => {
       musicController.play();
     });
