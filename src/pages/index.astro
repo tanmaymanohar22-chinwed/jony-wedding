@@ -1,6 +1,5 @@
 ---
 import InvitationLayout from '../layouts/InvitationLayout.astro';
-import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import InvitationCover from '../components/InvitationCover.astro';
 import ScratchToReveal from '../components/ScratchToReveal.astro';
 import Countdown from '../components/Countdown.astro';
@@ -17,8 +16,6 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 <InvitationLayout title={pageTitle} description={pageDescription}>
   <!-- MAIN CONTINUOUS WEDDING INVITATION WEBSITE -->
   <main id="wedding-site" class="wedding-site">
-    <LanguageSwitcher languages={weddingData.languages} />
-
     <div class="invitation-shell">
       <!-- Section 1: Main Wedding Invitation Hero (Full Viewport) -->
       <InvitationCover
@@ -37,7 +34,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
         address={weddingData.address}
       />
 
-      <!-- Section 3: Live Wedding Countdown (Activated ONLY after scratch reveal) -->
+      <!-- Section 3: Live Wedding Countdown -->
       <Countdown weddingDate={weddingData.weddingDate} />
 
       <!-- Section 4: Confirmed Ceremony & Reception Event Details -->
@@ -46,11 +43,11 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
       <!-- Section 5: Editorial Photo Gallery -->
       <PhotoGallery gallery={weddingData.gallery} />
 
-      <!-- Section 7: Scenic Closing Garden Illustration -->
+      <!-- Section 6: Scenic Closing Garden Illustration -->
       <ClosingSection closing={weddingData.closing} monogram={weddingData.monogram} />
     </div>
 
-    <!-- Section 8: Bottom-Center Floating Music Player -->
+    <!-- Section 7: Bottom-Center Floating Music Player -->
     <MusicPlayer music={weddingData.music} />
   </main>
 </InvitationLayout>
@@ -62,7 +59,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
   import { initGallery, initScrollReveal } from '../scripts/gallery';
   import weddingData from '../data/wedding.json';
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initApp() {
     // 1. Initialize Background Music Player
     const musicController = initMusic(weddingData.music.src);
 
@@ -75,14 +72,20 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
     document.addEventListener('click', startAudioOnFirstInteraction, { once: true });
     document.addEventListener('touchstart', startAudioOnFirstInteraction, { once: true });
 
-    // 2. Initialize Interactive Scratch-to-Reveal Card
+    // 2. Initialize Scratch to Reveal Card
     initScratchCard();
 
-    // 3. Setup Event Listener for Wedding Countdown (Activates only on date reveal)
+    // 3. Setup Event Listener for Wedding Countdown
     setupCountdownListener(weddingData.weddingDate);
 
     // 4. Initialize Photo Gallery Lightbox and Scroll Reveal
     initGallery();
     initScrollReveal();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
 </script>

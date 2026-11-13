@@ -1,5 +1,15 @@
 // Event-Driven Live Wedding Countdown
-// Activates ONLY upon receipt of the "wedding-date-revealed" event
+// Manages the 4 circular SVG progress rings and digit updates
+
+const RING_CIRCUMFERENCE = 263.89; // 2 * Math.PI * 42
+
+function setRingProgress(el: HTMLElement | null, ratio: number) {
+  if (!el) return;
+  const clamped = Math.max(0, Math.min(1, ratio));
+  // At ratio = 1 (full), offset = 0; at ratio = 0 (empty), offset = RING_CIRCUMFERENCE
+  const offset = RING_CIRCUMFERENCE * (1 - clamped);
+  el.style.strokeDashoffset = offset.toFixed(2);
+}
 
 export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T16:00:00+05:30") {
   const section = document.getElementById("countdown-section");
@@ -7,7 +17,12 @@ export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T16:0
   const hoursEl = document.getElementById("countdown-hours");
   const minsEl = document.getElementById("countdown-mins");
   const secsEl = document.getElementById("countdown-secs");
-  const containerEl = document.getElementById("countdown-container");
+  const ringsContainer = document.getElementById("countdown-rings-container");
+
+  const ringDays = document.getElementById("ring-days-meter");
+  const ringHours = document.getElementById("ring-hours-meter");
+  const ringMins = document.getElementById("ring-mins-meter");
+  const ringSecs = document.getElementById("ring-secs-meter");
 
   if (!section || !daysEl || !hoursEl || !minsEl || !secsEl) return;
 
@@ -28,10 +43,9 @@ export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T16:0
     if (isActive) return;
     isActive = true;
 
-    console.log("Starting wedding countdown to:", targetIsoDate);
     const targetTime = new Date(targetIsoDate).getTime();
 
-    // Reveal the countdown section with smooth entrance
+    // Reveal the countdown section with smooth entrance if classes are used
     section.classList.remove("countdown-dormant");
     section.classList.add("countdown-active");
     section.setAttribute("aria-hidden", "false");
@@ -42,11 +56,20 @@ export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T16:0
 
       if (distance <= 0) {
         if (countdownInterval) clearInterval(countdownInterval);
-        if (containerEl) {
-          containerEl.innerHTML = `
-            <div class="paper-card" style="padding: 24px; text-align: center;">
-              <p class="font-script text-rose" style="font-size: 2.5rem; margin-bottom: 8px;">Happily Married!</p>
-              <p class="font-serif text-muted" style="font-size: 1.1rem;">Thank you for blessing our sacred wedding union.</p>
+        setRingProgress(ringDays, 0);
+        setRingProgress(ringHours, 0);
+        setRingProgress(ringMins, 0);
+        setRingProgress(ringSecs, 0);
+        updateDigit(daysEl, "00");
+        updateDigit(hoursEl, "00");
+        updateDigit(minsEl, "00");
+        updateDigit(secsEl, "00");
+
+        if (ringsContainer) {
+          ringsContainer.innerHTML = `
+            <div style="padding: 24px; text-align: center; grid-column: 1 / -1;">
+              <p class="font-script text-rose" style="font-size: 2.2rem; margin-bottom: 6px;">Happily Married!</p>
+              <p class="font-serif text-muted" style="font-size: 1rem; line-height: 1.5;">Thank you for blessing our sacred wedding union.</p>
             </div>
           `;
         }
@@ -58,20 +81,42 @@ export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T16:0
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+      // Update numbers
       updateDigit(daysEl, String(days).padStart(2, "0"));
       updateDigit(hoursEl, String(hours).padStart(2, "0"));
       updateDigit(minsEl, String(minutes).padStart(2, "0"));
       updateDigit(secsEl, String(seconds).padStart(2, "0"));
+
+      // Update circular SVG progress rings
+      setRingProgress(ringSecs, seconds / 60);
+      setRingProgress(ringMins, minutes / 60);
+      setRingProgress(ringHours, hours / 24);
+      setRingProgress(ringDays, Math.min(1, days / 365));
     }
 
     update();
     countdownInterval = setInterval(update, 1000);
   }
 
-  // Listen for the custom event dispatched by the Scratch Card
+  const targetDate = section.getAttribute("data-target-date") || defaultIsoDate;
+
+  // Session check: only start immediately on page load if scratch was already completed in this session
+  const isAlreadyRevealed = (() => {
+    try {
+      return sessionStorage.getItem("wedding_scratch_revealed") === "true";
+    } catch {
+      return false;
+    }
+  })();
+
+  if (isAlreadyRevealed) {
+    startCountdown(targetDate);
+  }
+
+  // Listener for scratch-completion event: reveals countdown smoothly
   window.addEventListener("wedding-date-revealed", (e: Event) => {
     const customEvent = e as CustomEvent<{ date?: string }>;
-    const targetDate = customEvent.detail?.date || section.getAttribute("data-target-date") || defaultIsoDate;
-    startCountdown(targetDate);
+    const date = customEvent.detail?.date || targetDate;
+    startCountdown(date);
   });
 }

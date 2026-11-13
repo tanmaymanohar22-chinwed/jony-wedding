@@ -17,11 +17,81 @@ export function initScratchCard() {
   let isRevealed = false;
   let totalHeartPixels = 0;
   let scratchedPixels = 0;
+  let moveCounter = 0;
 
   // Dynamic responsive canvas dimensions matching the heart container
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   let displayWidth = 340;
   let displayHeight = 320;
+
+  // Session check: ensure countdown and reveal persist within session if completed
+  const isAlreadyRevealed = (() => {
+    try {
+      return sessionStorage.getItem("wedding_scratch_revealed") === "true";
+    } catch {
+      return false;
+    }
+  })();
+
+  function completeReveal(immediate: boolean = false) {
+    if (isRevealed) return;
+    isRevealed = true;
+    container.setAttribute("data-revealed", "true");
+
+    try {
+      sessionStorage.setItem("wedding_scratch_revealed", "true");
+    } catch {}
+
+    if (canvas) {
+      if (immediate) {
+        canvas.style.display = "none";
+      } else {
+        canvas.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        canvas.style.opacity = "0";
+        canvas.style.transform = "scale(1.05)";
+        canvas.style.pointerEvents = "none";
+      }
+    }
+
+    if (instructionPill) {
+      instructionPill.style.display = "none";
+    }
+
+    if (accessibleBtn) {
+      accessibleBtn.style.display = "none";
+    }
+
+    // Display Save the Date action button with smooth entrance
+    if (saveDateContainer) {
+      saveDateContainer.style.display = "block";
+      if (immediate) {
+        saveDateContainer.style.opacity = "1";
+        saveDateContainer.style.transform = "translateY(0)";
+      } else {
+        saveDateContainer.style.opacity = "0";
+        saveDateContainer.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        saveDateContainer.style.transform = "translateY(12px)";
+        setTimeout(() => {
+          saveDateContainer.style.opacity = "1";
+          saveDateContainer.style.transform = "translateY(0)";
+        }, 50);
+      }
+    }
+
+    // DISPATCH CRITICAL EVENT TO WAKE UP LIVE WEDDING COUNTDOWN (4:00 PM IST)
+    console.log("Date successfully revealed! Dispatching 'wedding-date-revealed' event...");
+    window.dispatchEvent(new CustomEvent("wedding-date-revealed", {
+      detail: {
+        date: "2026-12-29T16:00:00+05:30",
+        formatted: "Tuesday, 29 December 2026"
+      }
+    }));
+  }
+
+  if (isAlreadyRevealed) {
+    completeReveal(true);
+    return;
+  }
 
   function resizeCanvas() {
     if (!canvas || !container) return;
@@ -128,15 +198,15 @@ export function initScratchCard() {
     const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     let solidPixels = 0;
     for (let i = 3; i < imgData.length; i += 16) {
-      if (imgData[i] > 100) {
+      if (imgData[i] > 80) {
         solidPixels++;
       }
     }
     const percentCleared = 1 - solidPixels / totalHeartPixels;
 
-    // Trigger reveal when approximately 60% scratched
-    if (percentCleared >= 0.58) {
-      completeReveal();
+    // Trigger reveal when user has scratched 40% of the heart
+    if (percentCleared >= 0.40) {
+      completeReveal(false);
     }
   }
 
@@ -145,13 +215,9 @@ export function initScratchCard() {
     ctx.save();
     ctx.globalCompositeOperation = "destination-out";
     
-    // Soft circular scratch brush scaled with display width
-    const brushRadius = Math.max(22, Math.round(displayWidth * 0.075));
-    const radialGrad = ctx.createRadialGradient(x, y, brushRadius * 0.4, x, y, brushRadius);
-    radialGrad.addColorStop(0, "rgba(0,0,0,1)");
-    radialGrad.addColorStop(1, "rgba(0,0,0,0.85)");
-    
-    ctx.fillStyle = radialGrad;
+    // Smooth scratch brush scaled with display width
+    const brushRadius = Math.max(26, Math.round(displayWidth * 0.085));
+    ctx.fillStyle = "rgba(0,0,0,1)";
     ctx.beginPath();
     ctx.arc(x, y, brushRadius, 0, Math.PI * 2);
     ctx.fill();
@@ -170,7 +236,9 @@ export function initScratchCard() {
   function onPointerDown(e: PointerEvent) {
     if (isRevealed) return;
     isDrawing = true;
-    canvas?.setPointerCapture(e.pointerId);
+    try {
+      canvas?.setPointerCapture(e.pointerId);
+    } catch {}
     if (instructionPill) {
       instructionPill.style.opacity = "0";
       instructionPill.style.pointerEvents = "none";
@@ -183,6 +251,10 @@ export function initScratchCard() {
     if (!isDrawing || isRevealed) return;
     const coords = getCanvasCoords(e);
     eraseCircle(coords.x, coords.y);
+    moveCounter++;
+    if (moveCounter % 6 === 0) {
+      checkScratchPercentage();
+    }
   }
 
   function onPointerUp(e: PointerEvent) {
@@ -200,51 +272,10 @@ export function initScratchCard() {
   canvas.addEventListener("pointerup", onPointerUp);
   canvas.addEventListener("pointercancel", onPointerUp);
 
-  function completeReveal() {
-    if (isRevealed) return;
-    isRevealed = true;
-    container.setAttribute("data-revealed", "true");
-
-    // Fade out canvas coating smoothly
-    canvas.style.transition = "opacity 0.8s ease, transform 0.8s ease";
-    canvas.style.opacity = "0";
-    canvas.style.transform = "scale(1.05)";
-    canvas.style.pointerEvents = "none";
-
-    if (instructionPill) {
-      instructionPill.style.display = "none";
-    }
-
-    if (accessibleBtn) {
-      accessibleBtn.style.display = "none";
-    }
-
-    // Display Save the Date action button with smooth entrance
-    if (saveDateContainer) {
-      saveDateContainer.style.display = "block";
-      saveDateContainer.style.opacity = "0";
-      saveDateContainer.style.transition = "opacity 0.8s ease, transform 0.8s ease";
-      saveDateContainer.style.transform = "translateY(12px)";
-      setTimeout(() => {
-        saveDateContainer.style.opacity = "1";
-        saveDateContainer.style.transform = "translateY(0)";
-      }, 50);
-    }
-
-    // DISPATCH CRITICAL EVENT TO WAKE UP LIVE WEDDING COUNTDOWN
-    console.log("Date successfully revealed! Dispatching 'wedding-date-revealed' event...");
-    window.dispatchEvent(new CustomEvent("wedding-date-revealed", {
-      detail: {
-        date: "2026-12-29T18:00:00+05:30",
-        formatted: "Tuesday, 29 December 2026"
-      }
-    }));
-  }
-
-  // Accessible Fallback Button
+  // Accessible Fallback Button (if present in DOM)
   if (accessibleBtn) {
     accessibleBtn.addEventListener("click", () => {
-      completeReveal();
+      completeReveal(false);
     });
   }
 
@@ -260,8 +291,7 @@ export function initScratchCard() {
     const venueAddress = saveDateBtn?.getAttribute("data-address") || "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018, India";
     
     // Construct valid RFC 5545 iCalendar content
-    // Confirmed wedding ceremony start time: 6:00 PM IST (Asia/Kolkata)
-    // No fabricated duration or end time; reception is noted as taking place at a separate venue
+    // Confirmed wedding ceremony start time: 4:00 PM IST (Asia/Kolkata)
     const icsContent = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
@@ -271,16 +301,16 @@ export function initScratchCard() {
       "BEGIN:VEVENT",
       "UID:wedding-ceremony-jony-sunny-20261229@jony-wedding",
       "DTSTAMP:20261111T120000Z",
-      "DTSTART;TZID=Asia/Kolkata:20261229T180000",
+      "DTSTART;TZID=Asia/Kolkata:20261229T160000",
       "SUMMARY:Wedding Ceremony: Jony & Sunny",
-      `DESCRIPTION:The Holy Wedding Ceremony of Jony and Sunny.\\n\\nTime: 6:00 PM onwards (Asia/Kolkata)\\nVenue: ${venueName}\\nAddress: ${venueAddress}\\n\\nNote: Reception & dinner will take place at a separate venue to be announced.`,
+      `DESCRIPTION:The Holy Wedding Ceremony of Jony and Sunny.\\n\\nTime: 4:00 PM onwards (Asia/Kolkata)\\nVenue: ${venueName}\\nAddress: ${venueAddress}\\n\\nNote: Reception & dinner will take place at 9 CONVENTION HALL immediately after ceremony.`,
       `LOCATION:${venueName}, ${venueAddress}`,
       "STATUS:CONFIRMED",
       "SEQUENCE:0",
       "BEGIN:VALARM",
       "TRIGGER:-P1D",
       "ACTION:DISPLAY",
-      "DESCRIPTION:Reminder: Wedding Ceremony of Jony & Sunny tomorrow at 6:00 PM!",
+      "DESCRIPTION:Reminder: Wedding Ceremony of Jony & Sunny tomorrow at 4:00 PM!",
       "END:VALARM",
       "END:VEVENT",
       "END:VCALENDAR"

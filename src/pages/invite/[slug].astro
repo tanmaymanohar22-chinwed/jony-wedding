@@ -1,6 +1,5 @@
 ---
 import InvitationLayout from '../../layouts/InvitationLayout.astro';
-import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
 import InvitationCover from '../../components/InvitationCover.astro';
 import ScratchToReveal from '../../components/ScratchToReveal.astro';
 import Countdown from '../../components/Countdown.astro';
@@ -22,8 +21,6 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 <InvitationLayout title={pageTitle} description={pageDescription}>
   <!-- MAIN CONTINUOUS WEDDING INVITATION WEBSITE -->
   <main id="wedding-site" class="wedding-site">
-    <LanguageSwitcher languages={weddingData.languages} />
-
     <div class="invitation-shell">
       <!-- Section 1: Main Wedding Invitation Hero (Full Viewport) -->
       <InvitationCover
@@ -42,7 +39,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
         address={weddingData.address}
       />
 
-      <!-- Section 3: Live Wedding Countdown (Activated ONLY after scratch reveal) -->
+      <!-- Section 3: Live Wedding Countdown -->
       <Countdown weddingDate={weddingData.weddingDate} />
 
       <!-- Section 4: Confirmed Ceremony & Reception Event Details -->
@@ -51,11 +48,11 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
       <!-- Section 5: Editorial Photo Gallery -->
       <PhotoGallery gallery={weddingData.gallery} />
 
-      <!-- Section 7: Scenic Closing Garden Illustration -->
+      <!-- Section 6: Scenic Closing Garden Illustration -->
       <ClosingSection closing={weddingData.closing} monogram={weddingData.monogram} />
     </div>
 
-    <!-- Section 8: Bottom-Center Floating Music Player -->
+    <!-- Section 7: Bottom-Center Floating Music Player -->
     <MusicPlayer music={weddingData.music} />
   </main>
 </InvitationLayout>
@@ -67,7 +64,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
   import { initGallery, initScrollReveal } from '../../scripts/gallery';
   import weddingData from '../../data/wedding.json';
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initApp() {
     const musicController = initMusic(weddingData.music.src);
     const startAudioOnFirstInteraction = () => {
       musicController.play();
@@ -81,5 +78,11 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
     setupCountdownListener(weddingData.weddingDate);
     initGallery();
     initScrollReveal();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
 </script>

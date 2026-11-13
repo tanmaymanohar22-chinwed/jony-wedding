@@ -293,69 +293,183 @@
 }
 
 /* ========================================================
-   SECTION 3: COUNTDOWN IN FLORAL FRAME
+   SECTION 3: COUNTDOWN (CLEAN, SEAMLESS CONTAINER)
    ======================================================== */
-.countdown-frame-wrapper {
-  position: relative;
+#countdown-section {
+  background: transparent;
   width: 100%;
-  aspect-ratio: 1/1;
-  max-width: min(92vw, 480px);
+  padding: clamp(32px, 5vh, 52px) 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.countdown-container {
+  width: 100%;
+  max-width: 680px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.countdown-rings-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(16px, 3.8vw, 42px);
+  width: 100%;
+}
+
+.countdown-circle-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.circle-graphic-box {
+  position: relative;
+  width: clamp(72px, 10.5vw, 90px);
+  height: clamp(72px, 10.5vw, 90px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.countdown-frame-art {
+.progress-ring-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  pointer-events: none;
+  transform: rotate(-90deg);
+  overflow: visible;
 }
 
-.countdown-inner-content {
+.ring-bg {
+  fill: none;
+  stroke-width: 3.5;
+}
+
+.ring-meter {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 263.89;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Individual Unit Themes (Delicate Watercolor Palette) */
+/* Days: Muted sage green */
+.unit-days .ring-bg {
+  stroke: rgba(123, 139, 117, 0.22);
+}
+.unit-days .ring-meter {
+  stroke: #7B8B75;
+}
+
+/* Hours: Soft blush pink */
+.unit-hours .ring-bg {
+  stroke: rgba(210, 140, 144, 0.22);
+}
+.unit-hours .ring-meter {
+  stroke: #D28C90;
+}
+
+/* Minutes: Gentle peach */
+.unit-mins .ring-bg {
+  stroke: rgba(217, 149, 119, 0.22);
+}
+.unit-mins .ring-meter {
+  stroke: #D99577;
+}
+
+/* Seconds: Subtle warm champagne / gold */
+.unit-secs .ring-bg {
+  stroke: rgba(197, 163, 106, 0.25);
+}
+.unit-secs .ring-meter {
+  stroke: #C5A36A;
+}
+
+.circle-center-content {
   position: relative;
   z-index: 2;
-  text-align: center;
-  width: 76%;
-  padding: 16px 8px;
-}
-
-.countdown-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(6px, 1.5vw, 12px);
-  margin-top: 14px;
-}
-
-.countdown-box {
-  background: rgba(255, 253, 248, 0.92);
-  border: 1px solid rgba(199, 167, 123, 0.35);
-  border-radius: var(--radius-sm);
-  padding: clamp(8px, 1.8vw, 14px) 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.countdown-num {
-  font-family: var(--font-serif-primary);
-  font-size: clamp(1.65rem, 3.8vw, 2.3rem);
-  font-weight: 600;
-  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
+}
+
+.countdown-circle-num {
+  font-family: var(--font-serif-primary);
+  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+  font-weight: 600;
+  color: #38302A;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  display: inline-block;
+}
+
+.countdown-circle-label {
+  font-family: var(--font-sans);
+  font-size: clamp(0.58rem, 0.95vw, 0.68rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #7B6E65;
+  font-weight: 700;
+  margin-top: 8px;
   display: block;
 }
 
-.countdown-unit {
-  font-family: var(--font-sans);
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-champagne);
-  margin-top: 4px;
-  display: block;
-  font-weight: 700;
+/* Mobile Responsiveness: Clean 2-by-2 arrangement */
+@media (max-width: 600px) {
+  #countdown-section {
+    padding: 28px 16px;
+  }
+
+  .countdown-rings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 24px;
+    max-width: 210px;
+    margin: 0 auto;
+    justify-items: center;
+  }
+
+  .circle-graphic-box {
+    width: 72px;
+    height: 72px;
+  }
+
+  .countdown-circle-num {
+    font-size: 1.6rem;
+  }
+
+  .countdown-circle-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    margin-top: 6px;
+  }
+}
+
+/* Tablet Responsiveness */
+@media (min-width: 601px) and (max-width: 860px) {
+  .countdown-rings-grid {
+    gap: 20px;
+  }
+  .circle-graphic-box {
+    width: 74px;
+    height: 74px;
+  }
+  .countdown-circle-num {
+    font-size: 1.65rem;
+  }
 }
 
 /* Section Shared Rules (Responsive container up to 1100px on desktop) */
@@ -1201,7 +1315,7 @@
 }
 
 .countdown-active {
-  display: block !important;
+  display: flex !important;
   opacity: 1 !important;
   max-height: none !important;
   animation: countdownRevealEntrance 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;

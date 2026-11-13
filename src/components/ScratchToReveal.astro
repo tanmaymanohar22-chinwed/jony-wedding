@@ -32,7 +32,6 @@ const { weddingDate, formattedDate, venue, address } = Astro.props;
     <div class="botanical-divider">
       <span class="botanical-divider-icon">❦</span>
     </div>
-    <p class="scratch-prompt-lead">Scratch the heart below to unveil our sacred wedding date</p>
   </div>
 
   <div class="scratch-card-wrapper">
@@ -48,11 +47,6 @@ const { weddingDate, formattedDate, venue, address } = Astro.props;
               <span class="scratch-day-num">29</span>
               <span class="scratch-month-year">December 2026</span>
             </div>
-            <p class="scratch-weekday">TUESDAY</p>
-            <p class="scratch-ceremony-type">4:00 PM CEREMONY</p>
-            <div class="scratch-mini-divider">✦</div>
-            <p class="scratch-venue-name">HYDERABAD BAPTIST CHURCH</p>
-            <p class="scratch-city">SANATHNAGAR, HYDERABAD – 500018</p>
           </div>
         </div>
       </div>
@@ -63,24 +57,6 @@ const { weddingDate, formattedDate, venue, address } = Astro.props;
         class="scratch-canvas-overlay"
         aria-label="Scratch card canvas surface"
       ></canvas>
-
-      <!-- Scratch Instruction Badge Floating over Canvas -->
-      <div id="scratch-instruction-pill" class="scratch-instruction-pill">
-        <span class="scratch-hand-icon">✍</span>
-        <span class="scratch-instruction-text">Scratch here to reveal your special date</span>
-      </div>
-    </div>
-
-    <!-- Accessible Alternative Button for screen-readers or users who prefer clicking -->
-    <div class="scratch-accessible-row">
-      <button 
-        id="reveal-date-accessible-btn" 
-        type="button" 
-        class="reveal-accessible-button"
-        aria-controls="scratch-card-container"
-      >
-        ✦ Reveal Date Directly ✦
-      </button>
     </div>
 
     <!-- PART 4: SAVE THE DATE ACTION BUTTON (Appears upon reveal) -->

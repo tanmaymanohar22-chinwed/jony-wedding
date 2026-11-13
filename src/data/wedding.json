@@ -21,9 +21,9 @@
   "formattedDate": "Tuesday, 29 December 2026",
   "weddingYear": "2026",
   "destination": "Sanathnagar, Hyderabad",
-  "venue": "Hyderabad Baptist Church",
-  "address": "Sanathnagar, Hyderabad – 500018",
-  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Hyderabad+Baptist+Church%2C+Sanathnagar%2C+Hyderabad",
+  "venue": "Baptist Church Sanathnagar",
+  "address": "Bungalow no 17, Street No 3, Czech Colony, Sanath Nagar, Hyderabad, Telangana 500018",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+no+17+Street+No+3+Czech+Colony+Sanath+Nagar+Hyderabad+500018",
   "welcomeMessage": "Together with their families, cordially invite you to celebrate their wedding",
   "events": [
     {
@@ -32,9 +32,9 @@
       "title": "THE WEDDING CEREMONY",
       "date": "Tuesday, 29 December 2026",
       "time": "4:00 PM",
-      "venue": "Hyderabad Baptist Church",
-      "address": "Sanathnagar, Hyderabad – 500018",
-      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Hyderabad+Baptist+Church%2C+Sanathnagar%2C+Hyderabad",
+      "venue": "Baptist Church Sanathnagar",
+      "address": "Bungalow no 17, Street No 3, Czech Colony, Sanath Nagar, Hyderabad, Telangana 500018",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+no+17+Street+No+3+Czech+Colony+Sanath+Nagar+Hyderabad+500018",
       "description": "With joyful hearts, we invite you to witness our sacred vows and covenant of marriage in holy matrimony.",
       "badge": "Holy Matrimony",
       "isConfirmed": true
@@ -56,23 +56,28 @@
   "gallery": [
     {
       "url": "/jony-wedding/assets/couple/couple-1.jpg",
-      "title": "Balcony Over The Sea",
-      "caption": "Where the sea breeze whispers forever"
+      "title": "Formal Wedding Portrait",
+      "caption": "Together in sacred love and joyous covenant"
     },
     {
       "url": "/jony-wedding/assets/couple/couple-2.jpg",
-      "title": "Sunset Embrace",
-      "caption": "Golden hour over the cliffside"
+      "title": "Sunset on the Terrace",
+      "caption": "Hand in hand as the golden evening glows"
     },
     {
       "url": "/jony-wedding/assets/couple/couple-3.jpg",
       "title": "Candlelit Garden Walk",
-      "caption": "Surrounded by blooming roses and laughter"
+      "caption": "Surrounded by warm lanterns, soft lights, and celebration"
     },
     {
       "url": "/jony-wedding/assets/couple/couple-4.jpg",
-      "title": "Cobblestone Romance",
-      "caption": "Every step leading hand in hand"
+      "title": "Beneath the Floral Archway",
+      "caption": "Framed in blooming white florals, united forever"
+    },
+    {
+      "url": "/jony-wedding/assets/couple/couple-5.jpg",
+      "title": "Cherished Smiles",
+      "caption": "Joyful laughter and tender glances in the golden light"
     }
   ],
   "music": {
