@@ -45,14 +45,26 @@ const { gallery } = Astro.props;
   </div>
 
   <!-- Interactive Lightbox Modal -->
-  <div id="gallery-lightbox" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Photo Preview">
-    <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close preview">✕</button>
+  <div id="gallery-lightbox" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Photo Preview" aria-hidden="true">
+    <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close preview (Esc)">✕</button>
+
+    <button id="lightbox-prev" class="lightbox-nav-btn lightbox-prev-btn" aria-label="Previous photo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button id="lightbox-next" class="lightbox-nav-btn lightbox-next-btn" aria-label="Next photo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
     
     <div class="lightbox-img-box">
       <img id="lightbox-preview-img" src="" alt="Enlarged photo preview" />
       <div style="text-align: center;">
-        <h4 id="lightbox-preview-title" class="font-serif" style="color: #FFFDF8; font-size: 1.25rem;"></h4>
-        <p id="lightbox-preview-caption" class="font-serif-sub" style="color: var(--color-champagne-light); font-size: 0.95rem; font-style: italic;"></p>
+        <span id="lightbox-counter" class="lightbox-counter font-sans" style="color: var(--color-champagne); font-size: 0.78rem; letter-spacing: 0.15em; display: block; margin-bottom: 4px;"></span>
+        <h4 id="lightbox-preview-title" class="font-serif" style="color: #FFFDF8; font-size: 1.25rem; margin: 0 0 4px;"></h4>
+        <p id="lightbox-preview-caption" class="font-serif-sub" style="color: var(--color-champagne-light); font-size: 0.95rem; font-style: italic; margin: 0;"></p>
       </div>
     </div>
   </div>

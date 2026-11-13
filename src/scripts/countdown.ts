@@ -1,7 +1,7 @@
 // Event-Driven Live Wedding Countdown
 // Activates ONLY upon receipt of the "wedding-date-revealed" event
 
-export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T18:00:00+05:30") {
+export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T16:00:00+05:30") {
   const section = document.getElementById("countdown-section");
   const daysEl = document.getElementById("countdown-days");
   const hoursEl = document.getElementById("countdown-hours");
@@ -13,6 +13,16 @@ export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T18:0
 
   let countdownInterval: ReturnType<typeof setInterval> | null = null;
   let isActive = false;
+
+  function updateDigit(el: HTMLElement, val: string) {
+    if (el.textContent !== val) {
+      el.textContent = val;
+      el.classList.remove("digit-tick");
+      // Trigger reflow for smooth re-animation
+      void el.offsetWidth;
+      el.classList.add("digit-tick");
+    }
+  }
 
   function startCountdown(targetIsoDate: string) {
     if (isActive) return;
@@ -48,10 +58,10 @@ export function setupCountdownListener(defaultIsoDate: string = "2026-12-29T18:0
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      daysEl.textContent = String(days).padStart(2, "0");
-      hoursEl.textContent = String(hours).padStart(2, "0");
-      minsEl.textContent = String(minutes).padStart(2, "0");
-      secsEl.textContent = String(seconds).padStart(2, "0");
+      updateDigit(daysEl, String(days).padStart(2, "0"));
+      updateDigit(hoursEl, String(hours).padStart(2, "0"));
+      updateDigit(minsEl, String(minutes).padStart(2, "0"));
+      updateDigit(secsEl, String(seconds).padStart(2, "0"));
     }
 
     update();

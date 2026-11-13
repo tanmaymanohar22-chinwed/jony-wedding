@@ -17,13 +17,13 @@
     }
   },
   "monogram": "J & S",
-  "weddingDate": "2026-12-29T18:00:00+05:30",
+  "weddingDate": "2026-12-29T16:00:00+05:30",
   "formattedDate": "Tuesday, 29 December 2026",
   "weddingYear": "2026",
   "destination": "Sanathnagar, Hyderabad",
-  "venue": "Baptist Church Sanathnagar",
-  "address": "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018, India",
-  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
+  "venue": "Hyderabad Baptist Church",
+  "address": "Sanathnagar, Hyderabad – 500018",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Hyderabad+Baptist+Church%2C+Sanathnagar%2C+Hyderabad",
   "welcomeMessage": "Together with their families, cordially invite you to celebrate their wedding",
   "events": [
     {
@@ -31,10 +31,10 @@
       "name": "THE WEDDING CEREMONY",
       "title": "THE WEDDING CEREMONY",
       "date": "Tuesday, 29 December 2026",
-      "time": "6:00 PM onwards",
-      "venue": "Baptist Church Sanathnagar",
-      "address": "Bungalow No. 17, Street No. 3, Czech Colony, Sanathnagar, Hyderabad, Telangana 500018",
-      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baptist+Church+Sanathnagar+Bungalow+17+Street+3+Czech+Colony+Hyderabad+500018",
+      "time": "4:00 PM",
+      "venue": "Hyderabad Baptist Church",
+      "address": "Sanathnagar, Hyderabad – 500018",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Hyderabad+Baptist+Church%2C+Sanathnagar%2C+Hyderabad",
       "description": "With joyful hearts, we invite you to witness our sacred vows and covenant of marriage in holy matrimony.",
       "badge": "Holy Matrimony",
       "isConfirmed": true
@@ -44,13 +44,13 @@
       "name": "RECEPTION & DINNER",
       "title": "RECEPTION & DINNER",
       "date": "Tuesday, 29 December 2026",
-      "time": "To be confirmed",
-      "venue": "To be confirmed",
-      "address": "To be confirmed",
-      "mapsUrl": null,
-      "description": "An evening of celebration, joyful fellowship, and dinner. The venue and exact timing will be announced as soon as they are finalized.",
+      "time": "Immediately after the wedding ceremony",
+      "venue": "9 CONVENTION HALL",
+      "address": "9 Convention Hall, Near Bharat Nagar Flyover, Nissan Showroom Lane, Fatehbagh, Erragadda, Hyderabad – 500018",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=9+Convention+Hall%2C+Near+Bharat+Nagar+Flyover%2C+Nissan+Showroom+Lane%2C+Fatehbagh%2C+Erragadda%2C+Hyderabad+500018",
+      "description": "An evening of celebration, joyful fellowship, and dinner following the wedding ceremony.",
       "badge": "Celebration & Dinner",
-      "isConfirmed": false
+      "isConfirmed": true
     }
   ],
   "gallery": [

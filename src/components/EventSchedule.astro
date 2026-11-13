@@ -128,7 +128,7 @@ const receptionEvent = events.find((e) => e.id === "reception-dinner") || events
               <span class="detail-icon" aria-hidden="true">🍷</span>
               <div class="detail-text">
                 <span class="detail-label">Time</span>
-                <span class="detail-pending">{receptionEvent.time}</span>
+                <strong class="detail-value time-highlight">{receptionEvent.time}</strong>
               </div>
             </div>
 
@@ -136,16 +136,18 @@ const receptionEvent = events.find((e) => e.id === "reception-dinner") || events
               <span class="detail-icon" aria-hidden="true">🍽️</span>
               <div class="detail-text">
                 <span class="detail-label">Venue</span>
-                <span class="detail-pending">{receptionEvent.venue}</span>
-                <span class="detail-sub detail-notice">Separate venue from wedding ceremony</span>
+                <strong class="detail-value venue-title">{receptionEvent.venue}</strong>
+                <span class="detail-sub">{receptionEvent.address}</span>
               </div>
             </div>
           </div>
 
-          <div class="reception-status-banner">
-            <span class="status-sparkle">✦</span>
-            <span>Venue, address & timing will be announced as soon as confirmed</span>
-          </div>
+          {!receptionEvent.isConfirmed && (
+            <div class="reception-status-banner">
+              <span class="status-sparkle">✦</span>
+              <span>Venue, address & timing will be announced as soon as confirmed</span>
+            </div>
+          )}
 
           {receptionEvent.mapsUrl && (
             <div class="event-action-wrap">
