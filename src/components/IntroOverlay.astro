@@ -2,73 +2,26 @@
 import FoldedInvitation from './FoldedInvitation.astro';
 
 interface Props {
-  monogram: string;
-  brideName: string;
-  groomName: string;
-  welcomeMessage: string;
-  formattedDate: string;
-  destination: string;
+  monogram?: string;
+  brideName?: string;
+  groomName?: string;
+  welcomeMessage?: string;
+  formattedDate?: string;
+  destination?: string;
 }
 
-const { monogram, brideName, groomName, welcomeMessage, formattedDate, destination } = Astro.props;
+const { monogram = "J & S" } = Astro.props;
 ---
 
 <aside id="intro-overlay" class="intro-overlay" data-state="closed" aria-label="Wedding Invitation">
-  <!-- Full-Bleed Edge-to-Edge Watercolor Background (covers 100% of viewport edges) -->
-  <img 
-    src="/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg" 
-    alt="Mediterranean Coastal Watercolor Artwork" 
-    class="intro-fullbleed-bg"
-  />
-  <div class="intro-fullbleed-overlay"></div>
-
-  <!-- Centered Proportionally Scaled Invitation Stage -->
+  <!-- Full-Screen Folded Paper Doors Stage (Layer 3) -->
   <div class="intro-stage-box">
-    <!-- Physical Folded Stationery Folio & Crossed Ribbon Rig -->
     <div class="cover-stationery-wrapper">
-      <!-- Stage A-C: Physical Folded Paper & Crossed Ribbon Rig Overlay -->
+      <!-- 3D Gatefold Paper Panels & Crossed Ribbon Rig -->
       <FoldedInvitation monogram={monogram} />
-
-      <!-- Stage D: Underlying Mediterranean Coastal Stationery Revealed -->
-      <div class="invitation-underneath">
-        <!-- Inset Coastal Scene for the card -->
-        <img 
-          src="/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg" 
-          alt="Coastal Castle Watercolor" 
-          class="coastal-scene-bg"
-        />
-
-        <!-- Inset Ivory Paper Panel -->
-        <div class="cover-card-overlay">
-          <!-- Floral Top Header -->
-          <img 
-            src="/jony-wedding/assets/decorations/floral-top-border.jpg" 
-            alt="Watercolor Floral Header" 
-            class="floral-header-img floating-botanical"
-          />
-
-          <!-- Welcome Message -->
-          <p class="cover-intro-lead">{welcomeMessage}</p>
-
-          <!-- Couple Names Display -->
-          <div class="cover-couple-names">
-            <h1 class="cover-bride-name">{brideName}</h1>
-            <span class="cover-ampersand">&</span>
-            <h1 class="cover-groom-name">{groomName}</h1>
-          </div>
-
-          <div class="botanical-divider">
-            <span class="botanical-divider-icon">❦</span>
-          </div>
-
-          <p class="invitation-intro-phrase" style="font-family: var(--font-serif-secondary); font-style: italic; color: var(--color-champagne); font-size: 0.95rem; margin-top: 6px;">
-            ✦ Sacred Wedding Celebration ✦
-          </p>
-        </div>
-      </div>
     </div>
 
-    <!-- Luxury "TAP TO OPEN" Button Directly Below Wrapped Invitation -->
+    <!-- Luxury "TAP TO OPEN" Button Overlay (Layer 4) -->
     <div class="tap-to-open-container">
       <button 
         id="tap-to-open-btn" 

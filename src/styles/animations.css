@@ -114,27 +114,20 @@
 }
 
 [data-state="unfolding"] .folio-panel-left {
-  transform: rotateY(-135deg);
-  opacity: 0.95;
-  transition: transform 1.8s cubic-bezier(0.25, 1, 0.4, 1), opacity 1.2s ease 0.6s;
+  transform: rotateY(-115deg);
+  opacity: 1;
+  transition: transform 1.8s cubic-bezier(0.25, 1, 0.35, 1);
 }
 
 [data-state="unfolding"] .folio-panel-right {
-  transform: rotateY(135deg);
-  opacity: 0.95;
-  transition: transform 1.8s cubic-bezier(0.25, 1, 0.4, 1), opacity 1.2s ease 0.6s;
+  transform: rotateY(115deg);
+  opacity: 1;
+  transition: transform 1.8s cubic-bezier(0.25, 1, 0.35, 1);
 }
 
 [data-state="unfolding"] .folio-crease-shadow {
   opacity: 0;
   transition: opacity 1.2s ease;
-}
-
-[data-state="unfolding"] .invitation-underneath {
-  transform: scale(1);
-  filter: blur(0px);
-  opacity: 1;
-  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease;
 }
 
 /* ===================================================
@@ -144,12 +137,6 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-}
-
-[data-state="revealed"] .invitation-underneath {
-  transform: scale(1);
-  filter: blur(0px);
-  opacity: 1;
 }
 
 /* Luxury TAP TO OPEN Button Breathing Glow */

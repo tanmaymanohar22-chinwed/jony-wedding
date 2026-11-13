@@ -1,8 +1,8 @@
 ---
-// Theatre Curtain Reveal Component
+// Theatre Curtain Reveal Component (Layer 2: Positioned directly behind paper doors)
 ---
 
-<div id="theatre-curtain-overlay" class="curtain-overlay" data-state="idle" aria-hidden="true">
+<div id="theatre-curtain-overlay" class="curtain-overlay" data-state="closed" aria-hidden="true">
   <!-- 3D Perspective Stage Container -->
   <div class="curtain-stage-scene">
     <!-- Upper Decorative Valance & Curved Swags with Gold Trim -->
@@ -43,14 +43,18 @@
           <div class="pleat p3"></div>
           <div class="pleat p4"></div>
           <div class="pleat p5"></div>
+          <div class="pleat p6"></div>
+          <div class="pleat p7"></div>
         </div>
         <div class="curtain-sash curtain-sash-left"></div>
-        <div class="curtain-bead-trim"></div>
+        <div class="curtain-lead-edge-glow"></div>
       </div>
 
       <!-- Right Draped Curtain Panel -->
       <div class="curtain-panel curtain-panel-right">
         <div class="curtain-fabric-pleats">
+          <div class="pleat p7"></div>
+          <div class="pleat p6"></div>
           <div class="pleat p5"></div>
           <div class="pleat p4"></div>
           <div class="pleat p3"></div>
@@ -58,26 +62,23 @@
           <div class="pleat p1"></div>
         </div>
         <div class="curtain-sash curtain-sash-right"></div>
-        <div class="curtain-bead-trim"></div>
+        <div class="curtain-lead-edge-glow"></div>
       </div>
     </div>
 
-    <!-- Lower Corner Botanical Arrangements & Romantic Stage Elements -->
+    <!-- Lower Corner Botanical Arrangements -->
     <footer class="curtain-stage-footer">
       <div class="curtain-floral-corner curtain-floral-left">
         <img 
           src="/jony-wedding/assets/decorations/floral-top-border.png" 
-          alt="Curtain Stage Florals Left" 
+          alt="" 
           class="curtain-corner-img"
         />
-      </div>
-      <div class="curtain-fountain-emblem">
-        <span class="curtain-fountain-icon">⛲</span>
       </div>
       <div class="curtain-floral-corner curtain-floral-right">
         <img 
           src="/jony-wedding/assets/decorations/floral-top-border.png" 
-          alt="Curtain Stage Florals Right" 
+          alt="" 
           class="curtain-corner-img"
         />
       </div>

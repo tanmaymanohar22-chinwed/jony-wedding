@@ -7,6 +7,12 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
 
   if (!overlay || !stage || !tapBtn) return;
 
+  // Layer 2: Ensure Theatre Curtains are rendered in closed state directly underneath Layer 3
+  if (curtainOverlay) {
+    curtainOverlay.style.display = "block";
+    curtainOverlay.setAttribute("data-state", "closed");
+  }
+
   let hasStarted = false;
 
   function startOpeningSequence() {
@@ -26,62 +32,54 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
     // STAGE B: UNTYING (0.0s – 1.6s)
     setStageState("untying");
 
-    // STAGE C: UNFOLDING (1.6s – 3.4s: Gatefold panels swing open in 3D)
+    // STAGE C: UNFOLDING (1.6s – 3.4s: Gatefold panels swing open in 3D revealing curtains underneath)
     setTimeout(() => {
       setStageState("unfolding");
     }, 1600);
 
-    // STAGE D: INSTANT THEATRE CURTAIN COVERAGE (Doors reach open state at 3.4s)
+    // STAGE D: THEATRE CURTAIN REVEAL (Doors finish swinging open at 3.4s)
     setTimeout(() => {
       setStageState("revealed");
 
       if (curtainOverlay) {
-        // 1. Instantly activate curtain in fully CLOSED state covering 100% of viewport
-        curtainOverlay.style.display = "block";
-        curtainOverlay.setAttribute("data-state", "active");
-
-        // 2. Hide intro overlay underneath the solid curtain
+        // 1. Paper doors are now open; hide intro overlay cleanly
         overlay.classList.add("is-hidden");
         overlay.style.display = "none";
 
-        // 3. Set live HTML wedding website visible (opacity 1) underneath the closed curtains
+        // 2. Set live HTML wedding website visible underneath the closed curtains
         if (weddingSite) {
           weddingSite.classList.add("is-revealed");
         }
 
-        // 4. Brief hold (250ms) with closed curtains rendered before starting parting motion
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
+        // 3. Hold closed curtains for 250ms before smoothly parting outward
+        setTimeout(() => {
+          // 4. Curtains begin parting outward (2.2s transition) revealing the real website
+          curtainOverlay.setAttribute("data-state", "opening");
+
+          // 5. Curtains complete parting outward after 2200ms
+          setTimeout(() => {
+            curtainOverlay.setAttribute("data-state", "opened");
+            curtainOverlay.classList.add("is-fading-out");
+
+            // 6. Website becomes fully interactive
+            if (weddingSite) {
+              weddingSite.removeAttribute("inert");
+              weddingSite.setAttribute("aria-hidden", "false");
+            }
+
+            // 7. Start serene wedding background audio
+            if (onRevealAudio) {
+              onRevealAudio();
+            }
+
+            // 8. Remove curtain overlay element and restore normal scrolling after fade-out
             setTimeout(() => {
-              // 5. Curtains begin smoothly parting outward (1.8s) revealing the real website
-              curtainOverlay.setAttribute("data-state", "opening");
-
-              // 6. Curtains complete parting outward (1.8s)
-              setTimeout(() => {
-                curtainOverlay.setAttribute("data-state", "opened");
-                curtainOverlay.classList.add("is-fading-out");
-
-                // 7. Website becomes fully interactive
-                if (weddingSite) {
-                  weddingSite.removeAttribute("inert");
-                  weddingSite.setAttribute("aria-hidden", "false");
-                }
-
-                // 8. Start serene wedding background audio
-                if (onRevealAudio) {
-                  onRevealAudio();
-                }
-
-                // 9. Remove curtain overlay element and restore normal scrolling
-                setTimeout(() => {
-                  curtainOverlay.style.display = "none";
-                  document.documentElement.classList.remove("intro-active");
-                  document.body.classList.remove("intro-active");
-                }, 400);
-              }, 1800);
-            }, 250);
-          });
-        });
+              curtainOverlay.style.display = "none";
+              document.documentElement.classList.remove("intro-active");
+              document.body.classList.remove("intro-active");
+            }, 650);
+          }, 2200);
+        }, 250);
       } else {
         // Fallback if curtain overlay element not present
         if (weddingSite) {

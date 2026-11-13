@@ -17,10 +17,11 @@ body.intro-active .music-control-pill {
   pointer-events: none !important;
 }
 
-/* Edge-to-Edge Fullscreen Intro Overlay (Zero margins, zero padding, full-bleed) */
+/* Edge-to-Edge Fullscreen Intro Overlay (Layer 3: Folded paper doors & ribbons) */
 .intro-overlay {
   position: fixed;
   inset: 0;
+  width: 100vw;
   width: 100%;
   height: 100vh;
   height: 100dvh;
@@ -28,38 +29,15 @@ body.intro-active .music-control-pill {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  background: #F8F3EA;
+  background: transparent;
   display: block;
   touch-action: none;
-  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s ease;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .intro-overlay.is-hidden {
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
-}
-
-/* Full-Bleed Watercolor Background Artwork Spanning All Screen Edges */
-.intro-fullbleed-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 1;
-  display: block;
-  pointer-events: none;
-}
-
-.intro-fullbleed-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 45%, rgba(248, 243, 234, 0.12) 0%, rgba(248, 243, 234, 0.38) 70%, rgba(248, 243, 234, 0.65) 100%);
-  backdrop-filter: blur(2.5px);
-  z-index: 2;
   pointer-events: none;
 }
 
@@ -75,6 +53,7 @@ body.intro-active .music-control-pill {
   padding: 0;
   margin: 0;
   overflow: hidden;
+  background: transparent;
 }
 
 .intro-stage-box .cover-stationery-wrapper {
@@ -87,16 +66,7 @@ body.intro-active .music-control-pill {
   border-radius: 0;
   box-shadow: none;
   overflow: hidden;
-  background-color: #FFFDF8;
-}
-
-.intro-stage-box .coastal-scene-bg {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: auto;
-  max-height: none;
-  object-fit: cover;
-  display: block;
+  background: transparent;
 }
 
 /* Main Wedding Site Container (Hidden until intro animation completes) */
@@ -209,15 +179,7 @@ body.intro-active .music-control-pill {
   border-radius: 0;
   overflow: hidden;
   box-shadow: none;
-  background-color: #FFFDF8;
-}
-
-.coastal-scene-bg {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: auto;
-  object-fit: cover;
-  display: block;
+  background: transparent;
 }
 
 /* Gatefold Paper Structure (Left & Right Panels Meeting at Center) */
@@ -1157,7 +1119,7 @@ body.intro-active .music-control-pill {
   box-shadow: 0 6px 22px rgba(199, 167, 123, 0.4);
 }
 /* ========================================================
-   THEATRE CURTAIN REVEAL OVERLAY
+   THEATRE CURTAIN REVEAL OVERLAY (Layer 2: Positioned directly behind paper doors)
    ======================================================== */
 .curtain-overlay {
   position: fixed;
@@ -1166,14 +1128,15 @@ body.intro-active .music-control-pill {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  z-index: 100000;
+  z-index: 99980;
   overflow: hidden;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 50%, rgba(26, 20, 16, 0.45) 0%, rgba(15, 10, 8, 0.75) 100%);
-  display: none;
+  background: transparent;
+  display: block;
   opacity: 1;
 }
 
+.curtain-overlay[data-state="closed"],
 .curtain-overlay[data-state="active"],
 .curtain-overlay[data-state="opening"],
 .curtain-overlay[data-state="opened"] {
@@ -1190,7 +1153,7 @@ body.intro-active .music-control-pill {
   position: relative;
   width: 100%;
   height: 100%;
-  perspective: 1200px;
+  perspective: 1400px;
   overflow: hidden;
 }
 
@@ -1205,6 +1168,13 @@ body.intro-active .music-control-pill {
   display: flex;
   justify-content: center;
   pointer-events: none;
+  transition: transform 2.2s cubic-bezier(0.25, 1, 0.35, 1), opacity 1.8s ease;
+}
+
+.curtain-overlay[data-state="opening"] .curtain-valance-arch,
+.curtain-overlay[data-state="opened"] .curtain-valance-arch {
+  transform: translateY(-25%) scale(1.02);
+  opacity: 0.85;
 }
 
 .curtain-swag {
@@ -1279,35 +1249,38 @@ body.intro-active .music-control-pill {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 52%;
+  width: 53%;
   height: 100%;
-  background: linear-gradient(135deg, #FBF6EC 0%, #F5ECE0 30%, #E3D1BC 70%, #CEB397 100%);
-  box-shadow: 0 0 35px rgba(35, 25, 20, 0.55);
+  background: linear-gradient(135deg, #FDF7EE 0%, #F5ECE0 22%, #E6D6C3 55%, #D4BEA5 80%, #C4A88B 100%);
+  box-shadow: 0 0 45px rgba(25, 18, 12, 0.65);
   transform-style: preserve-3d;
-  transition: transform 1.8s cubic-bezier(0.25, 1, 0.4, 1);
+  transition: transform 2.2s cubic-bezier(0.25, 1, 0.35, 1);
+  will-change: transform;
 }
 
 .curtain-panel-left {
   left: 0;
   transform-origin: left center;
-  border-right: 2px solid rgba(212, 175, 55, 0.7);
+  border-right: 2.5px solid rgba(212, 175, 55, 0.85);
+  box-shadow: 6px 0 20px rgba(45, 30, 20, 0.45);
 }
 
 .curtain-panel-right {
   right: 0;
   transform-origin: right center;
-  border-left: 2px solid rgba(212, 175, 55, 0.7);
+  border-left: 2.5px solid rgba(212, 175, 55, 0.85);
+  box-shadow: -6px 0 20px rgba(45, 30, 20, 0.45);
 }
 
-/* 3D Parting Action */
+/* 3D Parting Action - Clean Full Viewport Clearance */
 .curtain-overlay[data-state="opening"] .curtain-panel-left,
 .curtain-overlay[data-state="opened"] .curtain-panel-left {
-  transform: translateX(-102%) rotateY(18deg);
+  transform: translateX(-110%) rotateY(16deg);
 }
 
 .curtain-overlay[data-state="opening"] .curtain-panel-right,
 .curtain-overlay[data-state="opened"] .curtain-panel-right {
-  transform: translateX(102%) rotateY(-18deg);
+  transform: translateX(110%) rotateY(-16deg);
 }
 
 /* Realistic Fabric Pleats */
@@ -1323,12 +1296,12 @@ body.intro-active .music-control-pill {
   flex: 1;
   height: 100%;
   background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0.4) 0%, 
-    rgba(245, 236, 224, 0.1) 40%, 
-    rgba(138, 114, 92, 0.3) 80%, 
-    rgba(82, 65, 50, 0.45) 100%
+    rgba(255, 255, 255, 0.45) 0%, 
+    rgba(248, 240, 230, 0.15) 30%, 
+    rgba(145, 118, 92, 0.32) 75%, 
+    rgba(60, 44, 32, 0.45) 100%
   );
-  box-shadow: inset 1px 0 3px rgba(255, 255, 255, 0.5), inset -2px 0 5px rgba(70, 50, 35, 0.35);
+  box-shadow: inset 1px 0 3px rgba(255, 255, 255, 0.5), inset -2px 0 6px rgba(50, 35, 22, 0.35);
 }
 
 .curtain-sash {
@@ -1341,7 +1314,23 @@ body.intro-active .music-control-pill {
   opacity: 0.6;
 }
 
-/* Lower Corner Botanical & Fountain Stage Accents */
+.curtain-lead-edge-glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  pointer-events: none;
+}
+.curtain-panel-left .curtain-lead-edge-glow {
+  right: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 248, 220, 0.4) 60%, rgba(212, 175, 55, 0.65) 100%);
+}
+.curtain-panel-right .curtain-lead-edge-glow {
+  left: 0;
+  background: linear-gradient(-90deg, transparent 0%, rgba(255, 248, 220, 0.4) 60%, rgba(212, 175, 55, 0.65) 100%);
+}
+
+/* Lower Corner Botanical Accents */
 .curtain-stage-footer {
   position: absolute;
   bottom: 0;
@@ -1357,9 +1346,9 @@ body.intro-active .music-control-pill {
 }
 
 .curtain-floral-corner {
-  width: 130px;
+  width: clamp(100px, 18vw, 150px);
   opacity: 0.95;
-  transition: transform 2.2s ease;
+  transition: transform 2.2s cubic-bezier(0.25, 1, 0.35, 1);
 }
 
 .curtain-floral-left {
@@ -1369,6 +1358,14 @@ body.intro-active .music-control-pill {
 .curtain-floral-right {
   transform-origin: bottom right;
   transform: scaleX(-1);
+}
+
+.curtain-overlay[data-state="opening"] .curtain-floral-left {
+  transform: translateX(-120%);
+}
+
+.curtain-overlay[data-state="opening"] .curtain-floral-right {
+  transform: translateX(120%) scaleX(-1);
 }
 
 .curtain-corner-img {
