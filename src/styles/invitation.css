@@ -1113,6 +1113,10 @@ body.intro-active .music-control-pill {
 }
 
 .curtain-overlay[data-state="closed"],
+.curtain-overlay[data-state="doors-opening"],
+.curtain-overlay[data-state="curtain-visible"],
+.curtain-overlay[data-state="curtain-opening"],
+.curtain-overlay[data-state="website-revealed"],
 .curtain-overlay[data-state="active"],
 .curtain-overlay[data-state="opening"],
 .curtain-overlay[data-state="opened"] {
@@ -1147,6 +1151,8 @@ body.intro-active .music-control-pill {
   transition: transform 1000ms cubic-bezier(0.22, 0.75, 0.25, 1), opacity 800ms ease;
 }
 
+.curtain-overlay[data-state="curtain-opening"] .curtain-valance-arch,
+.curtain-overlay[data-state="website-revealed"] .curtain-valance-arch,
 .curtain-overlay[data-state="opening"] .curtain-valance-arch,
 .curtain-overlay[data-state="opened"] .curtain-valance-arch {
   transform: translateY(-25%) scale(1.02);
@@ -1250,11 +1256,15 @@ body.intro-active .music-control-pill {
 }
 
 /* 3D Parting Action - Clean Full Viewport Clearance */
+.curtain-overlay[data-state="curtain-opening"] .curtain-panel-left,
+.curtain-overlay[data-state="website-revealed"] .curtain-panel-left,
 .curtain-overlay[data-state="opening"] .curtain-panel-left,
 .curtain-overlay[data-state="opened"] .curtain-panel-left {
   transform: translateX(-110%) rotateY(16deg);
 }
 
+.curtain-overlay[data-state="curtain-opening"] .curtain-panel-right,
+.curtain-overlay[data-state="website-revealed"] .curtain-panel-right,
 .curtain-overlay[data-state="opening"] .curtain-panel-right,
 .curtain-overlay[data-state="opened"] .curtain-panel-right {
   transform: translateX(110%) rotateY(-16deg);

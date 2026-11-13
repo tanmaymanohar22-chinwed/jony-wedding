@@ -37,58 +37,89 @@
 }
 
 /* ===================================================
-   STAGE B: OPENING INTERACTION (Logo & Button Fade Out)
+   STAGE B: DOORS OPENING & CONTROLS FADE
    =================================================== */
+[data-state="doors-opening"] .intro-logo-container,
 [data-state="opening"] .intro-logo-container,
 [data-state="unfolding"] .intro-logo-container,
+[data-state="curtain-visible"] .intro-logo-container,
+[data-state="curtain-opening"] .intro-logo-container,
+[data-state="website-revealed"] .intro-logo-container,
 [data-state="revealed"] .intro-logo-container {
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.88);
+  transform: translate(-50%, -50%) scale(0.9);
   pointer-events: none;
-  transition: opacity 0.4s cubic-bezier(0.2, 0, 0.2, 1), transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+[data-state="doors-opening"] .tap-to-open-container,
 [data-state="opening"] .tap-to-open-container,
 [data-state="unfolding"] .tap-to-open-container,
+[data-state="curtain-visible"] .tap-to-open-container,
+[data-state="curtain-opening"] .tap-to-open-container,
+[data-state="website-revealed"] .tap-to-open-container,
 [data-state="revealed"] .tap-to-open-container {
   opacity: 0;
   transform: translate(-50%, 12px) scale(0.95);
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+[data-state="curtain-visible"] .tap-to-open-container,
+[data-state="curtain-visible"] .intro-logo-container,
+[data-state="curtain-opening"] .tap-to-open-container,
+[data-state="curtain-opening"] .intro-logo-container,
+[data-state="website-revealed"] .tap-to-open-container,
+[data-state="website-revealed"] .intro-logo-container,
 [data-state="revealed"] .tap-to-open-container,
 [data-state="revealed"] .intro-logo-container {
   display: none;
 }
 
 /* ===================================================
-   STAGE C: UNFOLDING (3D Gatefold Panels Swing Open)
+   STAGE C: DOORS MOVING APART (260ms Fast Opening)
    =================================================== */
-
+[data-state="doors-opening"] .folio-panel-left,
 [data-state="opening"] .folio-panel-left,
-[data-state="unfolding"] .folio-panel-left {
+[data-state="unfolding"] .folio-panel-left,
+[data-state="curtain-visible"] .folio-panel-left,
+[data-state="curtain-opening"] .folio-panel-left,
+[data-state="website-revealed"] .folio-panel-left,
+[data-state="revealed"] .folio-panel-left {
   transform: rotateY(-115deg);
   opacity: 1;
-  transition: transform 1000ms cubic-bezier(0.22, 0.75, 0.25, 1);
+  transition: transform 260ms cubic-bezier(0.25, 1, 0.35, 1);
 }
 
+[data-state="doors-opening"] .folio-panel-right,
 [data-state="opening"] .folio-panel-right,
-[data-state="unfolding"] .folio-panel-right {
+[data-state="unfolding"] .folio-panel-right,
+[data-state="curtain-visible"] .folio-panel-right,
+[data-state="curtain-opening"] .folio-panel-right,
+[data-state="website-revealed"] .folio-panel-right,
+[data-state="revealed"] .folio-panel-right {
   transform: rotateY(115deg);
   opacity: 1;
-  transition: transform 1000ms cubic-bezier(0.22, 0.75, 0.25, 1);
+  transition: transform 260ms cubic-bezier(0.25, 1, 0.35, 1);
 }
 
+[data-state="doors-opening"] .folio-crease-shadow,
 [data-state="opening"] .folio-crease-shadow,
-[data-state="unfolding"] .folio-crease-shadow {
+[data-state="unfolding"] .folio-crease-shadow,
+[data-state="curtain-visible"] .folio-crease-shadow,
+[data-state="curtain-opening"] .folio-crease-shadow,
+[data-state="website-revealed"] .folio-crease-shadow,
+[data-state="revealed"] .folio-crease-shadow {
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.2s ease;
 }
 
 /* ===================================================
-   STAGE D: REVEALED (Full Stationery Presentation)
+   STAGE D: CURTAIN VISIBLE & WEBSITE REVEALED
    =================================================== */
+[data-state="curtain-visible"] .physical-folded-card,
+[data-state="curtain-opening"] .physical-folded-card,
+[data-state="website-revealed"] .physical-folded-card,
 [data-state="revealed"] .physical-folded-card {
   opacity: 0;
   visibility: hidden;
