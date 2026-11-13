@@ -213,18 +213,23 @@ body.intro-active #wedding-site {
 .folio-panel-left .folio-panel-surface {
   width: 100%;
   height: 100%;
+  background-color: #FAF6EE;
   background-image: 
-    linear-gradient(135deg, rgba(255, 253, 248, 0.38) 0%, rgba(245, 236, 224, 0.18) 50%, rgba(232, 217, 197, 0.35) 100%),
-    url('/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg');
-  background-size: 100vw 100vh;
-  background-size: 100vw 100dvh;
-  background-position: left center;
-  background-repeat: no-repeat;
+    /* CSS-only tactile paper fibrous grain */
+    repeating-linear-gradient(0deg, rgba(160, 140, 115, 0.025) 0px, rgba(160, 140, 115, 0.025) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(160, 140, 115, 0.025) 0px, rgba(160, 140, 115, 0.025) 1px, transparent 1px, transparent 3px),
+    /* Very subtle surface shading: hinge depth to bright body to delicate meeting edge */
+    linear-gradient(90deg, rgba(210, 196, 178, 0.22) 0%, rgba(255, 253, 248, 0.45) 35%, rgba(250, 246, 238, 0.15) 85%, rgba(215, 195, 170, 0.18) 100%);
   border-radius: 0;
-  box-shadow: 4px 0 24px rgba(81, 70, 63, 0.18);
   border: none;
-  border-right: 1px solid rgba(199, 167, 123, 0.45);
+  border-right: 1px solid rgba(199, 167, 123, 0.65);
+  /* Realistic soft hinge shadow along left edge + split depth to the right */
+  box-shadow: 
+    inset 24px 0 36px -12px rgba(80, 65, 50, 0.16),
+    inset 4px 0 8px -2px rgba(80, 65, 50, 0.12),
+    4px 0 20px rgba(70, 55, 45, 0.14);
   position: relative;
+  overflow: hidden;
 }
 
 .folio-panel-right {
@@ -236,27 +241,67 @@ body.intro-active #wedding-site {
 .folio-panel-right .folio-panel-surface {
   width: 100%;
   height: 100%;
+  background-color: #FAF6EE;
   background-image: 
-    linear-gradient(225deg, rgba(255, 253, 248, 0.38) 0%, rgba(245, 236, 224, 0.18) 50%, rgba(228, 212, 190, 0.35) 100%),
-    url('/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg');
-  background-size: 100vw 100vh;
-  background-size: 100vw 100dvh;
-  background-position: right center;
-  background-repeat: no-repeat;
+    /* CSS-only tactile paper fibrous grain */
+    repeating-linear-gradient(0deg, rgba(160, 140, 115, 0.025) 0px, rgba(160, 140, 115, 0.025) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(160, 140, 115, 0.025) 0px, rgba(160, 140, 115, 0.025) 1px, transparent 1px, transparent 3px),
+    /* Symmetrical surface shading: hinge depth to bright body to delicate meeting edge */
+    linear-gradient(270deg, rgba(210, 196, 178, 0.22) 0%, rgba(255, 253, 248, 0.45) 35%, rgba(250, 246, 238, 0.15) 85%, rgba(215, 195, 170, 0.18) 100%);
   border-radius: 0;
-  box-shadow: -4px 0 24px rgba(81, 70, 63, 0.18);
   border: none;
-  border-left: 1px solid rgba(199, 167, 123, 0.45);
+  border-left: 1px solid rgba(199, 167, 123, 0.65);
+  /* Realistic soft hinge shadow along right edge + split depth to the left */
+  box-shadow: 
+    inset -24px 0 36px -12px rgba(80, 65, 50, 0.16),
+    inset -4px 0 8px -2px rgba(80, 65, 50, 0.12),
+    -4px 0 20px rgba(70, 55, 45, 0.14);
   position: relative;
+  overflow: hidden;
 }
 
-/* Deckled Edge Detail at the Meeting Line */
+/* Symmetrical Thin Antique-Gold Inset Borders on Both Door Panels */
+.folio-panel-surface::before {
+  content: "";
+  position: absolute;
+  top: clamp(14px, 3.2vw, 36px);
+  bottom: clamp(14px, 3.2vw, 36px);
+  border: 1px solid rgba(199, 167, 123, 0.6);
+  box-shadow: 
+    inset 0 0 0 3px rgba(250, 246, 238, 0.95),
+    inset 0 0 0 4px rgba(199, 167, 123, 0.35);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.folio-panel-left .folio-panel-surface::before {
+  left: clamp(16px, 3.6vw, 42px);
+  right: clamp(10px, 2.2vw, 24px);
+}
+
+.folio-panel-right .folio-panel-surface::before {
+  left: clamp(10px, 2.2vw, 24px);
+  right: clamp(16px, 3.6vw, 42px);
+}
+
+/* Delicate Gold Centre-Edge Detailing at the Meeting Line */
 .folio-deckle-edge {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, transparent, rgba(199, 167, 123, 0.4), transparent);
+  background: linear-gradient(
+    180deg,
+    rgba(199, 167, 123, 0.2) 0%,
+    rgba(212, 175, 55, 0.75) 15%,
+    rgba(199, 167, 123, 0.95) 35%,
+    rgba(245, 235, 218, 1) 50%,
+    rgba(199, 167, 123, 0.95) 65%,
+    rgba(184, 144, 88, 0.75) 85%,
+    rgba(199, 167, 123, 0.2) 100%
+  );
+  box-shadow: 0 0 4px rgba(199, 167, 123, 0.35);
+  z-index: 5;
 }
 .folio-panel-left .folio-deckle-edge { right: 0; }
 .folio-panel-right .folio-deckle-edge { left: 0; }
@@ -264,8 +309,9 @@ body.intro-active #wedding-site {
 .folio-crease-shadow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(199, 167, 123, 0.15) 0%, transparent 80%);
+  background: radial-gradient(circle at 50% 50%, rgba(199, 167, 123, 0.12) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 1;
 }
 
 /* ========================================================
