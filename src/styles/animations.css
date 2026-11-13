@@ -90,7 +90,7 @@
   transition: transform 1.4s cubic-bezier(0.3, 0, 0.2, 1) 0.2s, opacity 0.8s ease 0.5s;
 }
 
-/* 5. TAP TO OPEN Button Smooth Fade Out */
+/* 5. TAP TO OPEN Button & Wedding Logo Smooth Fade Out */
 [data-state="untying"] .tap-to-open-container,
 [data-state="unfolding"] .tap-to-open-container,
 [data-state="revealed"] .tap-to-open-container {
@@ -100,7 +100,17 @@
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-[data-state="revealed"] .tap-to-open-container {
+[data-state="untying"] .intro-logo-container,
+[data-state="unfolding"] .intro-logo-container,
+[data-state="revealed"] .intro-logo-container {
+  opacity: 0;
+  transform: translate(-50%, -10px) scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+[data-state="revealed"] .tap-to-open-container,
+[data-state="revealed"] .intro-logo-container {
   display: none;
 }
 

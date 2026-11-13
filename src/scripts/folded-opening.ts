@@ -29,73 +29,107 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
       overlay.setAttribute("data-state", state);
     }
 
-    // STAGE B: UNTYING (0.0s – 1.6s)
-    setStageState("untying");
-
-    // STAGE C: UNFOLDING (1.6s – 3.4s: Gatefold panels swing open in 3D revealing curtains underneath)
-    setTimeout(() => {
-      setStageState("unfolding");
-    }, 1600);
-
-    // STAGE D: THEATRE CURTAIN REVEAL (Doors finish swinging open at 3.4s)
-    setTimeout(() => {
+    // Direct callback executed immediately when paper doors finish opening
+    function triggerImmediateCurtainOpening() {
+      // 1. Mark stage as revealed & hide paper door overlay cleanly
       setStageState("revealed");
+      overlay.classList.add("is-hidden");
+      overlay.style.display = "none";
 
+      // 2. Set live wedding website visible underneath
+      if (weddingSite) {
+        weddingSite.classList.add("is-revealed");
+      }
+
+      // 3. ZERO INTENTIONAL WAIT: Trigger curtains immediately in this exact callback
       if (curtainOverlay) {
-        // 1. Paper doors are now open; hide intro overlay cleanly
-        overlay.classList.add("is-hidden");
-        overlay.style.display = "none";
+        curtainOverlay.setAttribute("data-state", "opening");
 
-        // 2. Set live HTML wedding website visible underneath the closed curtains
-        if (weddingSite) {
-          weddingSite.classList.add("is-revealed");
+        // Curtains open outward for exactly 1000ms
+        const leftCurtainPanel = curtainOverlay.querySelector(".curtain-panel-left");
+
+        let sequenceCompleted = false;
+        const onCurtainsFinished = () => {
+          if (sequenceCompleted) return;
+          sequenceCompleted = true;
+
+          curtainOverlay.setAttribute("data-state", "opened");
+          curtainOverlay.style.display = "none";
+
+          // Enable normal scrolling immediately at 1000ms
+          document.documentElement.classList.remove("intro-active");
+          document.body.classList.remove("intro-active");
+
+          if (weddingSite) {
+            weddingSite.removeAttribute("inert");
+            weddingSite.setAttribute("aria-hidden", "false");
+          }
+
+          if (onRevealAudio) {
+            onRevealAudio();
+          }
+        };
+
+        if (leftCurtainPanel) {
+          const handleCurtainEnd = (e: Event) => {
+            const te = e as TransitionEvent;
+            if (te.target === leftCurtainPanel && te.propertyName === "transform") {
+              leftCurtainPanel.removeEventListener("transitionend", handleCurtainEnd);
+              onCurtainsFinished();
+            }
+          };
+          leftCurtainPanel.addEventListener("transitionend", handleCurtainEnd);
         }
 
-        // 3. Curtains are visible immediately; hold closed briefly (150ms)
-        setTimeout(() => {
-          // 4. Curtains begin parting outward (exactly 1000ms duration)
-          curtainOverlay.setAttribute("data-state", "opening");
-
-          // 5. Curtains complete parting outward after exactly 1000ms
-          setTimeout(() => {
-            curtainOverlay.setAttribute("data-state", "opened");
-            curtainOverlay.classList.add("is-fading-out");
-
-            // 6. Website becomes fully interactive
-            if (weddingSite) {
-              weddingSite.removeAttribute("inert");
-              weddingSite.setAttribute("aria-hidden", "false");
-            }
-
-            // 7. Start serene wedding background audio
-            if (onRevealAudio) {
-              onRevealAudio();
-            }
-
-            // 8. Remove curtain overlay element and restore normal scrolling after 250ms
-            setTimeout(() => {
-              curtainOverlay.style.display = "none";
-              document.documentElement.classList.remove("intro-active");
-              document.body.classList.remove("intro-active");
-            }, 250);
-          }, 1000);
-        }, 150);
+        // Exact 1000ms timer matching CSS transition duration
+        setTimeout(onCurtainsFinished, 1000);
       } else {
-        // Fallback if curtain overlay element not present
+        // Fallback if no curtain overlay
         if (weddingSite) {
           weddingSite.classList.add("is-revealed");
           weddingSite.removeAttribute("inert");
           weddingSite.setAttribute("aria-hidden", "false");
         }
-        overlay.classList.add("is-hidden");
+        document.documentElement.classList.remove("intro-active");
+        document.body.classList.remove("intro-active");
         if (onRevealAudio) onRevealAudio();
-        setTimeout(() => {
-          overlay.style.display = "none";
-          document.documentElement.classList.remove("intro-active");
-          document.body.classList.remove("intro-active");
-        }, 800);
       }
-    }, 3400);
+    }
+
+    // STAGE B: UNTYING (0.0s – 1.6s)
+    setStageState("untying");
+
+    // STAGE C: UNFOLDING (1.6s – Gatefold panels swing open in 3D)
+    setTimeout(() => {
+      setStageState("unfolding");
+
+      const leftDoor = stage.querySelector(".folio-panel-left");
+      let doorsFinished = false;
+
+      const handleDoorTransitionEnd = (e: Event) => {
+        const te = e as TransitionEvent;
+        if (te.target === leftDoor && te.propertyName === "transform") {
+          if (!doorsFinished) {
+            doorsFinished = true;
+            if (leftDoor) leftDoor.removeEventListener("transitionend", handleDoorTransitionEnd);
+            triggerImmediateCurtainOpening();
+          }
+        }
+      };
+
+      if (leftDoor) {
+        leftDoor.addEventListener("transitionend", handleDoorTransitionEnd);
+      }
+
+      // Safety fallback matching exact 1.8s door transition duration
+      setTimeout(() => {
+        if (!doorsFinished) {
+          doorsFinished = true;
+          if (leftDoor) leftDoor.removeEventListener("transitionend", handleDoorTransitionEnd);
+          triggerImmediateCurtainOpening();
+        }
+      }, 1800);
+    }, 1600);
   }
 
   // Strict Activation: ONLY clicking the actual TAP TO OPEN button starts the animation
