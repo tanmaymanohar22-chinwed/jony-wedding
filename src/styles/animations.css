@@ -66,21 +66,24 @@
    STAGE C: UNFOLDING (3D Gatefold Panels Swing Open)
    =================================================== */
 
+[data-state="opening"] .folio-panel-left,
 [data-state="unfolding"] .folio-panel-left {
   transform: rotateY(-115deg);
   opacity: 1;
-  transition: transform 1.8s cubic-bezier(0.25, 1, 0.35, 1);
+  transition: transform 1000ms cubic-bezier(0.22, 0.75, 0.25, 1);
 }
 
+[data-state="opening"] .folio-panel-right,
 [data-state="unfolding"] .folio-panel-right {
   transform: rotateY(115deg);
   opacity: 1;
-  transition: transform 1.8s cubic-bezier(0.25, 1, 0.35, 1);
+  transition: transform 1000ms cubic-bezier(0.22, 0.75, 0.25, 1);
 }
 
+[data-state="opening"] .folio-crease-shadow,
 [data-state="unfolding"] .folio-crease-shadow {
   opacity: 0;
-  transition: opacity 1.2s ease;
+  transition: opacity 0.6s ease;
 }
 
 /* ===================================================

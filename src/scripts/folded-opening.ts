@@ -24,112 +24,64 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
     tapBtn.style.pointerEvents = "none";
     tapBtn.classList.add("is-disabled");
 
-    function setStageState(state: string) {
-      stage.setAttribute("data-state", state);
-      overlay.setAttribute("data-state", state);
+    // A. Immediately add the opening state to the theatre curtain
+    if (curtainOverlay) {
+      curtainOverlay.setAttribute("data-state", "opening");
     }
 
-    // Direct callback executed immediately when paper doors finish opening
-    function triggerImmediateCurtainOpening() {
-      // 1. Mark stage as revealed & hide paper door overlay cleanly
-      setStageState("revealed");
+    // B. Simultaneously start the logo disappearance and folded-door exit animation
+    stage.setAttribute("data-state", "opening");
+    overlay.setAttribute("data-state", "opening");
+
+    // C. Make the real wedding website visible underneath the curtains
+    if (weddingSite) {
+      weddingSite.classList.add("is-revealed");
+    }
+
+    // D. Keep the website non-interactive until the curtains have completely opened (1000ms)
+    let sequenceCompleted = false;
+    const onCurtainComplete = () => {
+      if (sequenceCompleted) return;
+      sequenceCompleted = true;
+
+      // Finish curtain state and clean up overlays
+      if (curtainOverlay) {
+        curtainOverlay.setAttribute("data-state", "opened");
+        curtainOverlay.style.display = "none";
+      }
+
+      overlay.setAttribute("data-state", "revealed");
       overlay.classList.add("is-hidden");
       overlay.style.display = "none";
 
-      // 2. Set live wedding website visible underneath
+      // Enable scrolling and interactivity immediately
+      document.documentElement.classList.remove("intro-active");
+      document.body.classList.remove("intro-active");
+
       if (weddingSite) {
-        weddingSite.classList.add("is-revealed");
+        weddingSite.removeAttribute("inert");
+        weddingSite.setAttribute("aria-hidden", "false");
       }
 
-      // 3. ZERO INTENTIONAL WAIT: Trigger curtains immediately in this exact callback
-      if (curtainOverlay) {
-        curtainOverlay.setAttribute("data-state", "opening");
-
-        // Curtains open outward for exactly 1000ms
-        const leftCurtainPanel = curtainOverlay.querySelector(".curtain-panel-left");
-
-        let sequenceCompleted = false;
-        const onCurtainsFinished = () => {
-          if (sequenceCompleted) return;
-          sequenceCompleted = true;
-
-          curtainOverlay.setAttribute("data-state", "opened");
-          curtainOverlay.style.display = "none";
-
-          // Enable normal scrolling immediately at 1000ms
-          document.documentElement.classList.remove("intro-active");
-          document.body.classList.remove("intro-active");
-
-          if (weddingSite) {
-            weddingSite.removeAttribute("inert");
-            weddingSite.setAttribute("aria-hidden", "false");
-          }
-
-          if (onRevealAudio) {
-            onRevealAudio();
-          }
-        };
-
-        if (leftCurtainPanel) {
-          const handleCurtainEnd = (e: Event) => {
-            const te = e as TransitionEvent;
-            if (te.target === leftCurtainPanel && te.propertyName === "transform") {
-              leftCurtainPanel.removeEventListener("transitionend", handleCurtainEnd);
-              onCurtainsFinished();
-            }
-          };
-          leftCurtainPanel.addEventListener("transitionend", handleCurtainEnd);
-        }
-
-        // Exact 1000ms timer matching CSS transition duration
-        setTimeout(onCurtainsFinished, 1000);
-      } else {
-        // Fallback if no curtain overlay
-        if (weddingSite) {
-          weddingSite.classList.add("is-revealed");
-          weddingSite.removeAttribute("inert");
-          weddingSite.setAttribute("aria-hidden", "false");
-        }
-        document.documentElement.classList.remove("intro-active");
-        document.body.classList.remove("intro-active");
-        if (onRevealAudio) onRevealAudio();
+      if (onRevealAudio) {
+        onRevealAudio();
       }
-    }
+    };
 
-    // STEP 3: J & S logo smoothly fades and scales away
-    setStageState("opening");
-
-    // STEP 4: Folded-paper doors begin opening (200ms grace as logo dissolves)
-    setTimeout(() => {
-      setStageState("unfolding");
-
-      const leftDoor = stage.querySelector(".folio-panel-left");
-      let doorsFinished = false;
-
-      const handleDoorTransitionEnd = (e: Event) => {
+    const leftCurtainPanel = curtainOverlay ? curtainOverlay.querySelector(".curtain-panel-left") : null;
+    if (leftCurtainPanel) {
+      const handleCurtainEnd = (e: Event) => {
         const te = e as TransitionEvent;
-        if (te.target === leftDoor && te.propertyName === "transform") {
-          if (!doorsFinished) {
-            doorsFinished = true;
-            if (leftDoor) leftDoor.removeEventListener("transitionend", handleDoorTransitionEnd);
-            triggerImmediateCurtainOpening();
-          }
+        if (te.target === leftCurtainPanel && te.propertyName === "transform") {
+          leftCurtainPanel.removeEventListener("transitionend", handleCurtainEnd);
+          onCurtainComplete();
         }
       };
+      leftCurtainPanel.addEventListener("transitionend", handleCurtainEnd);
+    }
 
-      if (leftDoor) {
-        leftDoor.addEventListener("transitionend", handleDoorTransitionEnd);
-      }
-
-      // Safety fallback matching exact 1.8s door transition duration
-      setTimeout(() => {
-        if (!doorsFinished) {
-          doorsFinished = true;
-          if (leftDoor) leftDoor.removeEventListener("transitionend", handleDoorTransitionEnd);
-          triggerImmediateCurtainOpening();
-        }
-      }, 1800);
-    }, 200);
+    // Exact 1000ms timeout matching CSS transition duration
+    setTimeout(onCurtainComplete, 1000);
   }
 
   // Strict Activation: ONLY clicking the actual TAP TO OPEN button starts the animation
