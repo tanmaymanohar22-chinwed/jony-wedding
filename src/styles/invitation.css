@@ -17,15 +17,7 @@ body.intro-active .music-control-pill {
   pointer-events: none !important;
 }
 
-/* ========================================================
-   LUXURY BURGUNDY & GOLD WEDDING INVITATION BOX OVERLAY
-   Palette:
-   - Deep Burgundy: #641D32
-   - Deep Wine:     #3E1424
-   - Antique Gold:  #C6A15B
-   - Champagne Gold:#D8BD88
-   - Warm Ivory:    #F5EBDD
-   ======================================================== */
+/* Edge-to-Edge Fullscreen Intro Overlay (Layer 3: Folded paper doors & ribbons) */
 .intro-overlay {
   position: fixed;
   inset: 0;
@@ -37,12 +29,10 @@ body.intro-active .music-control-pill {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  background: radial-gradient(ellipse at 50% 50%, #641D32 0%, #4D1627 65%, #3E1424 100%);
+  background: transparent;
   display: block;
   touch-action: none;
-  box-shadow: inset 0 0 120px rgba(25, 6, 14, 0.65);
-  transition: opacity 1.4s cubic-bezier(0.22, 0.75, 0.25, 1), transform 1.4s cubic-bezier(0.22, 0.75, 0.25, 1);
-  will-change: opacity, transform;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .intro-overlay.is-hidden {
@@ -51,189 +41,32 @@ body.intro-active .music-control-pill {
   pointer-events: none;
 }
 
-.burgundy-box-outer {
+.intro-stage-box {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(14px, 3.5vw, 32px);
-  box-sizing: border-box;
-}
-
-/* Fine Antique Gold Ornamental Perimeter Framing */
-.box-filigree-border {
-  position: absolute;
-  inset: clamp(12px, 2.5vw, 24px);
-  border: 1.5px solid rgba(198, 161, 91, 0.55);
-  border-radius: 4px;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 3px rgba(62, 20, 36, 0.85), inset 0 0 0 4.5px rgba(216, 189, 136, 0.35);
-}
-
-/* Central Warm-Ivory Stationery Panel */
-.ivory-stationery-panel {
-  position: relative;
-  width: min(88vw, 420px);
-  height: min(72vh, 580px);
-  min-height: 420px;
-  background: #F5EBDD;
-  border-radius: 6px;
-  box-shadow: 
-    0 20px 50px rgba(30, 8, 16, 0.6), 
-    0 4px 14px rgba(30, 8, 16, 0.4), 
-    inset 0 0 35px rgba(198, 161, 91, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* Antique Gold Embossed Double Border inside Ivory Panel */
-.ivory-panel-border {
-  position: absolute;
-  inset: 12px;
-  border: 1.5px solid #C6A15B;
-  border-radius: 3px;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 3px #F5EBDD, inset 0 0 0 4.5px rgba(198, 161, 91, 0.45);
-}
-
-/* Ornamental Antique Gold Corner Filigree Accents */
-.ivory-corner-filigree {
-  position: absolute;
-  width: 36px;
-  height: 36px;
-  pointer-events: none;
-  z-index: 5;
-}
-.corner-tl { top: 14px; left: 14px; }
-.corner-tr { top: 14px; right: 14px; }
-.corner-bl { bottom: 14px; left: 14px; }
-.corner-br { bottom: 14px; right: 14px; }
-
-/* Crossed Champagne-Gold Satin Ribbon Rig Wrapping Ivory Panel */
-.satin-ribbon-rig {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
   z-index: 10;
-}
-
-.satin-strap {
-  position: absolute;
-  background: linear-gradient(var(--strap-angle), 
-    #9A7738 0%, 
-    #C6A15B 16%, 
-    #D8BD88 38%, 
-    #FFFDF7 52%, 
-    #D8BD88 66%, 
-    #C6A15B 84%, 
-    #8F6E2E 100%
-  );
-  box-shadow: 0 4px 16px rgba(45, 12, 22, 0.35);
-  transform-origin: center center;
-}
-
-.satin-strap-vertical {
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: clamp(40px, 9.5vw, 50px);
-  transform: translateX(-50%);
-  height: 100%;
-  --strap-angle: 90deg;
-}
-
-.satin-strap-horizontal {
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: clamp(40px, 9.5vw, 50px);
-  transform: translateY(-50%);
+  display: block;
   width: 100%;
-  --strap-angle: 180deg;
+  height: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
 }
 
-.satin-sheen {
+.intro-stage-box .cover-stationery-wrapper {
   position: absolute;
   inset: 0;
-  background: linear-gradient(var(--strap-angle), transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
-  pointer-events: none;
-}
-
-/* Central Tied Luxury Satin Bow */
-.satin-bow-rig {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(190px, 44vw, 230px);
-  height: clamp(170px, 40vw, 210px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 15;
-}
-
-.satin-bow-svg {
   width: 100%;
   height: 100%;
-  overflow: visible;
-  filter: drop-shadow(0 6px 16px rgba(35, 8, 18, 0.45));
-}
-
-/* Luxury TAP TO OPEN Button Overlay */
-.tap-to-open-container {
-  position: absolute;
-  bottom: clamp(22px, 5vh, 42px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 25;
-  text-align: center;
-  width: 100%;
-  max-width: 320px;
-  pointer-events: auto;
-}
-
-.luxury-burgundy-btn {
-  background: rgba(245, 235, 221, 0.96);
-  border: 1.5px solid #C6A15B;
-  color: #641D32;
-  font-family: var(--font-serif-secondary, Georgia, serif);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  padding: 13px 28px;
-  border-radius: 30px;
-  box-shadow: 
-    0 6px 22px rgba(30, 8, 16, 0.4), 
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.luxury-burgundy-btn .tap-sparkle {
-  color: #C6A15B;
-  font-size: 0.72rem;
-}
-
-.luxury-burgundy-btn .tap-text {
-  color: #641D32;
-}
-
-.luxury-burgundy-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(30, 8, 16, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  border-color: #D8BD88;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  background: transparent;
 }
 
 /* Main Wedding Site Container (Rendered directly underneath opening doors) */
