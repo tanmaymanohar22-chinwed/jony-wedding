@@ -1,75 +1,8 @@
 /* ========================================================
-   FULL-SCREEN INTRO OVERLAY & WEBSITE VISIBILITY LOGIC
+   ONE CONTINUOUS SINGLE-PAGE WEDDING INVITATION WEBSITE
    ======================================================== */
-html.intro-active,
-body.intro-active {
-  overflow: hidden !important;
-  height: 100vh !important;
-  height: 100dvh !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  touch-action: none !important;
-}
 
-body.intro-active .music-control-pill {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
-/* Edge-to-Edge Fullscreen Intro Overlay (Layer 3: Folded paper doors & ribbons) */
-.intro-overlay {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  z-index: 99990;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  display: block;
-  touch-action: none;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.intro-overlay.is-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.intro-stage-box {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  background: transparent;
-}
-
-.intro-stage-box .cover-stationery-wrapper {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  margin: 0;
-  border-radius: 0;
-  box-shadow: none;
-  overflow: hidden;
-  background: transparent;
-}
-
-/* Main Wedding Site Container (Rendered directly underneath opening doors) */
+/* Main Wedding Site Container (Renders immediately on page load) */
 #wedding-site,
 .wedding-site {
   width: 100%;
@@ -78,27 +11,11 @@ body.intro-active .music-control-pill {
   visibility: visible;
   position: relative;
   z-index: 1;
+  margin: 0;
+  padding: 0;
 }
 
-html.intro-active #wedding-site,
-body.intro-active #wedding-site {
-  pointer-events: none;
-}
-
-#wedding-site.is-revealed,
-.wedding-site.is-revealed {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.is-revealed-static {
-  opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
-}
-
-/* Main Website Full-Width Shell (No 480px constraint) */
+/* Main Website Full-Width Shell */
 .invitation-shell {
   width: 100%;
   max-width: none;
@@ -107,7 +24,7 @@ body.intro-active #wedding-site {
   position: relative;
 }
 
-/* Responsive Content Container for Standard Sections */
+/* Responsive Content Container for Standard Sections (1100px max readable width) */
 .content-container {
   width: min(100% - 40px, 1100px);
   margin-inline: auto;
@@ -148,250 +65,10 @@ body.intro-active #wedding-site {
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
 }
+
 .language-switch-btn:hover {
   background: #FFF;
   color: var(--color-text);
-}
-
-/* ========================================================
-   PHYSICAL 3D GATEFOLD STATIONERY & X-SHAPED SATIN RIBBON
-   ======================================================== */
-.folded-stage-wrapper {
-  position: absolute;
-  inset: 0;
-  z-index: 50;
-  pointer-events: none;
-}
-
-.folded-card-scene {
-  position: absolute;
-  inset: 0;
-  perspective: 1400px;
-  transform-style: preserve-3d;
-}
-
-.cover-stationery-wrapper {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  margin: 0;
-  border-radius: 0;
-  overflow: hidden;
-  box-shadow: none;
-  background: transparent;
-}
-
-/* Gatefold Paper Structure (Left & Right Panels Meeting at Center) */
-.folio-paper-structure {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  pointer-events: none;
-  z-index: 41;
-}
-
-.folio-panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50.5%;
-  height: 100%;
-  transform-style: preserve-3d;
-  backface-visibility: visible;
-}
-
-.folio-panel-left {
-  left: 0;
-  transform-origin: left center;
-  z-index: 42;
-}
-
-.folio-panel-left .folio-panel-surface {
-  width: 100%;
-  height: 100%;
-  background-color: #FAF6EE;
-  background-image: 
-    /* CSS-only tactile paper fibrous grain */
-    repeating-linear-gradient(0deg, rgba(160, 140, 115, 0.025) 0px, rgba(160, 140, 115, 0.025) 1px, transparent 1px, transparent 3px),
-    repeating-linear-gradient(90deg, rgba(160, 140, 115, 0.025) 0px, rgba(160, 140, 115, 0.025) 1px, transparent 1px, transparent 3px),
-    /* Very subtle surface shading: hinge depth to bright body to delicate meeting edge */
-    linear-gradient(90deg, rgba(210, 196, 178, 0.22) 0%, rgba(255, 253, 248, 0.45) 35%, rgba(250, 246, 238, 0.15) 85%, rgba(215, 195, 170, 0.18) 100%);
-  border-radius: 0;
-  border: none;
-  border-right: 1px solid rgba(199, 167, 123, 0.65);
-  /* Realistic soft hinge shadow along left edge + split depth to the right */
-  box-shadow: 
-    inset 24px 0 36px -12px rgba(80, 65, 50, 0.16),
-    inset 4px 0 8px -2px rgba(80, 65, 50, 0.12),
-    4px 0 20px rgba(70, 55, 45, 0.14);
-  position: relative;
-  overflow: hidden;
-}
-
-.folio-panel-right {
-  right: 0;
-  transform-origin: right center;
-  z-index: 43;
-}
-
-.folio-panel-right .folio-panel-surface {
-  width: 100%;
-  height: 100%;
-  background-color: #FAF6EE;
-  background-image: 
-    /* CSS-only tactile paper fibrous grain */
-    repeating-linear-gradient(0deg, rgba(160, 140, 115, 0.025) 0px, rgba(160, 140, 115, 0.025) 1px, transparent 1px, transparent 3px),
-    repeating-linear-gradient(90deg, rgba(160, 140, 115, 0.025) 0px, rgba(160, 140, 115, 0.025) 1px, transparent 1px, transparent 3px),
-    /* Symmetrical surface shading: hinge depth to bright body to delicate meeting edge */
-    linear-gradient(270deg, rgba(210, 196, 178, 0.22) 0%, rgba(255, 253, 248, 0.45) 35%, rgba(250, 246, 238, 0.15) 85%, rgba(215, 195, 170, 0.18) 100%);
-  border-radius: 0;
-  border: none;
-  border-left: 1px solid rgba(199, 167, 123, 0.65);
-  /* Realistic soft hinge shadow along right edge + split depth to the left */
-  box-shadow: 
-    inset -24px 0 36px -12px rgba(80, 65, 50, 0.16),
-    inset -4px 0 8px -2px rgba(80, 65, 50, 0.12),
-    -4px 0 20px rgba(70, 55, 45, 0.14);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Symmetrical Thin Antique-Gold Inset Borders on Both Door Panels */
-.folio-panel-surface::before {
-  content: "";
-  position: absolute;
-  top: clamp(14px, 3.2vw, 36px);
-  bottom: clamp(14px, 3.2vw, 36px);
-  border: 1px solid rgba(199, 167, 123, 0.6);
-  box-shadow: 
-    inset 0 0 0 3px rgba(250, 246, 238, 0.95),
-    inset 0 0 0 4px rgba(199, 167, 123, 0.35);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.folio-panel-left .folio-panel-surface::before {
-  left: clamp(16px, 3.6vw, 42px);
-  right: clamp(10px, 2.2vw, 24px);
-}
-
-.folio-panel-right .folio-panel-surface::before {
-  left: clamp(10px, 2.2vw, 24px);
-  right: clamp(16px, 3.6vw, 42px);
-}
-
-/* Delicate Gold Centre-Edge Detailing at the Meeting Line */
-.folio-deckle-edge {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(
-    180deg,
-    rgba(199, 167, 123, 0.2) 0%,
-    rgba(212, 175, 55, 0.75) 15%,
-    rgba(199, 167, 123, 0.95) 35%,
-    rgba(245, 235, 218, 1) 50%,
-    rgba(199, 167, 123, 0.95) 65%,
-    rgba(184, 144, 88, 0.75) 85%,
-    rgba(199, 167, 123, 0.2) 100%
-  );
-  box-shadow: 0 0 4px rgba(199, 167, 123, 0.35);
-  z-index: 5;
-}
-.folio-panel-left .folio-deckle-edge { right: 0; }
-.folio-panel-right .folio-deckle-edge { left: 0; }
-
-.folio-crease-shadow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(199, 167, 123, 0.12) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ========================================================
-   PROMINENT CENTER J & S WEDDING LOGO CREST
-   (Main Decorative Focal Point — Replaces the Ribbon Bow)
-   ======================================================== */
-.intro-logo-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(160px, 26vw, 240px);
-  height: clamp(160px, 26vw, 240px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 55;
-  pointer-events: none;
-  transition: opacity 0.4s cubic-bezier(0.2, 0, 0.2, 1), transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
-}
-
-.intro-logo-crest-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  mix-blend-mode: multiply;
-  filter: contrast(1.06) brightness(0.98) drop-shadow(0 6px 22px rgba(186, 158, 130, 0.48));
-}
-
-/* ========================================================
-   LUXURY "TAP TO OPEN" BUTTON
-   ======================================================== */
-.tap-to-open-container {
-  position: absolute;
-  left: 50%;
-  bottom: max(28px, calc(env(safe-area-inset-bottom) + 18px));
-  transform: translateX(-50%);
-  width: auto;
-  margin: 0;
-  padding: 0;
-  z-index: 60;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: auto;
-}
-
-.tap-to-open-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: linear-gradient(145deg, #FFFDF8, #F9F2E6);
-  border: 1.5px solid var(--color-champagne);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  padding: 13px 32px;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: var(--shadow-gold);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  outline: none;
-  white-space: nowrap;
-  min-width: max-content;
-}
-
-.tap-to-open-button:hover,
-.tap-to-open-button:focus-visible {
-  background: #FFF;
-  border-color: var(--color-champagne-light);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(199, 167, 123, 0.45);
-}
-
-.tap-sparkle {
-  color: var(--color-champagne);
-  font-size: 0.85rem;
 }
 
 /* ========================================================
@@ -400,6 +77,7 @@ body.intro-active #wedding-site {
 #invitation-cover,
 .invitation-page-fullbleed,
 .hero-section-fullbleed {
+  width: 100vw;
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
@@ -410,22 +88,24 @@ body.intro-active #wedding-site {
   justify-content: center;
   overflow: hidden;
   margin: 0;
-  padding: clamp(32px, 5vh, 60px) clamp(20px, 4vw, 48px);
+  padding: clamp(16px, 2.5vh, 28px) clamp(16px, 3vw, 36px);
   box-sizing: border-box;
-  background-color: #FFFDF3;
+  background-color: #FAF6EE;
   background-image: 
-    radial-gradient(circle at 50% 30%, #FFFDF3 0%, #FAF5ED 65%, #F4ECE0 100%);
+    repeating-linear-gradient(0deg, rgba(160, 140, 115, 0.02) 0px, rgba(160, 140, 115, 0.02) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(160, 140, 115, 0.02) 0px, rgba(160, 140, 115, 0.02) 1px, transparent 1px, transparent 3px),
+    radial-gradient(circle at 50% 35%, rgba(255, 253, 248, 0.95) 0%, rgba(250, 246, 238, 0.8) 60%, rgba(242, 234, 222, 0.9) 100%);
 }
 
 /* Perimeter Double Border Frame */
 .invitation-page-border {
   position: absolute;
-  inset: clamp(12px, 2.2vw, 28px);
+  inset: clamp(10px, 2vw, 24px);
   border: 1.5px solid var(--color-champagne);
   border-radius: var(--radius-sm);
   pointer-events: none;
   z-index: 2;
-  box-shadow: inset 0 0 40px rgba(199, 167, 123, 0.08);
+  box-shadow: inset 0 0 30px rgba(199, 167, 123, 0.08);
 }
 
 .invitation-page-inner-border {
@@ -439,7 +119,7 @@ body.intro-active #wedding-site {
 /* Corner Botanical Ornaments */
 .invitation-corner-ornaments {
   position: absolute;
-  inset: clamp(14px, 2.5vw, 30px);
+  inset: clamp(12px, 2.2vw, 26px);
   pointer-events: none;
   z-index: 3;
 }
@@ -467,32 +147,18 @@ body.intro-active #wedding-site {
   justify-content: center;
   text-align: center;
   width: 100%;
-  max-width: min(92vw, 780px);
+  max-width: min(92vw, 760px);
   margin: auto;
-  padding: 10px 10px clamp(48px, 8vh, 80px);
-}
-
-.invitation-top-garland {
-  width: 100%;
-  max-width: clamp(260px, 45vw, 440px);
-  margin: 0 auto clamp(8px, 1.8vh, 18px);
-}
-
-.invitation-floral-header {
-  width: 100%;
-  height: auto;
-  display: block;
-  opacity: 0.94;
-  mix-blend-mode: multiply;
+  padding: 4px 8px;
 }
 
 .invitation-crest-emblem {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(140px, 24vw, 210px);
-  height: clamp(140px, 24vw, 210px);
-  margin: 0 auto clamp(8px, 1.6vh, 16px);
+  width: clamp(90px, 14vw, 135px);
+  height: clamp(90px, 14vw, 135px);
+  margin: 0 auto clamp(4px, 1vh, 10px);
 }
 
 .invitation-logo-img {
@@ -503,30 +169,21 @@ body.intro-active #wedding-site {
   filter: contrast(1.04) brightness(0.99);
 }
 
-.invitation-monogram {
-  font-family: var(--font-serif-primary);
-  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  color: var(--color-champagne);
-  margin-left: 2px;
-}
-
 .invitation-lead-text,
 .cover-intro-lead {
   font-family: var(--font-sans);
-  font-size: clamp(0.72rem, 1.6vw, 0.88rem);
-  letter-spacing: 0.2em;
+  font-size: clamp(0.68rem, 1.4vw, 0.84rem);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  max-width: 480px;
-  line-height: 1.65;
+  max-width: 440px;
+  line-height: 1.55;
   margin: 0 auto;
 }
 
 .invitation-couple-block,
 .cover-couple-names {
-  margin: clamp(12px, 2.5vh, 24px) 0 clamp(8px, 1.8vh, 16px);
+  margin: clamp(4px, 1.2vh, 12px) 0 clamp(2px, 0.8vh, 8px);
 }
 
 .invitation-bride-name,
@@ -534,7 +191,7 @@ body.intro-active #wedding-site {
 .cover-bride-name,
 .cover-groom-name {
   font-family: var(--font-serif-primary);
-  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  font-size: clamp(2.1rem, 5.2vw, 3.6rem);
   font-weight: 500;
   line-height: 1.05;
   color: var(--color-text);
@@ -544,35 +201,78 @@ body.intro-active #wedding-site {
 .invitation-ampersand,
 .cover-ampersand {
   font-family: var(--font-script);
-  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-size: clamp(1.8rem, 4.2vw, 2.8rem);
   color: var(--color-champagne);
   display: block;
-  line-height: 0.9;
-  margin: 4px 0;
+  line-height: 0.85;
+  margin: 2px 0;
+}
+
+.hero-divider {
+  margin: clamp(4px, 1vh, 10px) auto !important;
+}
+
+.invitation-hero-date-block {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: clamp(4px, 1vh, 10px) auto;
+}
+
+.hero-date-line {
+  width: clamp(28px, 6vw, 56px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-champagne), transparent);
+}
+
+.invitation-hero-date {
+  font-family: var(--font-serif-primary);
+  font-size: clamp(0.98rem, 2.1vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-champagne);
+  margin: 0;
+  line-height: 1.2;
 }
 
 .invitation-sub-lead {
   font-family: var(--font-serif-secondary);
-  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  font-size: clamp(0.92rem, 1.8vw, 1.15rem);
   font-style: italic;
   color: var(--color-text-muted);
-  max-width: 520px;
-  line-height: 1.6;
+  max-width: 480px;
+  line-height: 1.5;
   margin: 0 auto;
 }
 
 .invitation-scroll-prompt {
-  margin-top: clamp(20px, 3.5vh, 36px);
-  display: flex;
+  margin-top: clamp(12px, 2vh, 22px);
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  color: var(--color-forest);
+  gap: 4px;
+  color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+  font-size: clamp(0.7rem, 1.4vw, 0.8rem);
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.invitation-scroll-prompt:hover,
+.invitation-scroll-prompt:focus-visible {
+  color: var(--color-champagne);
+  transform: translateY(2px);
 }
 
 .invitation-scroll-sparkle {
@@ -581,14 +281,15 @@ body.intro-active #wedding-site {
 }
 
 .invitation-scroll-arrow {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   color: var(--color-champagne);
   animation: heroBounce 2s infinite ease-in-out;
+  line-height: 1;
 }
 
 @keyframes heroBounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
+  50% { transform: translateY(6px); }
 }
 
 /* ========================================================
@@ -1116,9 +817,10 @@ body.intro-active #wedding-site {
    ======================================================== */
 .music-player-fixed {
   position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: clamp(16px, 2.5vh, 24px);
+  right: clamp(16px, 2.5vw, 24px);
+  left: auto;
+  transform: none;
   z-index: 99;
 }
 

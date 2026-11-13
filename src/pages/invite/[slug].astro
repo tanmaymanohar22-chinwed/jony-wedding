@@ -1,6 +1,5 @@
 ---
 import InvitationLayout from '../../layouts/InvitationLayout.astro';
-import IntroOverlay from '../../components/IntroOverlay.astro';
 import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
 import InvitationCover from '../../components/InvitationCover.astro';
 import ScratchToReveal from '../../components/ScratchToReveal.astro';
@@ -21,22 +20,12 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 ---
 
 <InvitationLayout title={pageTitle} description={pageDescription}>
-  <!-- 1. FULL-SCREEN DEDICATED INTRO OVERLAY (Edge-to-edge watercolor & folded paper) -->
-  <IntroOverlay
-    monogram={weddingData.monogram}
-    brideName={weddingData.couple.bride.fullName}
-    groomName={weddingData.couple.groom.fullName}
-    welcomeMessage={weddingData.welcomeMessage}
-    formattedDate={weddingData.formattedDate}
-    destination={weddingData.destination}
-  />
-
-  <!-- 2. MAIN WEDDING WEBSITE (Live HTML website revealed directly behind opening paper doors) -->
-  <main id="wedding-site" class="wedding-site" inert aria-hidden="true">
+  <!-- MAIN CONTINUOUS WEDDING INVITATION WEBSITE -->
+  <main id="wedding-site" class="wedding-site">
     <LanguageSwitcher languages={weddingData.languages} />
 
     <div class="invitation-shell">
-      <!-- Section 1: Main Wedding Invitation Hero -->
+      <!-- Section 1: Main Wedding Invitation Hero (Full Viewport) -->
       <InvitationCover
         brideName={weddingData.couple.bride.fullName}
         groomName={weddingData.couple.groom.fullName}
@@ -45,7 +34,7 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
         destination={weddingData.destination}
       />
 
-      <!-- Section 2: Heart-Shaped Scratch to Reveal Wedding Date & Save-the-Date -->
+      <!-- Section 2: Heart-Shaped Scratch to Reveal Wedding Date & Save-the-Date (Full Viewport) -->
       <ScratchToReveal
         weddingDate={weddingData.weddingDate}
         formattedDate={weddingData.formattedDate}
@@ -72,7 +61,6 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 </InvitationLayout>
 
 <script>
-  import { initFoldedOpening } from '../../scripts/folded-opening';
   import { initScratchCard } from '../../scripts/scratch-card';
   import { setupCountdownListener } from '../../scripts/countdown';
   import { initMusic } from '../../scripts/music';
@@ -81,9 +69,14 @@ const pageDescription = `Join us in celebrating the wedding of ${weddingData.cou
 
   document.addEventListener('DOMContentLoaded', () => {
     const musicController = initMusic(weddingData.music.src);
-    initFoldedOpening(() => {
+    const startAudioOnFirstInteraction = () => {
       musicController.play();
-    });
+      document.removeEventListener('click', startAudioOnFirstInteraction);
+      document.removeEventListener('touchstart', startAudioOnFirstInteraction);
+    };
+    document.addEventListener('click', startAudioOnFirstInteraction, { once: true });
+    document.addEventListener('touchstart', startAudioOnFirstInteraction, { once: true });
+
     initScratchCard();
     setupCountdownListener(weddingData.weddingDate);
     initGallery();

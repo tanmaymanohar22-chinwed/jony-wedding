@@ -26,21 +26,14 @@ const { brideName, groomName, welcomeMessage, formattedDate, destination } = Ast
 
   <!-- Invitation Main Body Covering the Full Viewport -->
   <div class="invitation-full-container">
-    <!-- Top Watercolor Botanical Garland -->
-    <div class="invitation-top-garland" aria-hidden="true">
-      <img 
-        src="/jony-wedding/assets/decorations/floral-top-border.png" 
-        alt="" 
-        class="invitation-floral-header floating-botanical"
-      />
-    </div>
-
     <!-- Royal J&S Monogram Logo Crest -->
     <div class="invitation-crest-emblem">
       <img 
         src="/jony-wedding/assets/decorations/wedding-logo-crest.png" 
         alt="J&S Royal Wedding Monogram Crest" 
         class="invitation-logo-img"
+        width="160"
+        height="160"
       />
     </div>
 
@@ -54,8 +47,15 @@ const { brideName, groomName, welcomeMessage, formattedDate, destination } = Ast
       <h1 class="invitation-groom-name cover-groom-name">{groomName}</h1>
     </div>
 
-    <div class="botanical-divider" style="margin: clamp(10px, 2vh, 18px) auto;">
+    <div class="botanical-divider hero-divider">
       <span class="botanical-divider-icon">❦</span>
+    </div>
+
+    <!-- Wedding Date Display -->
+    <div class="invitation-hero-date-block">
+      <span class="hero-date-line"></span>
+      <p class="invitation-hero-date">{formattedDate || "Tuesday, 29 December 2026"}</p>
+      <span class="hero-date-line"></span>
     </div>
 
     <!-- Sacred Blessing / Invitation Note -->
@@ -63,11 +63,31 @@ const { brideName, groomName, welcomeMessage, formattedDate, destination } = Ast
       We joyfully request the honour of your presence to witness our sacred vows and celebrate our love
     </p>
 
-    <!-- Scroll Cue Pointing directly to Scratch to Reveal Section -->
-    <div class="invitation-scroll-prompt" aria-hidden="true">
+    <!-- Refined Interactive Scroll-Down Indicator -->
+    <a 
+      href="#scratch-reveal-section" 
+      id="hero-scroll-btn" 
+      class="invitation-scroll-prompt" 
+      role="button"
+      aria-label="Scroll to explore the wedding invitation"
+    >
       <span class="invitation-scroll-sparkle">✦</span>
-      <span class="invitation-scroll-label">Scratch below to reveal date & venue</span>
-      <span class="invitation-scroll-arrow">↓</span>
-    </div>
+      <span class="invitation-scroll-label">SCROLL TO EXPLORE</span>
+      <span class="invitation-scroll-arrow" aria-hidden="true">↓</span>
+    </a>
   </div>
 </section>
+
+<script>
+  // Smooth scroll handler for the hero scroll-down button
+  const scrollBtn = document.getElementById('hero-scroll-btn');
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById('scratch-reveal-section');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+</script>
