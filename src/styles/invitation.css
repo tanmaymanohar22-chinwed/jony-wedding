@@ -212,7 +212,13 @@ body.intro-active .music-control-pill {
 .folio-panel-left .folio-panel-surface {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #FFFDF8 0%, #F5ECE0 70%, #E8D9C5 100%);
+  background-image: 
+    linear-gradient(135deg, rgba(255, 253, 248, 0.38) 0%, rgba(245, 236, 224, 0.18) 50%, rgba(232, 217, 197, 0.35) 100%),
+    url('/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg');
+  background-size: 100vw 100vh;
+  background-size: 100vw 100dvh;
+  background-position: left center;
+  background-repeat: no-repeat;
   border-radius: 0;
   box-shadow: 4px 0 24px rgba(81, 70, 63, 0.18);
   border: none;
@@ -229,7 +235,13 @@ body.intro-active .music-control-pill {
 .folio-panel-right .folio-panel-surface {
   width: 100%;
   height: 100%;
-  background: linear-gradient(225deg, #FFFDF8 0%, #F5ECE0 70%, #E4D4BE 100%);
+  background-image: 
+    linear-gradient(225deg, rgba(255, 253, 248, 0.38) 0%, rgba(245, 236, 224, 0.18) 50%, rgba(228, 212, 190, 0.35) 100%),
+    url('/jony-wedding/assets/backgrounds/coastal-castle-scene.jpg');
+  background-size: 100vw 100vh;
+  background-size: 100vw 100dvh;
+  background-position: right center;
+  background-repeat: no-repeat;
   border-radius: 0;
   box-shadow: -4px 0 24px rgba(81, 70, 63, 0.18);
   border: none;
@@ -319,12 +331,187 @@ body.intro-active .music-control-pill {
 }
 
 /* ========================================================
-   LUXURY "TAP TO OPEN" BUTTON
+   PREMIUM PERSONALIZED WEDDING STATIONERY OVERLAY (Layer 3)
+   ======================================================== */
+.intro-stationery-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: opacity 0.5s ease;
+}
+
+/* Upper Floral Garland Accent */
+.intro-botanical-header {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(260px, 48vw, 420px);
+  opacity: 0.95;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 2;
+}
+
+.intro-floral-top {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Delicate Upper & Lower Corner Floral Arrangements */
+.intro-corner-floral {
+  position: absolute;
+  width: clamp(90px, 16vw, 140px);
+  opacity: 0.88;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 2;
+}
+
+.intro-corner-floral img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.intro-corner-tl {
+  top: -12px;
+  left: -12px;
+}
+
+.intro-corner-tr {
+  top: -12px;
+  right: -12px;
+  transform: scaleX(-1);
+}
+
+.intro-corner-bl {
+  bottom: -12px;
+  left: -12px;
+  transform: scaleY(-1);
+}
+
+.intro-corner-br {
+  bottom: -12px;
+  right: -12px;
+  transform: scale(-1);
+}
+
+/* Upper Portion Content (Monogram, Intro Message, Names, Date) */
+.intro-header-content {
+  position: absolute;
+  top: clamp(14px, 3.2vh, 28px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 520px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(4px, 0.8vh, 8px);
+  z-index: 5;
+}
+
+/* A. Personal Ornamental Monogram with Botanical Flourishes */
+.intro-monogram-emblem {
+  width: clamp(56px, 10vh, 76px);
+  height: clamp(56px, 10vh, 76px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+  filter: drop-shadow(0 3px 10px rgba(199, 167, 123, 0.35));
+}
+
+.intro-monogram-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: contrast(1.06);
+}
+
+/* C. Understated Letter-Spaced Introductory Message */
+.intro-lead-message {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-sans);
+  font-size: clamp(0.56rem, 1.3vw, 0.70rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #51463F;
+  line-height: 1.45;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.85);
+}
+
+.intro-msg-line {
+  display: block;
+}
+
+/* B. Couple Names (Most Prominent Text Element) */
+.intro-couple-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1.6vw, 12px);
+  margin: 1px 0;
+  line-height: 1;
+}
+
+.intro-couple-name {
+  font-family: var(--font-serif-primary);
+  font-size: clamp(2.2rem, 5.8vw, 3.4rem);
+  font-weight: 500;
+  color: #3A3029;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+}
+
+.intro-ampersand {
+  font-family: var(--font-script);
+  font-size: clamp(1.9rem, 4.8vw, 2.9rem);
+  color: var(--color-champagne-dark, #9E7D47);
+  line-height: 0.9;
+  margin: 0 2px;
+}
+
+/* D. Wedding Date Badge (No Ceremony Time) */
+.intro-date-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 18px;
+  border-top: 1px solid rgba(199, 167, 123, 0.45);
+  border-bottom: 1px solid rgba(199, 167, 123, 0.45);
+  margin-top: 2px;
+}
+
+.intro-date-text {
+  font-family: var(--font-serif-primary);
+  font-size: clamp(0.70rem, 1.5vw, 0.84rem);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #4A3E36;
+}
+
+/* ========================================================
+   F. REFINED LUXURY "TAP TO OPEN" BUTTON (Layer 4)
    ======================================================== */
 .tap-to-open-container {
   position: absolute;
   left: 50%;
-  bottom: max(28px, calc(env(safe-area-inset-bottom) + 20px));
+  bottom: max(22px, calc(env(safe-area-inset-bottom) + 14px));
   transform: translateX(-50%);
   width: auto;
   margin: 0;
@@ -337,33 +524,70 @@ body.intro-active .music-control-pill {
 }
 
 .tap-to-open-button {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  background: linear-gradient(145deg, #FFFDF8, #F9F2E6);
-  border: 1.5px solid var(--color-champagne);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  padding: 13px 32px;
+  justify-content: center;
+  background: rgba(255, 253, 248, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1.2px solid rgba(199, 167, 123, 0.5);
   border-radius: 30px;
+  padding: 10px 32px;
   cursor: pointer;
-  box-shadow: var(--shadow-gold);
+  box-shadow: 0 8px 24px rgba(81, 70, 63, 0.14), 0 2px 6px rgba(199, 167, 123, 0.28);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: tapBreathing 2.6s infinite ease-in-out;
   outline: none;
   white-space: nowrap;
-  min-width: max-content;
 }
 
 .tap-to-open-button:hover,
 .tap-to-open-button:focus-visible {
-  background: #FFF;
-  border-color: var(--color-champagne-light);
+  background: #FFFDF8;
+  border-color: var(--color-champagne);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(199, 167, 123, 0.45);
+  box-shadow: 0 10px 28px rgba(199, 167, 123, 0.45);
+}
+
+.tap-primary-text {
+  font-family: var(--font-sans);
+  font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #3A3029;
+  line-height: 1.2;
+}
+
+.tap-sub-text {
+  font-family: var(--font-sans);
+  font-size: clamp(0.54rem, 1.1vw, 0.62rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-champagne-dark, #9E7D47);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.tap-line {
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(199, 167, 123, 0.65), transparent);
+  margin: 3px 0;
+}
+
+@keyframes tapBreathing {
+  0%, 100% {
+    opacity: 0.94;
+    transform: translateY(0);
+    box-shadow: 0 8px 24px rgba(81, 70, 63, 0.14);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(199, 167, 123, 0.38);
+  }
 }
 
 .tap-sparkle {
@@ -1146,7 +1370,7 @@ body.intro-active .music-control-pill {
 
 .curtain-overlay.is-fading-out {
   opacity: 0 !important;
-  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.25s cubic-bezier(0.22, 0.75, 0.25, 1);
 }
 
 .curtain-stage-scene {
@@ -1168,7 +1392,7 @@ body.intro-active .music-control-pill {
   display: flex;
   justify-content: center;
   pointer-events: none;
-  transition: transform 2.2s cubic-bezier(0.25, 1, 0.35, 1), opacity 1.8s ease;
+  transition: transform 1.1s cubic-bezier(0.22, 0.75, 0.25, 1), opacity 0.8s ease;
 }
 
 .curtain-overlay[data-state="opening"] .curtain-valance-arch,
@@ -1254,7 +1478,7 @@ body.intro-active .music-control-pill {
   background: linear-gradient(135deg, #FDF7EE 0%, #F5ECE0 22%, #E6D6C3 55%, #D4BEA5 80%, #C4A88B 100%);
   box-shadow: 0 0 45px rgba(25, 18, 12, 0.65);
   transform-style: preserve-3d;
-  transition: transform 2.2s cubic-bezier(0.25, 1, 0.35, 1);
+  transition: transform 1.1s cubic-bezier(0.22, 0.75, 0.25, 1);
   will-change: transform;
 }
 
@@ -1348,7 +1572,7 @@ body.intro-active .music-control-pill {
 .curtain-floral-corner {
   width: clamp(100px, 18vw, 150px);
   opacity: 0.95;
-  transition: transform 2.2s cubic-bezier(0.25, 1, 0.35, 1);
+  transition: transform 1.1s cubic-bezier(0.22, 0.75, 0.25, 1);
 }
 
 .curtain-floral-left {
