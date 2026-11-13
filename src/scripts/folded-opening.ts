@@ -51,12 +51,12 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
           weddingSite.classList.add("is-revealed");
         }
 
-        // 3. Hold closed curtains for 180ms (target: 150-200ms) before smoothly parting outward
+        // 3. Curtains are visible immediately; hold closed briefly (150ms)
         setTimeout(() => {
-          // 4. Curtains begin parting outward (1.1s transition, target: 1.0-1.2s)
+          // 4. Curtains begin parting outward (exactly 1000ms duration)
           curtainOverlay.setAttribute("data-state", "opening");
 
-          // 5. Curtains complete parting outward after 1100ms
+          // 5. Curtains complete parting outward after exactly 1000ms
           setTimeout(() => {
             curtainOverlay.setAttribute("data-state", "opened");
             curtainOverlay.classList.add("is-fading-out");
@@ -72,14 +72,14 @@ export function initFoldedOpening(onRevealAudio?: () => void) {
               onRevealAudio();
             }
 
-            // 8. Remove curtain overlay element and restore normal scrolling after 250ms (target: 200-300ms)
+            // 8. Remove curtain overlay element and restore normal scrolling after 250ms
             setTimeout(() => {
               curtainOverlay.style.display = "none";
               document.documentElement.classList.remove("intro-active");
               document.body.classList.remove("intro-active");
             }, 250);
-          }, 1100);
-        }, 180);
+          }, 1000);
+        }, 150);
       } else {
         // Fallback if curtain overlay element not present
         if (weddingSite) {

@@ -10,13 +10,7 @@ interface Props {
   destination?: string;
 }
 
-const { 
-  monogram = "J & S", 
-  brideName = "Jony", 
-  groomName = "Sunny", 
-  welcomeMessage = "Together with their families, cordially invite you to celebrate their wedding", 
-  formattedDate = "29 December 2026" 
-} = Astro.props;
+const { monogram = "J & S" } = Astro.props;
 ---
 
 <aside id="intro-overlay" class="intro-overlay" data-state="closed" aria-label="Wedding Invitation">
@@ -27,64 +21,6 @@ const {
       <FoldedInvitation monogram={monogram} />
     </div>
 
-    <!-- Premium Personalized Wedding Stationery Layer (Layer 3 Foreground) -->
-    <div class="intro-stationery-overlay" aria-hidden="true">
-      <!-- Upper Watercolor Botanical Garland -->
-      <div class="intro-botanical-header">
-        <img 
-          src="/jony-wedding/assets/decorations/floral-top-border.png" 
-          alt="" 
-          class="intro-floral-top" 
-        />
-      </div>
-
-      <!-- Upper Corner Delicate Floral Arrangements -->
-      <div class="intro-corner-floral intro-corner-tl">
-        <img src="/jony-wedding/assets/decorations/floral-top-border.png" alt="" />
-      </div>
-      <div class="intro-corner-floral intro-corner-tr">
-        <img src="/jony-wedding/assets/decorations/floral-top-border.png" alt="" />
-      </div>
-
-      <!-- Upper Portion Content: Monogram, Intro Message, Couple Names, Date -->
-      <div class="intro-header-content">
-        <!-- A. Personal Ornamental Monogram with Botanical Flourishes -->
-        <div class="intro-monogram-emblem">
-          <img 
-            src="/jony-wedding/assets/decorations/wedding-logo-crest.png" 
-            alt="J & S Monogram Crest" 
-            class="intro-monogram-img" 
-          />
-        </div>
-
-        <!-- C. Understated Introductory Message -->
-        <div class="intro-lead-message">
-          <span class="intro-msg-line">TOGETHER WITH THEIR FAMILIES</span>
-          <span class="intro-msg-line">CORDIALLY INVITE YOU TO CELEBRATE THEIR WEDDING</span>
-        </div>
-
-        <!-- B. Couple Names (Most Prominent Text Element) -->
-        <div class="intro-couple-block">
-          <span class="intro-couple-name">{brideName}</span>
-          <span class="intro-ampersand">&</span>
-          <span class="intro-couple-name">{groomName}</span>
-        </div>
-
-        <!-- D. Wedding Date (No Ceremony Time) -->
-        <div class="intro-date-badge">
-          <span class="intro-date-text">29 DECEMBER 2026</span>
-        </div>
-      </div>
-
-      <!-- Lower Edge Watercolor Botanical Accents -->
-      <div class="intro-corner-floral intro-corner-bl">
-        <img src="/jony-wedding/assets/decorations/floral-top-border.png" alt="" />
-      </div>
-      <div class="intro-corner-floral intro-corner-br">
-        <img src="/jony-wedding/assets/decorations/floral-top-border.png" alt="" />
-      </div>
-    </div>
-
     <!-- Luxury "TAP TO OPEN" Button Overlay (Layer 4) -->
     <div class="tap-to-open-container">
       <button 
@@ -93,10 +29,9 @@ const {
         type="button" 
         aria-label="Tap to open the wedding invitation"
       >
-        <span class="tap-line tap-line-top"></span>
-        <span class="tap-primary-text">TAP TO OPEN</span>
-        <span class="tap-sub-text">A BEAUTIFUL BEGINNING AWAITS</span>
-        <span class="tap-line tap-line-bottom"></span>
+        <span class="tap-sparkle">✦</span>
+        <span class="tap-text">TAP TO OPEN</span>
+        <span class="tap-sparkle">✦</span>
       </button>
     </div>
   </div>

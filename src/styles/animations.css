@@ -90,20 +90,17 @@
   transition: transform 1.4s cubic-bezier(0.3, 0, 0.2, 1) 0.2s, opacity 0.8s ease 0.5s;
 }
 
-/* 5. TAP TO OPEN Button & Stationery Overlay Smooth Fade Out */
+/* 5. TAP TO OPEN Button Smooth Fade Out */
 [data-state="untying"] .tap-to-open-container,
 [data-state="unfolding"] .tap-to-open-container,
-[data-state="revealed"] .tap-to-open-container,
-[data-state="untying"] .intro-stationery-overlay,
-[data-state="unfolding"] .intro-stationery-overlay,
-[data-state="revealed"] .intro-stationery-overlay {
+[data-state="revealed"] .tap-to-open-container {
   opacity: 0;
+  transform: translate(-50%, 10px) scale(0.96);
   pointer-events: none;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-[data-state="revealed"] .tap-to-open-container,
-[data-state="revealed"] .intro-stationery-overlay {
+[data-state="revealed"] .tap-to-open-container {
   display: none;
 }
 
